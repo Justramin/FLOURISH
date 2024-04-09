@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- coding by helpme_coder -->
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Reset Password</title>
+    <link rel="stylesheet" href="/user/login/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <form action="/signupOtp" method="post">
+            <h2 style="color: black; ">  SIGNUP VERIFICATION CODE</h2>
+            <div class="input-field">
+                <input type="text" name="otp" required />
+                <label style="color: black; ">Enter OTP Code:</label>
+            </div>
+            
+            <button type="submit"><a href="/home" style="color: black; ">PROCEED</a></button>
+            <br>
+            <button type="button" onclick="location.href='/resetPassword'" style="color: black; ">RESENT OTP</button>
+            <br>
+            <a href="/login" style="color: black; ">Back to Login</a>
+        </form>
+    </div>
+</body>
+
+</html>

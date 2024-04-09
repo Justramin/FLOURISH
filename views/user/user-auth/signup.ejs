@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGN UP PAGE </title>
+    <link rel="stylesheet" href="/user/login/style.css" />
+</head>
+
+<body>
+    
+    <div class="container mt-5">
+
+
+     <!-- Display success flash message -->
+    <% if (messages.success) { %>
+        <div class="alert alert-success">
+            <%= messages.success %>
+        </div>
+    <% } %>
+
+    <!-- Display error flash message -->
+    <% if (messages.error) { %>
+        <div style="color:rgb(0, 0, 0)" class="alert alert-warning">
+            <%= messages.error %>
+        </div>
+    <% } %>
+
+
+ 
+    
+
+<form action="/signup" method="post">
+    <h2 style="color: black; ">SIGN UP PAGE</h2>
+
+    <!-- <%# if (messages.error) { %>
+        <div style="color:orange" class="alert alert-warning">
+            <%#= messages.error %>
+        </div>
+    <%# } %> -->
+
+    
+    <div class="input-field">
+        <input type="text" name="name" required />
+        <label style="color: black; ">ENTER NAME</label>
+    </div>
+    <div class="input-field">
+        <input type="text" name="email" required />
+        <label style="color: black; ">ENTER EMAIL</label>
+    </div>
+    <div class="input-field">
+        <input type="tel" name="phone" required />
+        <label style="color: black; ">ENTER PHONE NUMBER</label>
+    </div>
+    <div class="input-field">
+        <input type="password" name="password" required />
+        <label style="color: black; ">ENTER PASSWORD</label>
+    </div>
+    <!-- <div class="input-field">
+        <input type="password" name="cpassword" required />
+        <label style="color: black; ">CONFORM PASSWORD</label>
+    </div> -->
+   
+    <button type="submit" style="color: black; ">SIGN UP</button>
+            <div class="Create-account">
+                <p style="color: black; ">YOU HAVE AN ACCOUNT?<a href="/login" style="color: black; ">LOGIN ACCOUNT</a></p>
+            </div>
+
+    
+  
+</form>
+
+
+    </div>
+</body>
+
+</html>
