@@ -17,6 +17,7 @@ app.set('views', [
     path.join(__dirname,'views/user/user-auth')
  ,path.join(__dirname,'views/user/user-home')
  ,path.join(__dirname,'views/user/user-product')
+ ,path.join(__dirname,'views/user/dealOf')
  , path.join( __dirname,'views/admin/admin-auth')
  , path.join(__dirname,'views/admin/admin-dashbord')
  ,path.join(__dirname,'views/admin/admin-userManage')

@@ -5,6 +5,8 @@ const signupOtp = require('../../controllers/userControllers/auth/signup-otp')
 const login = require('../../controllers/userControllers/auth/login')
 const home = require('../../controllers/userControllers/home/home')
 const product = require('../../controllers/userControllers/product/product')
+const productDetail = require('../../controllers/userControllers/product/productDetail')
+const dealOfTheMonth = require('../../controllers/userControllers/dealOf/dealOfTheMonth')
 
 
 router.get('/signup',signup.user_signup)
@@ -24,6 +26,19 @@ router.get('/home',home.home)
 router.get('/product',product.product)
 
 router.get('/resetPassword',signupOtp.resendOtp)
+
+
+router.get('/dealOfTheMonth',dealOfTheMonth.dealOfTheMonth)
+
+router.get('/productDetail',productDetail.productDetail)
+
+
+
+
+
+
+
+
 
 
 module.exports = router
