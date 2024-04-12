@@ -14,7 +14,7 @@
 
 
 		<% if (messages.error) { %>
-			<div id="error" style="color:rgb(255, 255, 255); font-size: 22px; font-weight: bold;" class="alert alert-warning">
+			<div id="error" style="color:rgb(148, 18, 18); font-size: 22px; font-weight: bold;" class="alert alert-warning">
 				<%= messages.error %>
 			</div>
 		<% } %>
@@ -86,7 +86,7 @@
 		</script>
 	
 		<script>
-			let countdownValue = 60; // Countdown duration in seconds
+			let countdownValue = 20; // Countdown duration in seconds
 			let countdownInterval;
 	
 			function startCountdown() {
@@ -110,7 +110,7 @@
 	
 				// Disable the resend button and start the countdown
 				document.getElementById('resendButton').disabled = true;
-				countdownValue = 60; // Reset countdown value
+				countdownValue = 20; // Reset countdown value
 				startCountdown();
 			}
 	

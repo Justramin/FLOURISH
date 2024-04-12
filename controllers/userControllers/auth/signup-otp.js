@@ -23,8 +23,8 @@ const signupOtp = async(req,res)=>{
 
 
 
-    if(otp === oldOtp && (new Date().getTime() - otpTimestamp) <= 55000) {
-        const userData = req.session.userData
+    if(otp === oldOtp && (new Date().getTime() - otpTimestamp) <= 20000) {
+        const userData = req.session.userData;
         console.log(userData);
         const value = await collection.create([userData])
         console.log(value)
@@ -37,13 +37,22 @@ const signupOtp = async(req,res)=>{
 
 
 const resendOtp = async (req,res)=>{
-    const {name, email} =  req.session.userData
-
-    const newOtp = await otpGeneratorUser()
-    req.session.newUserOtp = newOtp
+ 
+    const {name,email} =  req.session.userData
+    const otpTimestamp = req.session.userData.otpTimestamp || 0;
+console.log(name,email);
+console.log(new Date().getTime());
+console.log(otpTimestamp);
+    if ((new Date().getTime() - otpTimestamp) >= 20000) {
+        const newOtp = await otpGeneratorUser();  
+        req.session.newUserOtp = newOtp;
+        req.session.userData.otpTimestamp=new Date().getTime()
     console.log(`session 2nd OTP ${newOtp}`);
     sendMail(email,name,newOtp)
+     
+    }
     res.redirect('/signupOtp')
+    
 }
 
 
