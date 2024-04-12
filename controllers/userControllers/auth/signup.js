@@ -11,6 +11,11 @@ const user_signup = async(req,res)=>{
     res.render('signup')
 }
 
+
+
+
+
+
 const user_signupPost= async(req,res)=>{
     const { name, email, phone, password } = req.body;
 
@@ -31,7 +36,7 @@ const user_signupPost= async(req,res)=>{
   }
 
   else if ( !validatePassword(password)) {
-    req.flash('error', 'Make strong  password');
+    req.flash('error', 'Paasword Use 1 Capital, 1 small @ Special cherachter at leest 6 digit');
     return res.redirect('/signup');
   }
 
@@ -44,13 +49,22 @@ const user_signupPost= async(req,res)=>{
   }
 
 
-  // Store user data and OTP in session
-    req.session.userData = { name, email, phone, password }
+// Generate OTP and store it in session Only One minuts
     const otp = await otpGeneratorUser()
+    const otpTimestamp = new Date().getTime();         // Current time
+    req.session.userData = { name, email, phone, password , otpTimestamp }
+
     req.session.newUserOtp = otp
  
     console.log(`Main OTP ${otp}`);
     sendMail(email,name,otp)
     res.redirect('/signupOtp')
 }
-module.exports ={user_signup,user_signupPost}
+module.exports ={
+  user_signup,
+  user_signupPost
+}
+
+
+
+

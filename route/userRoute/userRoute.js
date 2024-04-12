@@ -25,7 +25,7 @@ router.get('/home',home.home)
 
 router.get('/product',product.product)
 
-router.get('/resetPassword',signupOtp.resendOtp)
+router.get('/resetOtp',signupOtp.resendOtp)
 
 
 router.get('/dealOfTheMonth',dealOfTheMonth.dealOfTheMonth)

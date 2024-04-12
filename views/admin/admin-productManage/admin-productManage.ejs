@@ -249,6 +249,7 @@
                           <th>Image</th>
                           <th>Discription</th>
                           <th>Action</th>
+                          <th>Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -268,6 +269,8 @@
                           <% } else { %>
                               <td><a href="/admin/productStatus/<%= product[i]._id %>?status=<%= product[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">Unblock</button></a></td>
                           <% } %>
+                          <td><a href="/admin/admin_editProduct/<%= product[i]._id %>%>"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
+
                           </tr>
                         <% } %>
                        

@@ -6,7 +6,6 @@ const { ObjectId } = require('mongodb')
 const admin_productManage = async (req,res)=>{
     if(req.session.isAdminAuth){
         const productData = await productCollection.find()
-        console.log(productData);
         res.render('admin-productManage',{product:productData})
     }else{
         res.redirect('/admin/admin-login')
