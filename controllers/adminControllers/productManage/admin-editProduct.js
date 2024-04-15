@@ -46,7 +46,6 @@ const admin_editProductPut = async(req,res)=>{
          const imageUpload = await productCollection.updateOne({_id: productID}, {
             $push: { image: { $each: images } }
         });
-
          res.redirect('/admin/admin-productManage')
     }else{
         res.redirect('/admin/admin-login')

@@ -26,9 +26,8 @@ const admin_addProductPost = async(req,res)=>{
     files.forEach((file) => {
       const image = file.filename;
       images.push(image);
-
-
     });
+    
        const productData= req.body
        const addproduct = await productCollection.create([productData])
        const imageUpload = await productCollection.updateOne({productName:productData.productName},{$set:{image:images}})
