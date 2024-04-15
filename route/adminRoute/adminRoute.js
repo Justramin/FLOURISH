@@ -27,6 +27,9 @@ router.get('/admin-userManage',admin_userManage.admin_userManage)
 router.get('/admin-productManage',admin_productManage.admin_productManage)
 router.get('/admin_addProduct',admin_addProduct.admin_addProduct)
 router.get('/admin_editProduct/:id',admin_editProduct.admin_editProduct)
+
+router.post('/admin_editProduct/:id',upload.array('image',5),admin_editProduct.admin_editProductPut)
+router.get('/productImageDelete/:id',admin_editProduct.productImageDelete)
 router.get('/admin_coupensManage',admin_coupensManage.admin_coupensManage)
 router.get('/admin_addCoupens',admin_addCoupens.admin_addCoupens)
 router.get('/admin_categoryList',admin_categoryList.admin_categoryList)
@@ -48,6 +51,8 @@ router.get('/adminStatus/:id',admin_adminMnage.admin_adminStatus)
 router.post('/admin_addProduct',upload.array('image',5), admin_addProduct.admin_addProductPost)
 
 router.get('/productStatus/:id',admin_productManage.admin_productStatus)
+
+
 
 
 
