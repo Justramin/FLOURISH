@@ -265,9 +265,9 @@
                             <td><%= product[i].discription  %></td>
 
                             <% if (product[i].status) { %>
-                              <td><a href="/admin/productStatus/<%= product[i]._id %>?status=<%= product[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">Block</button></a></td>
+                              <td><a href="/admin/productStatus/<%= product[i]._id %>?status=<%= product[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>
                           <% } else { %>
-                              <td><a href="/admin/productStatus/<%= product[i]._id %>?status=<%= product[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">Unblock</button></a></td>
+                              <td><a href="/admin/productStatus/<%= product[i]._id %>?status=<%= product[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">List</button></a></td>
                           <% } %>
                           <td><a href="/admin/admin_editProduct/<%= product[i]._id %>%>"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
 
