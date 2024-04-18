@@ -3,12 +3,19 @@ const productCollection = require("../../../model/productSchema")
 
 
 const product = async(req,res)=>{
-    const productData = await productCollection.find()
-    res.render('product',{data:productData})
+    try {
+        const productData = await productCollection.find()
+        res.render('product',{data:productData})
+    } catch (error) {
+        console.error('Error in product:', error);
+        res.status(500).send('Internal Error');
+    } 
 }
 
 
 
 
 
-module.exports = {product}
+module.exports = {
+    product
+}

@@ -2,11 +2,21 @@
 
 
 const admin_addCoupens = async(req,res)=>{
-    if(req.session.isAdminAuth){
-        res.render('admin-addCoupens')
-    }else{
-        res.redirect('/admin/admin-login')
+    try {
+        if(req.session.isAdminAuth){
+            res.render('admin-addCoupens')
+        }else{
+            res.redirect('/admin/admin-login')
+        } 
+    } catch (error) {
+        console.error('Error in admin_addCoupens:', error);
+        res.status(500).send('Internal Error');
     }
 }
 
-module.exports = {admin_addCoupens}
+
+
+
+module.exports = {
+    admin_addCoupens
+}

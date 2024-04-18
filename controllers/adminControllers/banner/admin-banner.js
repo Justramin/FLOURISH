@@ -2,10 +2,20 @@
 
 
 const admin_banner = async (req,res)=>{
-    if(req.session.isAdminAuth){
-        res.render('admin-banner')
-    }else{
-        res.redirect('/admin/admin-login')
+    try {
+        if(req.session.isAdminAuth){
+            res.render('admin-banner')
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    } catch (error) {
+        console.error('Error in admin_banner:', error);
+        res.status(500).send('Internal Error');
     }
 }
-module.exports = {admin_banner}
+
+
+
+module.exports = {
+    admin_banner
+}

@@ -2,11 +2,21 @@
 
 
 const admin_coupensManage = async(req,res)=>{
-    if(req.session.isAdminAuth){
-        res.render('admin-coupensManage')
-    }else{
-        res.redirect('/admin/admin-login')
+    try {
+        if(req.session.isAdminAuth){
+            res.render('admin-coupensManage')
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    } catch (error) {
+        console.error('Error in admin_coupensManage:', error);
+        res.status(500).send('Internal Error');
     }
 }
 
-module.exports = {admin_coupensManage}
+
+
+
+module.exports = {
+    admin_coupensManage
+}

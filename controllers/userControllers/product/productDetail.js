@@ -4,9 +4,17 @@ const categoryCollection = require('../../../model/categorySchema')
 
 
 const productDetail = async(req,res)=>{
-    const productID = req.query.id
-    const productData =await productCollection.findOne({_id:productID}).populate('category')    
-    res.render('productDetail',{data:productData})
+    try {
+        const productID = req.query.id
+        const productData =await productCollection.findOne({_id:productID}).populate('category')    
+        res.render('productDetail',{data:productData})
+    } catch (error) {
+        console.error('Error in productDetail:', error);
+        res.status(500).send('Internal Error');
+    }    
 }
 
-module.exports = {productDetail}
+
+module.exports = {
+    productDetail
+}

@@ -5,10 +5,15 @@ const adminCollection = require("../../../model/adminSchema")
 
 
 const admin_addAdmin = async (req,res)=>{
-    if(req.session.isAdminAuth){
-        res.render('admin-addAdmin')
-    }else{
-        res.redirect('/admin/admin-login')
+    try {
+        if(req.session.isAdminAuth){
+            res.render('admin-addAdmin')
+        }else{
+            res.redirect('/admin/admin-login')
+        }  
+    } catch (error) {
+        console.error('Error in admin_addAdmin:', error);
+        res.status(500).send('Internal Error');
     }
 }
 

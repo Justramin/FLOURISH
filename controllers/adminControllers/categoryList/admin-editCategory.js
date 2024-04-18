@@ -4,41 +4,47 @@ const categoryCollection = require('../../../model/categorySchema')
 
 
 const admin_editCategory = async(req,res)=>{
-   
-    if(req.session.isAdminAuth){
-        const categoryID = req.params.id
-        const categoryData = await categoryCollection.findOne({_id:categoryID})
-        res.render('admin-editCategory',{category:categoryData})
-    }else{
-            res.redirect('/admin/admin-login')
-        }
-
+    try {
+        if(req.session.isAdminAuth){
+            const categoryID = req.params.id
+            const categoryData = await categoryCollection.findOne({_id:categoryID})
+            res.render('admin-editCategory',{category:categoryData})
+        }else{
+                res.redirect('/admin/admin-login')
+            }
+    } catch (error) {
+        console.error('Error in admin_editCategory:', error);
+        res.status(500).send('Internal Error');
+    } 
 }
+
+
 
 
 const admin_editCategoryPost = async(req,res)=>{
-    if(req.session.isAdminAuth){
-        const categoryData = req.body
-        const categoryID = req.params.id
-
-        const dataUpload = await categoryCollection.updateOne({_id:categoryID},{$set:{
-            categoryName:categoryData.categoryName,
-            discount:categoryData.discount,
-            description:categoryData.description
-        }})
-        res.redirect('/admin/admin_categoryList')
-    }else{
-        res.redirect('/admin/admin-login')
+    try {
+        if(req.session.isAdminAuth){
+            const categoryData = req.body
+            const categoryID = req.params.id
+            await categoryCollection.updateOne({_id:categoryID},{$set:{
+                categoryName:categoryData.categoryName,
+                discount:categoryData.discount,
+                description:categoryData.description
+            }})
+            res.redirect('/admin/admin_categoryList')
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    } catch (error) {
+        console.error('Error in admin_editCategoryPost:', error);
+        res.status(500).send('Internal Error');
     }
 }
-
-
-
 
 
 
     
-    module.exports = {
-        admin_editCategory,
-        admin_editCategoryPost
-    }
+module.exports = {
+    admin_editCategory,
+    admin_editCategoryPost
+}

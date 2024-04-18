@@ -2,7 +2,17 @@
 
 
 const home = async(req,res)=>{
-    res.render('home')
+    try {
+        res.render('home')
+    } catch (error) {
+        console.error('Error in home:', error);
+        res.status(500).send('Internal Error');
+    }  
 }
 
-module.exports = {home}
+
+
+
+module.exports = {
+    home
+}
