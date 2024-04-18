@@ -244,6 +244,7 @@
                           <th>Discount</th>
                           <th>description</th>
                           <th>Action</th>
+                          <th>Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -258,25 +259,10 @@
                           <% } else { %>
                           <td><a href="/admin/categorystatus/<%= category[i]._id %>?status=<%= category[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">Unblock</button></a></td>
                           <% } %>
-                          
+                          <td><a href="/admin/admin_editCategory/<%= category[i]._id %>%>"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
                           </tr>
                         </tr>
-                        <!-- <tr>
-                          <th scope="row">2</th>
-                          <td>Chaire</td>
-                          <td>35%</td>
-                          <td>Furniture good wood</td>
-                          <td>Listed </td>
-                          <td>...</td>
-                        </tr> -->
-                        <!-- <tr>
-                          <th scope="row">3</th>
-                          <td>Stool</td>
-                          <td>40%</td>
-                          <td>Good Meterial</td>
-                          <td>Listed </td>
-                          <td>...</td>
-                        </tr> -->
+        
                         <%  }}  %> 
                       </tbody>
                     </table>

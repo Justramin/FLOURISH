@@ -29,10 +29,12 @@ const admin_addProductPost = async(req,res)=>{
     });
     
        const productData= req.body
-       const addproduct = await productCollection.create([productData])
+       console.log(productData,'////////////--------------------//////////');
+        const addproduct = await productCollection.create([productData])
        const imageUpload = await productCollection.updateOne({productName:productData.productName},{$set:{image:images}})
-       console.log(productData);
         res.redirect('/admin/admin-productManage')
+       
+        
     }else{
         res.redirect('/admin/admin-login')
     }

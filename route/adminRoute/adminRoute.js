@@ -10,6 +10,7 @@ const admin_coupensManage = require('../../controllers/adminControllers/coupens/
 const admin_addCoupens = require('../../controllers/adminControllers/coupens/admin-addCoupens')
 const admin_categoryList = require('../../controllers/adminControllers/categoryList/admin-categoryList')
 const admin_addCategory = require('../../controllers/adminControllers/categoryList/admin-addCategory')
+const admin_editCategory = require('../../controllers/adminControllers/categoryList/admin-editCategory')
 const admin_banner = require('../../controllers/adminControllers/banner/admin-banner')
 const admin_addBanner = require('../../controllers/adminControllers/banner/admin-addBanner')
 const admin_orders = require('../../controllers/adminControllers/orders/admin-orders')
@@ -34,6 +35,10 @@ router.get('/admin_coupensManage',admin_coupensManage.admin_coupensManage)
 router.get('/admin_addCoupens',admin_addCoupens.admin_addCoupens)
 router.get('/admin_categoryList',admin_categoryList.admin_categoryList)
 router.get('/admin_addCategory',admin_addCategory.admin_addCategory)
+
+router.get('/admin_editCategory/:id',admin_editCategory.admin_editCategory)
+router.post('/admin_editCategory/:id',admin_editCategory.admin_editCategoryPost)
+
 router.get('/admin_banner',admin_banner.admin_banner)
 router.get('/admin_addBanner',admin_addBanner.admin_addBanner)
 router.get('/admin_orders',admin_orders.admin_orders)

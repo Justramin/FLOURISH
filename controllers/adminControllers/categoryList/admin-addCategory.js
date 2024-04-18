@@ -15,10 +15,8 @@ const admin_addCategory = async (req,res)=>{
 const admin_addCategoryPost = async (req,res)=>{
     if(req.session.isAdminAuth){
         const category = req.body
-        console.log(category);
-        const Data = await categoryCollection.find({categoryName:category.categoryName})
-        console.log(Data);
-        if(!Data){
+        const categoryName = await categoryCollection.find({categoryName:category.categoryName})
+        if(!categoryName){
             const categoryData = await categoryCollection.create([category])
         }
         
