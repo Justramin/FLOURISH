@@ -1,8 +1,14 @@
+const productCollection = require("../../../model/productSchema")
 
 
 
 const product = async(req,res)=>{
-    res.render('product')
+    const productData = await productCollection.find()
+    res.render('product',{data:productData})
 }
+
+
+
+
 
 module.exports = {product}

@@ -365,7 +365,7 @@
                           <br>
                             <img src="/uploads/<%= product.image[i] %>" style="height: 60px; width: auto;">
                             
-                            <a class="btn btn-outline-danger" href="/admin/productImageDelete/<%= product._id%>?index=<%= product.image[i]  %>">Delete</a>
+                            <a class="btn btn-outline-danger" href="/admin/productImageDelete/<%= product._id%>?index=<%= product.image[i]  %>" onclick="return confirm('do you want to delete the image')">Delete</a>
                             <br>
                          
                         <% } %>
