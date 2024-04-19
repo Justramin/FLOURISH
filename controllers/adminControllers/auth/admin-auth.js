@@ -22,11 +22,12 @@ const admin_login_post = async(req,res)=>{
         const findData =await adminCollection.findOne({email:adminData.email})
         if(!findData || findData.password !== adminData.password || !findData.status){
             console.log("wrong somthing");
+            req.flash('error', '*You are Blocked by Super Admin')
             res.redirect('/admin')
         }else {
             req.session.isAdminAuth = true
             req.session.adminEmail = req.body.email
-            res.redirect('/admin/admin_dashbord')
+            return res.redirect('/admin/admin_dashbord')
         }
     } catch (error) {
         console.error('Error in admin_login_post:', error);

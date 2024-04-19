@@ -5,9 +5,17 @@
                 <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-                  <div class="header__actions"><a href="/login">Login & Regiser</a>
+
+                  <% if (isUser) { %>
+                    <div class="header__actions"><a href="/logout">Logout </a>
+                      <% } else { %>
+                        <div class="header__actions"><a href="/login">Login & Regiser</a>
+                  <% } %>
+                  
                   </div>
                 </div>
+
+
           </div>
         </div>
       </div>

@@ -252,6 +252,31 @@
                 </div>
               </div>
               <!-- Form Elements -->
+
+
+
+
+
+
+              <% if (messages.success) { %>
+                <div class="alert alert-success">
+                    <%= messages.success %>
+                </div>
+            <% } %>
+          
+            <!-- Display error flash message -->
+            <% if (messages.error) { %>
+                <div id="error" style="color:rgb(220, 17, 17); font-size: 18px; font-weight: bold;">
+                    <%= messages.error %>
+                </div>
+            <% } %>
+
+
+
+
+
+
+
               <div class="col-lg-12">
                 <div class="block">
                   <div class="title"><strong>Add A New Category</strong></div>
@@ -316,6 +341,26 @@
         </footer>
       </div>
     </div>
+
+
+
+
+
+    <script> 
+      reload()
+      const error = document.getElementById('error')
+      function reload(){
+  
+          setTimeout(()=>{
+              error.innerHTML=''
+          },3000)
+      }
+      </script>
+
+
+
+
+
     <!-- JavaScript files-->
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/popper.js/umd/popper.min.js"> </script>

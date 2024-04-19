@@ -45,6 +45,19 @@
             <div class="col-lg-6 bg-white">
               <div class="form d-flex align-items-center">
                 <div class="content">
+
+
+
+
+                   <!-- Display success flash message -->
+    <% if (messages.success) { %>
+      <div class="alert alert-success">
+          <%= messages.success %>
+      </div>
+  <% } %>
+
+
+
                   <form action="/admin/admin_dashbord" method="post" class="form-validate">
                     <div class="form-group">
                       <input id="login-username" type="text" name="email" required data-msg="Please enter your username" class="input-material">
@@ -53,7 +66,21 @@
                     <div class="form-group">
                       <input id="login-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
                       <label for="login-password" class="label-material">Password</label>
-                    </div><button  type="submit" id="login"  class="btn btn-primary">Login</button>
+                    </div>
+
+
+
+
+                      <!-- Display error flash message -->
+  <% if (messages.error) { %>
+    <div id="error" style="color:rgb(251, 23, 23); font-size: 15px; font-weight: bold;" >
+        <%= messages.error %>
+    </div>
+<% } %>
+
+                    
+                    
+                    <button  type="submit" id="login"  class="btn btn-primary">Login</button>
                     <!-- This should be submit button but I replaced it with <a> for demo purposes-->
                   <!-- </form><a href="#" class="forgot-pass">Forgot Password?</a><br><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a> -->
                 </div>
@@ -66,6 +93,22 @@
          <p>2018 &copy; Your company. Download From <a target="_blank" href="https://templateshub.net">Templates Hub</a>.</p>
       </div> -->
     </div>
+
+
+
+    <script> 
+      reload()
+      const error = document.getElementById('error')
+      function reload(){
+  
+          setTimeout(()=>{
+              error.innerHTML=''
+          },3000)
+      }
+      </script>
+
+
+
     <!-- JavaScript files-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper.js/umd/popper.min.js"> </script>

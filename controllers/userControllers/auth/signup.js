@@ -9,7 +9,8 @@ const { validateName, validateEmail, validatePassword, validatePhoneNumber } = r
 
 const user_signup = async(req,res)=>{
   try {
-    res.render('signup')
+    const userDetails = req.session.userDetails
+    res.render('signup',{details:userDetails})
   } catch (error) {
     console.error('Error in user_signup:', error);
         res.status(500).send('Internal Error');
@@ -18,9 +19,10 @@ const user_signup = async(req,res)=>{
 
 
 
-
+// on submit sin
 const user_signupPost= async(req,res)=>{
   try {
+    req.session.userDetails = req.body
     const { name, email, phone, password } = req.body;
 
     // Simple validation
@@ -40,7 +42,7 @@ const user_signupPost= async(req,res)=>{
     }
 
     else if ( !validatePassword(password)) {
-      req.flash('error', 'Paasword Use 1 Capital, 1 small @ Special cherachter at leest 6 digit');
+      req.flash('error', 'Make a strong Paasword');
       return res.redirect('/signup');
     }
 

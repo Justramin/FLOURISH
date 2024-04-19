@@ -20,13 +20,20 @@ const admin_addCategory = async (req,res)=>{
 const admin_addCategoryPost = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            const category = req.body
-            const categoryName = await categoryCollection.find({categoryName:category.categoryName})
-            if(!categoryName){
-                const categoryData = await categoryCollection.create([category])
+            const category = req.body.categoryName
+            const newCategory = req.body;
+            const categoryRegex = new RegExp(`^${category}$`,'i')
+            const categoryName = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
+            
+            if(categoryName.length===0){
+                await categoryCollection.create([newCategory])
+                res.redirect('/admin/admin_categoryList')    
+            }else{
+                req.flash('error', 'Category Name already Exist');
+                res.redirect('/admin/admin_addCategory')
             }
-            res.redirect('/admin/admin_categoryList')
-        }else{
+            
+        }else{y
             res.redirect('/admin/admin-login')
         }
     } catch (error) {

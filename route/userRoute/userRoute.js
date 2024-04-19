@@ -13,15 +13,15 @@ router.get('/signup',signup.user_signup)
 router.post('/signup',signup.user_signupPost)
 
 router.get('/signupOtp',signupOtp.signupOtpGet)
-router.post('/signupOtp',signupOtp.signupOtp)
-
+router.post('/signupOtp',signupOtp.signupWithOtp)
 
 router.get('/login',login.user_login)
+router.post('/user_loginPost',login.user_loginPost)
+router.get('/logout',login.user_logOut)
 
 
 
 router.get('/',home.home)
-router.get('/home',home.home)
 
 router.get('/product',product.product)
 

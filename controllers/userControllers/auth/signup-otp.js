@@ -6,8 +6,7 @@ const sendMail = require("../../../utils/otp-nodeMailer")
 
 const signupOtpGet = async(req,res)=>{
     try {
-        const {email} = req.session.userData
-        res.render('signupOtp',{email:email})
+        res.render('signupOtp')
     } catch (error) {
         console.error('Error in signupOtpGet:', error);
         res.status(500).send('Internal Error');
@@ -15,33 +14,43 @@ const signupOtpGet = async(req,res)=>{
 }
 
 
-
-
-const signupOtp = async(req,res)=>{
+const signupWithOtp = async (req, res) => {
     try {
-        const otp = req.body.otp    
-        const oldOtp = req.session.newUserOtp
-        const otpTimestamp = req.session.userData.otpTimestamp
+        const otp = req.body.otp;
+        
+        const oldOtp = req.session.newUserOtp;
+        const otpTimestamp = req.session.userData.otpTimestamp;
 
         console.log(`body OTP ${otp}`);
-        console.log(`session 1st OTP ${oldOtp}`)
+        console.log(`session 1st OTP ${oldOtp}`);
 
-
-
-    if(otp === oldOtp && (new Date().getTime() - otpTimestamp) <= 20000) {
-        const userData = req.session.userData;
-        const value = await collection.create([userData])
-        console.log(value)
-        res.redirect('/home')
-    }else{
-        req.flash('error', 'Invalid OTP or OTP has expired.')
-        res.redirect('/signupOtp')
-    }
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - otpTimestamp;
+        
+        if (otp === oldOtp) {
+            if (timeDifference <= 30000) {
+                const userData = req.session.userData;
+                const value = await collection.create([userData]);
+                console.log(value);
+                req.session.userDetails=null
+                res.redirect('/');
+            } else {
+                console.log("error OTP has expired");
+                req.flash('error', 'OTP has expired.');
+                res.redirect('/signupOtp');
+            }
+        } else {
+            console.log("error invalid OTP");
+            req.flash('error', 'Invalid OTP.');
+            res.redirect('/signupOtp');
+        }
+        
     } catch (error) {
-        console.error('Error in signupOtp:', error);
-        res.status(500).send('Internal Error');
-    } 
-}
+        console.error('Error in signupWithOtp:', error);
+        req.flash('error', 'Internal Error');
+        res.redirect('/signupOtp');
+    }
+};
 
 
 
@@ -53,7 +62,7 @@ const resendOtp = async (req,res)=>{
         console.log(name,email);
         console.log(new Date().getTime());
         console.log(otpTimestamp);
-    if ((new Date().getTime() - otpTimestamp) >= 20000) {
+    if ((new Date().getTime() - otpTimestamp) >= 30000) {
         const newOtp = await otpGeneratorUser();  
         req.session.newUserOtp = newOtp;
         req.session.userData.otpTimestamp=new Date().getTime()
@@ -74,7 +83,7 @@ const resendOtp = async (req,res)=>{
 
 
 module.exports = {
-    signupOtp,
     signupOtpGet,
-    resendOtp
+    resendOtp,
+    signupWithOtp
 }

@@ -26,12 +26,20 @@ const admin_editCategoryPost = async(req,res)=>{
         if(req.session.isAdminAuth){
             const categoryData = req.body
             const categoryID = req.params.id
-            await categoryCollection.updateOne({_id:categoryID},{$set:{
-                categoryName:categoryData.categoryName,
-                discount:categoryData.discount,
-                description:categoryData.description
-            }})
-            res.redirect('/admin/admin_categoryList')
+            const categoryReg = req.body.categoryName
+            const categoryRegex = new RegExp(`^${categoryReg}$`,'i')
+            const categoryName = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
+            if(categoryName.length ===0 ){
+                await categoryCollection.updateOne({_id:categoryID},{$set:{
+                    categoryName:categoryData.categoryName,
+                    discount:categoryData.discount,
+                    description:categoryData.description
+                }})
+                res.redirect('/admin/admin_categoryList')
+            }else{
+                req.flash('error', 'Category Name already Exist');
+                res.redirect(`/admin/admin_editCategory/${categoryID}`)
+            }         
         }else{
             res.redirect('/admin/admin-login')
         }

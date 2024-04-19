@@ -27,7 +27,7 @@
                 <label style="color: black; ">Enter OTP Code:</label>
             </div>
             
-            <button type="submit"><a href="/home" style="color: black; ">PROCEED</a></button>
+            <button type="submit"><a style="color: black; ">PROCEED</a></button>
             <br>
                 <div class="col-8 m-3">
                     <p id="countdown">Waiting for OTP...</p>
@@ -42,51 +42,51 @@
     </div>
     <script> 
     /*    OTP VALIDATION     */
-			var otpError = document.getElementById("otp-error");
-			var submitOTPError = document.getElementById("submitOTP-error");
-			var invalidOTP = document.getElementById("invalidotp");
-			invalidOTP.style.display = 'block';
-			setTimeout(() => {
-				invalidOTP.style.display = "none"
-			}, 2000)
+			// var otpError = document.getElementById("otp-error");
+			// var submitOTPError = document.getElementById("submitOTP-error");
+			// var invalidOTP = document.getElementById("invalidotp");
+			// invalidOTP.style.display = 'block';
+			// setTimeout(() => {
+			// 	invalidOTP.style.display = "none"
+			// }, 2000)
 	
-			function validateOTP() {
-				var otpname = document.getElementById("otp").value;
-				if (otpname.length == 0) {
-					otpError.innerHTML = "Please enter OTP";
-					return false;
+			// function validateOTP() {
+			// 	var otpname = document.getElementById("otp").value;
+			// 	if (otpname.length == 0) {
+			// 		otpError.innerHTML = "Please enter OTP";
+			// 		return false;
 	
-				} else if (!otpname.match(/^[0-9]{4,}$/)) {
-					otpError.innerHTML = "Only numbers allowed";
-					return false;
-				}
+			// 	} else if (!otpname.match(/^[0-9]{4,}$/)) {
+			// 		otpError.innerHTML = "Only numbers allowed";
+			// 		return false;
+			// 	}
 	
-				else if (otpname.length != 6) {
-					otpError.innerHTML = "6 digit OTP";
-					return false;
-				}
+			// 	else if (otpname.length != 6) {
+			// 		otpError.innerHTML = "6 digit OTP";
+			// 		return false;
+			// 	}
 	
-				otpError.innerHTML = "valid";
-				return true;
-			}
+			// 	otpError.innerHTML = "valid";
+			// 	return true;
+			// }
 	
-			function validateOTPForm() {
-				if (!validateOTP()) {
-					submitOTPError.style.display = "block";
-					submitOTPError.innerHTML = "OTP required";
-					setTimeout(() => {
-						submitOTPError.style.display = "none";
-					}, 2000);
-					return false;
-				}
+			// function validateOTPForm() {
+			// 	if (!validateOTP()) {
+			// 		submitOTPError.style.display = "block";
+			// 		submitOTPError.innerHTML = "OTP required";
+			// 		setTimeout(() => {
+			// 			submitOTPError.style.display = "none";
+			// 		}, 2000);
+			// 		return false;
+			// 	}
 	
-			}
+			// }
 	
 	
 		</script>
 	
 		<script>
-			let countdownValue = 20; // Countdown duration in seconds
+			let countdownValue = 31; // Countdown duration in seconds
 			let countdownInterval;
 	
 			function startCountdown() {
@@ -103,20 +103,31 @@
 			}
 	
 			function resendOTP() {
-				// Simulate OTP resend logic
-				// Replace this with your actual OTP resend logic   
 	
 				window.location.href = "/resetOtp"
 	
 				// Disable the resend button and start the countdown
 				document.getElementById('resendButton').disabled = true;
-				countdownValue = 20; // Reset countdown value
+				countdownValue = 30; // Reset countdown value
 				startCountdown();
 			}
 	
 			// Start the initial countdown
 			startCountdown();
             </script>
+			
+
+		    
+			 <script> 
+				reload()
+				const error = document.getElementById('error')
+				function reload(){
+			
+					setTimeout(()=>{
+						error.innerHTML=''
+					},4000)
+				}
+				</script>
 </body>
 
 </html>

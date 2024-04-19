@@ -22,7 +22,7 @@
 
     <!-- Display error flash message -->
     <% if (messages.error) { %>
-        <div id="error" style="color:rgb(0, 0, 0); font-size: 22px; font-weight: bold;" class="alert alert-warning">
+        <div id="error" style="color:rgb(145, 8, 8); font-size: 22px; font-weight: bold;" class="alert alert-warning">
             <%= messages.error %>
         </div>
     <% } %>
@@ -34,18 +34,45 @@
 <form action="/signup" method="post">
     <h2 style="color: black; ">SIGN UP PAGE</h2>
     
-    <div class="input-field">
-        <input type="text" name="name" required />
-        <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
-    </div>
-    <div class="input-field">
-        <input type="text" name="email" required />
-        <label style="color: black; ">ENTER EMAIL</label>
-    </div>
-    <div class="input-field">
-        <input type="tel" name="phone" required />
-        <label style="color: black; ">ENTER PHONE NUMBER</label>
-    </div>
+    <% if (details) { %>
+        <div class="input-field">
+            <input type="text" name="name" value="<%= details.name %>" required />
+            <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
+        </div>
+        <div class="input-field">
+            <input type="text" name="email" value="<%= details.email %>" required />
+            <label style="color: black; ">ENTER EMAIL</label>
+        </div>
+        <div class="input-field">
+            <input type="tel" name="phone" value="<%= details.phone %>" required />
+            <label style="color: black; ">ENTER PHONE NUMBER</label>
+        </div>
+
+
+
+        <% } else { %>
+
+
+
+            <div class="input-field">
+                <input type="text" name="name"  required />
+                <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
+            </div>
+            <div class="input-field">
+                <input type="text" name="email" required />
+                <label style="color: black; ">ENTER EMAIL</label>
+            </div>
+            <div class="input-field">
+                <input type="tel" name="phone" required />
+                <label style="color: black; ">ENTER PHONE NUMBER</label>
+            </div>
+
+
+    <% } %>
+
+
+
+
     <div class="input-field">
         <input type="password" name="password" required />
         <label style="color: black; ">ENTER PASSWORD</label>
@@ -59,9 +86,10 @@
     
   
 </form>
-
-
     </div>
+
+
+    
     <script> 
     reload()
     const error = document.getElementById('error')
@@ -69,9 +97,12 @@
 
         setTimeout(()=>{
             error.innerHTML=''
-        },6000)
+        },4000)
     }
     </script>
+
+
+
 </body>
 
 </html>
