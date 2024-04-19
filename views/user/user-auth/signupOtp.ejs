@@ -11,15 +11,7 @@
 
 <body>
     <div class="container">
-
-
-		<% if (messages.error) { %>
-			<div id="error" style="color:rgb(148, 18, 18); font-size: 22px; font-weight: bold;" class="alert alert-warning">
-				<%= messages.error %>
-			</div>
-		<% } %>
-
-
+		
         <form action="/signupOtp" method="post">
             <h2 style="color: black; ">  SIGNUP VERIFICATION CODE</h2>
             <div class="input-field">
@@ -39,6 +31,19 @@
            
             <a href="/login" style="color: black; ">Back to Login</a>
         </form>
+
+
+		<% if (messages.error) { %>
+			<div id="error" style="color:rgb(148, 18, 18); font-size: 22px; font-weight: bold;" class="alert alert-warning">
+				<%= messages.error %>
+			</div>
+		<% } %>
+
+
+
+
+
+
     </div>
     <script> 
     /*    OTP VALIDATION     */
