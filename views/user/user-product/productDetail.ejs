@@ -39,19 +39,28 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 ">
                   <div class="ps-product__thumbnail">
                     <div class="ps-product__image">
-                      <div class="item"><a href="/uploads/<%= data.image[0] %>"><img src="/uploads/<%= data.image[0] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%= data.image[1] %>"><img src="/uploads/<%= data.image[1] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%= data.image[2] %>"><img src="/uploads/<%= data.image[2] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%= data.image[3] %>"><img src="/uploads/<%= data.image[3] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%= data.image[4] %>"><img src="/uploads/<%= data.image[4] %>" alt=""></a></div>
+
+                      <% for( let i = 0; i < data.image.length; i++ ) { %>
+                        <div class="item"><a href="/uploads/<%= data.image[i] %>"><img src="/uploads/<%= data.image[i] %>" alt=""></a></div>
+                      <% } %>
+                     
+
+
+                      <!-- <div class="item"><a href="/uploads/<%#= data.image[1] %>"><img src="/uploads/<%#= data.image[1] %>" alt=""></a></div>
+                      <div class="item"><a href="/uploads/<%#= data.image[2] %>"><img src="/uploads/<%#= data.image[2] %>" alt=""></a></div>
+                      <div class="item"><a href="/uploads/<%#= data.image[3] %>"><img src="/uploads/<%#= data.image[3] %>" alt=""></a></div>
+                      <div class="item"><a href="/uploads/<%#= data.image[4] %>"><img src="/uploads/<%#= data.image[4] %>" alt=""></a></div> -->
                     </div>
                     <div class="ps-product__preview">
                       <div class="ps-product__variants">
-                        <div class="item"><img src="/uploads/<%= data.image[0] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<%= data.image[1] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<%= data.image[2] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<%= data.image[3] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<%= data.image[4] %>" alt=""></div>
+                        <% for( let i = 0; i < data.image.length; i++ ) { %>
+                          <div class="item"><img src="/uploads/<%= data.image[i] %>" alt=""></div>
+                        <% } %>
+                        
+                        <!-- <div class="item"><img src="/uploads/<#%= data.image[1] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<#%= data.image[2] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<#%= data.image[3] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<#%= data.image[4] %>" alt=""></div> -->
                       </div>
                       <div class="ps-video"><a class="popup-youtube ps-product__video" href="https://www.youtube.com/watch?v=meBbDqAXago"><img src="user/images/product/detail/variant-5.jpg" alt=""><i class="fa fa-play"></i></a></div>
                     </div>

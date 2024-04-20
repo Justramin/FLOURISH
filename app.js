@@ -19,6 +19,7 @@ app.set('views', [
  ,path.join(__dirname,'views/user/user-product')
  ,path.join(__dirname,'views/user/dealOf')
  , path.join( __dirname,'views/admin/admin-auth')
+ , path.join( __dirname,'views/admin/partials')
  , path.join(__dirname,'views/admin/admin-dashbord')
  ,path.join(__dirname,'views/admin/admin-userManage')
  ,path.join(__dirname,'views/admin/admin-productManage')
