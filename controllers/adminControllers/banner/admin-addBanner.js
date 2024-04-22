@@ -10,7 +10,7 @@ const admin_addBanner = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_addBanner:', error);
-        res.status(500).send('Internal Server Error');
+        res.redirect('/admin/errorPage')
     }   
 }
 

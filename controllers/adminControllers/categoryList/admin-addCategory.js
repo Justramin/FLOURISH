@@ -11,7 +11,7 @@ const admin_addCategory = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_addCategory:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 
@@ -38,7 +38,7 @@ const admin_addCategoryPost = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_addCategoryPost:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 

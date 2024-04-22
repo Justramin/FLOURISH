@@ -13,7 +13,7 @@ const admin_adminManage = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_adminManage:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 
@@ -38,7 +38,7 @@ const admin_adminStatus = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_adminStatus:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 

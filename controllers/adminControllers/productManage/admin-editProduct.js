@@ -16,7 +16,7 @@ const admin_editProduct = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_editProduct:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 
@@ -54,7 +54,7 @@ const admin_editProductPut = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_editProductPut:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
     
 }
@@ -73,7 +73,7 @@ const productImageDelete = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in productImageDelete:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     } 
 }
 

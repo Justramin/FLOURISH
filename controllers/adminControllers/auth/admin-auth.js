@@ -10,7 +10,7 @@ const admin_login = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_login:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 
@@ -34,7 +34,7 @@ const admin_login_post = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_login_post:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 
@@ -46,7 +46,7 @@ const admin_logout = async(req,res)=>{
         res.redirect('/admin/admin-login')
     } catch (error) {
         console.error('Error in admin_logout:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 

@@ -13,7 +13,7 @@ const admin_addAdmin = async (req,res)=>{
         }  
     } catch (error) {
         console.error('Error in admin_addAdmin:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 
@@ -25,6 +25,7 @@ const newAdmin = async (req,res)=>{
         res.redirect('/admin/admin_adminMnage')
     }catch(error){
         console.log('error in the newAdmin ',error)
+        res.redirect('/admin/errorPage')
     }
 }
 

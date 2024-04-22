@@ -12,7 +12,7 @@ const Admin_dashbord = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in Admin_dashbord:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 

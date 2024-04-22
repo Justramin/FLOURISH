@@ -14,7 +14,7 @@ const admin_editCategory = async(req,res)=>{
             }
     } catch (error) {
         console.error('Error in admin_editCategory:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     } 
 }
 
@@ -45,7 +45,7 @@ const admin_editCategoryPost = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_editCategoryPost:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 

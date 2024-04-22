@@ -12,7 +12,7 @@ const admin_userManage = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_userManage:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 
@@ -36,7 +36,7 @@ const admin_userStatus = async(req,res)=>{
     }
     } catch (error) {
         console.error('Error in admin_userStatus:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 }
 

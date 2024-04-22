@@ -11,7 +11,7 @@ const admin_orders = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_orders:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 

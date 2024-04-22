@@ -16,7 +16,7 @@ const admin_productManage = async (req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_productManage:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
     
 }
@@ -43,7 +43,7 @@ const admin_productStatus = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_productStatus:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
     
     }

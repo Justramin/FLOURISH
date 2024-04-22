@@ -14,7 +14,7 @@ const admin_addProduct = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_addProduct:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
     
 }
@@ -44,7 +44,7 @@ const admin_addProductPost = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_addProductPost:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }  
 };
 

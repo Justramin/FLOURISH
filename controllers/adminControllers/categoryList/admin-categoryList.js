@@ -14,7 +14,7 @@ const admin_categoryList = async(req,res)=>{
         }
     } catch (error) {
         console.error('Error in admin_categoryList:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     } 
 }
 
@@ -39,7 +39,7 @@ const admin_categoryStatus = async(req,res)=>{
     }
     } catch (error) {
         console.error('Error in admin_categoryStatus:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/admin/errorPage')
     }
 }
 
