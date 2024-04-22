@@ -104,7 +104,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Product Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="productName" value="<%= product.productName %>">
+                          <input type="text" class="form-control" name="productName" value="<%= product.productName %>" id="productName" onkeyup="validateName()" required>
+                          <span id="name-error"></span>
                         </div>
                       </div>
                       
@@ -116,7 +117,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Discription</label>
                         <div class="col-sm-9">
-                          <input type="text" name="discription" class="form-control" value="<%= product.discription %>">
+                          <input type="text" name="discription" class="form-control" value="<%= product.discription %>"  id="productDiscription" onkeyup="validateDiscription()" required>
+                          <span id="des-error"></span>
                         </div>
                       </div>
                       <div class="line"></div>
@@ -247,6 +249,49 @@
           </div>
         </section>
         
+
+
+        <script>
+          const nameError = document.getElementById('name-error')
+          const desError = document.getElementById('des-error')
+      
+          function validateName() {
+            const name = document.getElementById('productName').value
+            if (name.length <= 3) {
+              nameError.innerHTML = 'Product name is required'
+              nameError.style.color = 'red'
+              return false
+            }
+            if (!name.match(/^[A-Z][a-z]*$/)) {
+              nameError.innerHTML = 'Product name is Start with Capital Letter'
+              nameError.style.color = 'red'
+              return false
+            } else {
+              nameError.innerHTML = 'Valid'
+              nameError.style.color = 'green'
+              return true
+            }
+          }
+      
+          function validateDiscription() {
+            const name = document.getElementById('productDiscription').value
+            if (name.length <= 5) {
+              desError.innerHTML = 'Product Discription is required'
+              desError.style.color = 'red'
+              return false
+            }
+            if (!name.match(/^[A-Za-z0-9\s.,'"!?()-]*$/)) {
+              desError.innerHTML = 'Write full Discription of the product'
+              desError.style.color = 'red'
+              return false
+            } else {
+              desError.innerHTML = 'Valid'
+              desError.style.color = 'green'
+              return true
+            }
+          }
+
+        </script>
 
 
         <%- include('../admin-partials/adminFooter') %>

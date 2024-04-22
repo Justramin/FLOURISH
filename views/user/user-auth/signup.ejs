@@ -36,16 +36,19 @@
     
     <% if (details) { %>
         <div class="input-field">
-            <input type="text" name="name" value="<%= details.name %>" required />
+            <input type="text" name="name" value="<%= details.name %>" id="name" onkeyup="validateName()" required />
             <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
+            <span id="name-error" style="font-size: 14px;"></span>
         </div>
         <div class="input-field">
-            <input type="text" name="email" value="<%= details.email %>" required />
+            <input type="text" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()" required />
             <label style="color: black; ">ENTER EMAIL</label>
+            <span id="email-error"></span>
         </div>
         <div class="input-field">
-            <input type="tel" name="phone" value="<%= details.phone %>" required />
+            <input type="tel" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()" required />
             <label style="color: black; ">ENTER PHONE NUMBER</label>
+            <span id="phone-error"></span>
         </div>
 
 
@@ -55,16 +58,19 @@
 
 
             <div class="input-field">
-                <input type="text" name="name"  required />
+                <input type="text" name="name" id="name" onkeyup="validateName()" required />
                 <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
+                <span id="name-error" style="font-size: 14px;"></span>
             </div>
             <div class="input-field">
-                <input type="text" name="email" required />
+                <input type="text" name="email" id="email" onkeyup="validateEmail()" required />
                 <label style="color: black; ">ENTER EMAIL</label>
+                <span id="email-error"></span>
             </div>
             <div class="input-field">
-                <input type="tel" name="phone" required />
+                <input type="tel" name="phone" id="phone" onkeyup="validatePhone()" required />
                 <label style="color: black; ">ENTER PHONE NUMBER</label>
+                <span id="phone-error"></span>
             </div>
 
 
@@ -74,8 +80,9 @@
 
 
     <div class="input-field">
-        <input type="password" name="password" required />
+        <input type="password" name="password" id="password" onkeyup="validatePassword()"  required />
         <label style="color: black; ">ENTER PASSWORD</label>
+        <span id="password-error"></span>
     </div>
 
     <button type="submit" style="color: black; ">SIGN UP</button>
@@ -100,6 +107,88 @@
         },4000)
     }
     </script>
+
+
+<script>
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const phoneError = document.getElementById('phone-error');
+    const passwordError = document.getElementById('password-error');
+
+    function validateName() {
+        const name = document.getElementById('name').value;
+        if (name.length <= 3) {
+            nameError.innerHTML = 'Name is required';
+            nameError.style.color = 'red';
+            return false;
+        }
+        if (!name.match(/^[A-Z][a-z\s]*$/)) {
+            nameError.innerHTML = 'Name should start with a Capital letter';
+            nameError.style.color = 'red';
+            return false;
+        } else {
+            nameError.innerHTML = 'Valid';
+            nameError.style.color = 'green';
+            return true;
+        }
+    }
+
+    function validateEmail() {
+        const email = document.getElementById('email').value;
+        if (email.length === 0) {
+            emailError.innerHTML = 'Email is required';
+            emailError.style.color = 'red';
+            return false;
+        }
+        if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            emailError.innerHTML = 'Enter a valid email address';
+            emailError.style.color = 'red';
+            return false;
+        } else {
+            emailError.innerHTML = 'Valid';
+            emailError.style.color = 'green';
+            return true;
+        }
+    }
+
+    function validatePhone() {
+        const phone = document.getElementById('phone').value;
+        if (phone.length === 0) {
+            phoneError.innerHTML = 'Phone number is required';
+            phoneError.style.color = 'red';
+            return false;
+        }
+        if (!phone.match(/^\d{10}$/)) {
+            phoneError.innerHTML = 'Enter a valid 10-digit phone number';
+            phoneError.style.color = 'red';
+            return false;
+        } else {
+            phoneError.innerHTML = 'Valid';
+            phoneError.style.color = 'green';
+            return true;
+        }
+    }
+
+    function validatePassword() {
+        const password = document.getElementById('password').value;
+        if (password.length === 0) {
+            passwordError.innerHTML = 'Password is at least 6 characters long';
+            passwordError.style.color = 'red';
+            return false;
+        }
+        if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)) {
+            passwordError.innerHTML = 'Contain 1 lowercase, 1 Uppercase , 1 number, and 1 Special character ';
+            passwordError.style.color = 'red';
+            return false;
+        } else {
+            passwordError.innerHTML = 'Valid';
+            passwordError.style.color = 'green';
+            return true;
+        }
+    }
+</script>
+
+
 
 
 
