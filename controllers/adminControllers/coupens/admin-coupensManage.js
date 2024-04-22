@@ -4,7 +4,7 @@
 const admin_coupensManage = async(req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            res.render('admin-coupensManage')
+            res.render('admin-coupensManage',{isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

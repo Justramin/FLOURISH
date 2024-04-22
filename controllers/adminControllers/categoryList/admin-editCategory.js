@@ -8,7 +8,7 @@ const admin_editCategory = async(req,res)=>{
         if(req.session.isAdminAuth){
             const categoryID = req.params.id
             const categoryData = await categoryCollection.findOne({_id:categoryID})
-            res.render('admin-editCategory',{category:categoryData})
+            res.render('admin-editCategory',{category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
         }else{
                 res.redirect('/admin/admin-login')
             }

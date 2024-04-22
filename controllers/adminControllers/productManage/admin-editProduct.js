@@ -10,7 +10,7 @@ const admin_editProduct = async(req,res)=>{
             const productId = req.params.id
             const categoryData = await categoryCollection.find()
             const productData = await productCollection.findOne({_id:productId})
-            res.render('admin-editProduct',{product:productData,category:categoryData})
+            res.render('admin-editProduct',{product:productData,category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

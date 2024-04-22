@@ -20,6 +20,7 @@ const admin_orders = require('../../controllers/adminControllers/orders/admin-or
 const admin_adminMnage = require('../../controllers/adminControllers/adminManage/admin-adminManage')
 const admin_addAdmin = require('../../controllers/adminControllers/adminManage/admin-addAdmin')
 const upload = require('../../config/multer')
+const errorPage = require('../../controllers/adminControllers/404/errorPage')
 
 
 router.get('/',signin.admin_login)
@@ -59,7 +60,7 @@ router.get('/adminStatus/:id',admin_adminMnage.admin_adminStatus)
 router.post('/admin_addProduct',upload.array('image',5), admin_addProduct.admin_addProductPost)
 
 router.get('/productStatus/:id',admin_productManage.admin_productStatus)
-
+router.get('/errorPage',errorPage.errorPage)
 
 
 

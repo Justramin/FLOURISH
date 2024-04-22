@@ -4,7 +4,7 @@
 const admin_banner = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            res.render('admin-banner')
+            res.render('admin-banner',{isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

@@ -25,6 +25,9 @@ const admin_login_post = async(req,res)=>{
             req.flash('error', '*You are Blocked by Super Admin')
             res.redirect('/admin')
         }else {
+            if(findData.superAdmin){
+                req.session.isSuperAdmin=true
+            }
             req.session.isAdminAuth = true
             req.session.adminEmail = req.body.email
             return res.redirect('/admin/admin_dashbord')
@@ -39,6 +42,7 @@ const admin_login_post = async(req,res)=>{
 const admin_logout = async(req,res)=>{
     try {
         req.session.isAdminAuth = false
+        req.session.isSuperAdmin= false
         res.redirect('/admin/admin-login')
     } catch (error) {
         console.error('Error in admin_logout:', error);

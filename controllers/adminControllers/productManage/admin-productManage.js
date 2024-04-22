@@ -10,7 +10,7 @@ const admin_productManage = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
             const productData = await productCollection.find({}).populate('category')
-            res.render('admin-productManage',{product:productData})
+            res.render('admin-productManage',{product:productData,isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

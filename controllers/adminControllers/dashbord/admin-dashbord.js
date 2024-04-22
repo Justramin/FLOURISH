@@ -6,7 +6,7 @@
 const Admin_dashbord = async(req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            res.render('admin-dashbord',{userName:'Justin Ram'})
+            res.render('admin-dashbord',{userName:'Justin Ram',isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

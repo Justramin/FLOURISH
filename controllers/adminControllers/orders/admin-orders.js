@@ -5,7 +5,7 @@
 const admin_orders = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            res.render('admin-orders')
+            res.render('admin-orders',{isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

@@ -5,7 +5,7 @@ const categoryCollection = require("../../../model/categorySchema")
 const admin_addCategory = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            res.render('admin-addCategory')
+            res.render('admin-addCategory',{isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

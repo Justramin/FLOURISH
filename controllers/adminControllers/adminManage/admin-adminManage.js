@@ -5,16 +5,11 @@ const { ObjectId } = require('mongodb')
 
 const admin_adminManage = async (req,res)=>{
     try {
-        const superadmin =await admincollection.findOne({email:req.session.adminEmail})
         if(!req.session.isAdminAuth){
             res.redirect('/admin/admin-login')
-        }
-
-        if(req.session.isAdminAuth && superadmin.superAdmin){
+        }else{
             const adminData =await admincollection.find({superAdmin:false})
             res.render('admin-adminManage',{admin:adminData})
-        }else{
-            res.render('admin-adminNot')
         }
     } catch (error) {
         console.error('Error in admin_adminManage:', error);

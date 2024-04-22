@@ -28,6 +28,7 @@ app.set('views', [
  ,path.join(__dirname,'views/admin/admin-banner')
  ,path.join(__dirname,'views/admin/admin-orders')
  ,path.join(__dirname,'views/admin/admin-adminManage')
+ ,path.join(__dirname,'views/admin/404')
 ])
 
 app.set('view engine', 'ejs')

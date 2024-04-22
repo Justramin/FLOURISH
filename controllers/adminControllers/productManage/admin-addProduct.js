@@ -8,7 +8,7 @@ const admin_addProduct = async(req,res)=>{
     try {
         if(req.session.isAdminAuth){
             const categoryData = await categoryCollection.find()
-            res.render('admin-addProduct',{category:categoryData})
+            res.render('admin-addProduct',{category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }

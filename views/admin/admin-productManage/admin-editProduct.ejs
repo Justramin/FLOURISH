@@ -16,7 +16,15 @@
                 <li><a href="/admin/admin_categoryList"> <i class="icon-grid"></i> Category Manage </a></li>
                 <li><a href="/admin/admin_banner"> <i class="icon-grid"></i> Banner Manage</a></li>
                 <li><a href="/admin/admin_orders"> <i class="icon-grid"></i> Orders Manage</a></li>
-                <li><a href="/admin/admin_adminMnage"> <i class="icon-grid"></i> Admin Manage</a></li>
+                
+                
+
+
+
+                <% if (isSuperAdmin) { %>
+                  <li><a href="/admin/admin_adminMnage"> <i class="icon-grid"></i> Admin Manage</a></li>
+                <% } %>
+                
 
 
 

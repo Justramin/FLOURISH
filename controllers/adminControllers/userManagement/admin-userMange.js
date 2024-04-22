@@ -6,7 +6,7 @@ const admin_userManage = async(req,res)=>{
     try {
         if(req.session.isAdminAuth){
             const userData = await collection.find()
-            res.render('admin-userManage',{users:userData})
+            res.render('admin-userManage',{users:userData,isSuperAdmin:req.session.isSuperAdmin})
         }else{
             res.redirect('/admin/admin-login')
         }
