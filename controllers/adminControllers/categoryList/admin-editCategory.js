@@ -29,7 +29,8 @@ const admin_editCategoryPost = async(req,res)=>{
             const categoryReg = req.body.categoryName
             const categoryRegex = new RegExp(`^${categoryReg}$`,'i')
             const categoryName = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
-            if(categoryName.length ===0 ){
+
+            if(categoryName.length ===0  ||  categoryID == categoryName[0]._id){
                 await categoryCollection.updateOne({_id:categoryID},{$set:{
                     categoryName:categoryData.categoryName,
                     discount:categoryData.discount,

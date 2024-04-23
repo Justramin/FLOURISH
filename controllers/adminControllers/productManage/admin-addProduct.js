@@ -35,10 +35,21 @@ const admin_addProductPost = async(req,res)=>{
         });
         
         const productData= req.body
-        await productCollection.create([productData])
-        await productCollection.updateOne({productName:productData.productName},{$set:{image:images}})
+        const newProduct = req.body.productName
+        const ProductRegex = new RegExp(`^${newProduct}$`,'i')
+        const ProductName = await productCollection.find({productName:{$regex:ProductRegex}})
 
-        res.redirect('/admin/admin-productManage')
+        if(ProductName.length===0){
+            await productCollection.create([productData])
+            await productCollection.updateOne({productName:productData.productName},{$set:{image:images}})
+            res.redirect('/admin/admin-productManage')
+        }else{
+            req.flash('error', 'ProductName Name already Exist');
+            res.redirect('/admin/admin_addProduct')
+        }
+
+
+       
         }else{
             res.redirect('/admin/admin-login')
         }

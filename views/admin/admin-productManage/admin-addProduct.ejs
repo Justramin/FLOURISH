@@ -83,6 +83,27 @@
                 </div>
               </div>
               <!-- Form Elements -->
+
+
+
+
+              <% if (messages.success) { %>
+                <div class="alert alert-success">
+                    <%= messages.success %>
+                </div>
+            <% } %>
+          
+            <!-- Display error flash message -->
+            <% if (messages.error) { %>
+                <div id="error" style="color:rgb(220, 17, 17); font-size: 18px; font-weight: bold;">
+                    <%= messages.error %>
+                </div>
+            <% } %>
+
+
+
+
+
               <div class="col-lg-12">
                 <div class="block">
                   <div class="title"><strong>Add A New Product</strong></div>
@@ -191,88 +212,65 @@
             </div>
           </div>
 
+
+
+
+
+
+
+          <script> 
+            reload()
+            const error = document.getElementById('error')
+            function reload(){
+        
+                setTimeout(()=>{
+                    error.innerHTML=''
+                },3000)
+            }
+            </script>
+
          
           <script>
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const phoneError = document.getElementById('phone-error');
-            const passwordError = document.getElementById('password-error');
+            const nameError = document.getElementById('name-error')
+            const desError = document.getElementById('des-error')
         
             function validateName() {
-                const name = document.getElementById('name').value;
-                if (name.length <= 3) {
-                    nameError.innerHTML = 'Name is required';
-                    nameError.style.color = 'red';
-                    return false;
-                }
-                if (!name.match(/^[A-Z][a-z\s]*$/)) {
-                    nameError.innerHTML = 'Name should start with a capital letter';
-                    nameError.style.color = 'red';
-                    return false;
-                } else {
-                    nameError.innerHTML = 'Valid';
-                    nameError.style.color = 'green';
-                    return true;
-                }
+              const name = document.getElementById('productName').value
+              if (name.length <= 3) {
+                nameError.innerHTML = 'Product name is required'
+                nameError.style.color = 'red'
+                return false
+              }
+              if (!name.match(/^[A-Z][a-zA-Z\s]*$/)) {
+                nameError.innerHTML = 'Product name is Start with Capital Letter'
+                nameError.style.color = 'red'
+                return false
+              } else {
+                nameError.innerHTML = 'Valid'
+                nameError.style.color = 'green'
+                return true
+              }
             }
         
-            function validateEmail() {
-                const email = document.getElementById('email').value;
-                if (email.length === 0) {
-                    emailError.innerHTML = 'Email is required';
-                    emailError.style.color = 'red';
-                    return false;
-                }
-                if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-                    emailError.innerHTML = 'Enter a valid email address';
-                    emailError.style.color = 'red';
-                    return false;
-                } else {
-                    emailError.innerHTML = 'Valid';
-                    emailError.style.color = 'green';
-                    return true;
-                }
+            function validateDiscription() {
+              const name = document.getElementById('productDiscription').value
+              if (name.length <= 5) {
+                desError.innerHTML = 'Product Discription is required'
+                desError.style.color = 'red'
+                return false
+              }
+              if (!name.match(/^[A-Za-z0-9\s.,'"!?()-]*$/)) {
+                desError.innerHTML = 'Write full Discription of the product'
+                desError.style.color = 'red'
+                return false
+              } else {
+                desError.innerHTML = 'Valid'
+                desError.style.color = 'green'
+                return true
+              }
             }
+  
+          </script>
         
-            function validatePhone() {
-                const phone = document.getElementById('phone').value;
-                if (phone.length === 0) {
-                    phoneError.innerHTML = 'Phone number is required';
-                    phoneError.style.color = 'red';
-                    return false;
-                }
-                if (!phone.match(/^\d{10}$/)) {
-                    phoneError.innerHTML = 'Enter a valid 10-digit phone number';
-                    phoneError.style.color = 'red';
-                    return false;
-                } else {
-                    phoneError.innerHTML = 'Valid';
-                    phoneError.style.color = 'green';
-                    return true;
-                }
-            }
-        
-            function validatePassword() {
-                const password = document.getElementById('password').value;
-                if (password.length === 0) {
-                    passwordError.innerHTML = 'Password is required';
-                    passwordError.style.color = 'red';
-                    return false;
-                }
-                if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)) {
-                    passwordError.innerHTML = 'Password must contain at least one lowercase letter, one uppercase letter, one number, and be at least 6 characters long';
-                    passwordError.style.color = 'red';
-                    return false;
-                } else {
-                    passwordError.innerHTML = 'Valid';
-                    passwordError.style.color = 'green';
-                    return true;
-                }
-            }
-        </script>
-        
-         
-
-
 
           <%- include('../admin-partials/adminFooter') %>

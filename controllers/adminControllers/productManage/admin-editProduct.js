@@ -26,8 +26,11 @@ const admin_editProductPut = async(req,res)=>{
     try {
         if(req.session.isAdminAuth){
             const productID = req.params.id
-            const updateData = req.body
-    
+            const productData = req.body
+            const productReg = req.body.productName
+            const productRegex = new RegExp(`^${productReg}$`,'i')
+            const productName = await productCollection.find({productName:{$regex:productRegex}})
+
              //Images
              const files = req.files;
              const images = [];
@@ -35,20 +38,28 @@ const admin_editProductPut = async(req,res)=>{
                const image = file.filename;
                images.push(image);
              });
+
+
+
+            if(productName.length ===0  ||  productID == productName[0]._id){
+                await productCollection.updateOne({_id:productID},{$set:{
+                    productName:productData.productName,
+                    discription:productData.discription,
+                    category:productData.category,
+                    price:productData.price,
+                    stock:productData.stock,
+                    offerPrice:productData.offerPrice
+                 }})
+                 
+                await productCollection.updateOne({_id: productID}, {
+                    $push: { image: { $each: images } }
+                });
+                 res.redirect('/admin/admin-productManage')
+            }else{
+                req.flash('error', 'product Name already Exist');
+                res.redirect(`/admin/admin_editProduct/${productID}`)
+            }
             
-            await productCollection.updateOne({_id:productID},{$set:{
-                productName:updateData.productName,
-                discription:updateData.discription,
-                category:updateData.category,
-                price:updateData.price,
-                stock:updateData.stock,
-                offerPrice:updateData.offerPrice
-             }})
-             
-            await productCollection.updateOne({_id: productID}, {
-                $push: { image: { $each: images } }
-            });
-             res.redirect('/admin/admin-productManage')
         }else{
             res.redirect('/admin/admin-login')
         }

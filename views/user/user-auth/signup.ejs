@@ -38,17 +38,20 @@
         <div class="input-field">
             <input type="text" name="name" value="<%= details.name %>" id="name" onkeyup="validateName()" required />
             <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
-            <span id="name-error" style="font-size: 14px;"></span>
+            <span id="name-error" style="font-weight: bold; font-size: 18px;"></span>
+
         </div>
         <div class="input-field">
             <input type="text" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()" required />
             <label style="color: black; ">ENTER EMAIL</label>
-            <span id="email-error"></span>
+            <span id="email-error" style="font-weight: bold; font-size: 18px;"></span>
+
         </div>
         <div class="input-field">
             <input type="tel" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()" required />
             <label style="color: black; ">ENTER PHONE NUMBER</label>
-            <span id="phone-error"></span>
+            <span id="phone-error" style="font-weight: bold; font-size: 18px;"></span>
+
         </div>
 
 
@@ -60,17 +63,20 @@
             <div class="input-field">
                 <input type="text" name="name" id="name" onkeyup="validateName()" required />
                 <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
-                <span id="name-error" style="font-size: 14px;"></span>
+                <span id="name-error" style="font-weight: bold; font-size: 18px;"></span>
+
             </div>
             <div class="input-field">
                 <input type="text" name="email" id="email" onkeyup="validateEmail()" required />
                 <label style="color: black; ">ENTER EMAIL</label>
-                <span id="email-error"></span>
+                <span id="email-error" style="font-weight: bold; font-size: 18px;"></span>
+
             </div>
             <div class="input-field">
                 <input type="tel" name="phone" id="phone" onkeyup="validatePhone()" required />
                 <label style="color: black; ">ENTER PHONE NUMBER</label>
-                <span id="phone-error"></span>
+                <span id="phone-error" style="font-weight: bold; font-size: 18px;"></span>
+
             </div>
 
 
@@ -177,7 +183,7 @@
             return false;
         }
         if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)) {
-            passwordError.innerHTML = 'Contain 1 lowercase, 1 Uppercase , 1 number, and 1 Special character ';
+            passwordError.innerHTML = 'Contain 1 lowercase, 1 Uppercase , 1 number, & 1 Special character ';
             passwordError.style.color = 'red';
             return false;
         } else {

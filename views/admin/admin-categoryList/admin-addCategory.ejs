@@ -121,7 +121,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Category Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="categoryName" required>
+                          <input type="text" class="form-control" name="categoryName" id="categoryName" onkeyup="validateCategoryName()"  required>
+                          <span id="category-name-error"></span>
                         </div>
                       </div>
                       
@@ -135,7 +136,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Category Discount</label>
                         <div class="col-sm-9">
-                          <input type="text"  class="form-control" name="discount" required>
+                          <input type="text"  class="form-control" name="discount" id="discount" onkeyup="validateDiscount()"  required>
+                          <span id="discount-error"></span>
                         </div>
                       </div>
                       <div class="line"></div>
@@ -149,7 +151,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Discription</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="description" required>
+                          <input type="text" class="form-control" name="description" id="description" onkeyup="validateDescription()" required>
+                          <span id="description-error"></span>
                         </div>
                       </div>
                       <div class="line"></div>
@@ -203,6 +206,64 @@
 
 
 
-      
+
+<script>
+  const categoryNameError = document.getElementById('category-name-error');
+  const discountError = document.getElementById('discount-error');
+  const descriptionError = document.getElementById('description-error');
+
+  function validateCategoryName() {
+      const categoryName = document.getElementById('categoryName').value;
+      if (categoryName.length <= 3) {
+          categoryNameError.innerHTML = 'Category name is required';
+          categoryNameError.style.color = 'red';
+          return false;
+      }
+      if (!categoryName.match(/^[A-Z][a-zA-Z\s]*$/)) {
+          categoryNameError.innerHTML = 'Category name should start with a capital letter';
+          categoryNameError.style.color = 'red';
+          return false;
+      } else {
+          categoryNameError.innerHTML = 'Valid';
+          categoryNameError.style.color = 'green';
+          return true;
+      }
+  }
+
+  function validateDiscount() {
+      const discount = document.getElementById('discount').value;
+      if (discount .length <=1) {
+          discountError.innerHTML = 'Discount should be between 2 and 100';
+          discountError.style.color = 'red';
+          return false;
+      } else {
+          discountError.innerHTML = 'Valid';
+          discountError.style.color = 'green';
+          return true;
+      }
+  }
+
+  function validateDescription() {
+      const description = document.getElementById('description').value;
+      if (description.length <= 2) {
+          descriptionError.innerHTML = 'Product description is required';
+          descriptionError.style.color = 'red';
+          return false;
+      }
+      if (!description.match(/^[A-Za-z0-9\s.,'"!?()-]*$/)) {
+          descriptionError.innerHTML = 'Write a full description of the product';
+          descriptionError.style.color = 'red';
+          return false;
+      } else {
+          descriptionError.innerHTML = 'Valid';
+          descriptionError.style.color = 'green';
+          return true;
+      }
+  }
+</script>
+
+
+
+
 
 <%- include('../admin-partials/adminFooter') %>

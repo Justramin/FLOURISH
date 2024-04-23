@@ -85,6 +85,30 @@
                 </div>
               </div>
               <!-- Form Elements -->
+
+
+
+
+
+              <% if (messages.success) { %>
+                <div class="alert alert-success">
+                    <%= messages.success %>
+                </div>
+            <% } %>
+          
+            <!-- Display error flash message -->
+            <% if (messages.error) { %>
+                <div id="error" style="color:rgb(220, 17, 17); font-size: 18px; font-weight: bold;">
+                    <%= messages.error %>
+                </div>
+            <% } %>
+
+
+
+
+
+
+
               <div class="col-lg-12">
                 <div class="block">
                   <div class="title"><strong>Edit Product</strong></div>
@@ -248,6 +272,20 @@
             </div>
           </div>
         </section>
+
+
+
+
+        <script> 
+          reload()
+          const error = document.getElementById('error')
+          function reload(){
+      
+              setTimeout(()=>{
+                  error.innerHTML=''
+              },3000)
+          }
+          </script>
         
 
 
@@ -262,7 +300,7 @@
               nameError.style.color = 'red'
               return false
             }
-            if (!name.match(/^[A-Z][a-z]*$/)) {
+            if (!name.match(/^[A-Z][a-zA-Z\s]*$/)) {
               nameError.innerHTML = 'Product name is Start with Capital Letter'
               nameError.style.color = 'red'
               return false
