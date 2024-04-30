@@ -19,7 +19,7 @@ const user_loginPost = async(req,res)=>{
     const user = await collection.findOne({email:loginData.email})
     console.log(user);
     if(user && user.password === loginData.password){
-        req.session.isUser=true
+        req.session.isUser=user
         res.redirect('/')
     }else{
         req.flash('error', 'Invalid Username or Password');

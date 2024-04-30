@@ -6,7 +6,14 @@ const session = require('express-session')
 const flash = require('express-flash')
 const userRouter = require('./route/userRoute/userRoute')
 const adminRouter = require('./route/adminRoute/adminRoute')
+const authRouter = require('./route/authRoute/authRoute')
 const connectDB = require('./config/db')
+
+require('./utils/auth')
+const passport = require('passport')
+const collection = require('./model/userSchema')
+app.use(passport.initialize())
+
 
 
 connectDB();
@@ -42,6 +49,15 @@ app.use(session({
 }))
 
 app.use(flash())
+function isLoggedIn(req,res,next){
+    req.user?next():res.sendStatus(401)
+}
+
+
+
+
+
+
 
 
 app.listen(port,()=>{
@@ -52,3 +68,4 @@ app.listen(port,()=>{
 
 app.use('/', userRouter)
 app.use('/admin',adminRouter)
+app.use('/auth',authRouter)

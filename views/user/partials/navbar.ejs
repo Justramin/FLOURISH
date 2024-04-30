@@ -7,7 +7,12 @@
                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
 
                   <% if (isUser) { %>
-                    <div class="header__actions"><a href="/logout">Logout </a>
+                    
+                    
+                    <div class="header__actions">
+                      <a><%= isUser.name %></a>
+                      <a href="/logout">Logout </a>
+                      
                       <% } else { %>
                         <div class="header__actions"><a href="/login">Login & Regiser</a>
                   <% } %>

@@ -57,7 +57,7 @@ router.get('/categoryStatus/:id',admin_categoryList.admin_categoryStatus)
 
 router.get('/adminStatus/:id',admin_adminMnage.admin_adminStatus)
 
-router.post('/admin_addProduct',upload.array('image',5), admin_addProduct.admin_addProductPost)
+router.post('/admin_addProduct',upload.array('image',10), admin_addProduct.admin_addProductPost)
 
 router.get('/productStatus/:id',admin_productManage.admin_productStatus)
 router.get('/errorPage',errorPage.errorPage)
