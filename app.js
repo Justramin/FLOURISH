@@ -25,6 +25,7 @@ app.set('views', [
  ,path.join(__dirname,'views/user/user-home')
  ,path.join(__dirname,'views/user/user-product')
  ,path.join(__dirname,'views/user/dealOf')
+ ,path.join(__dirname,'views/user/userAccount')
  , path.join( __dirname,'views/admin/admin-auth')
  , path.join( __dirname,'views/admin/partials')
  , path.join(__dirname,'views/admin/admin-dashbord')
@@ -41,6 +42,8 @@ app.set('views', [
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
+
+
 
 app.use(session({
     secret: 'your-secret-key',

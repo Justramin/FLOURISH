@@ -28,7 +28,7 @@ router.get('/auth/google/callback',
 
       const alreadyLoginUserData = await collection.findOne({email:userData.email})
       try {
-        if(alreadyLoginUserData.length>0){
+        if(alreadyLoginUserData && alreadyLoginUserData.length > 0){
           req.session.isUser=alreadyLoginUserData
             res.redirect('/');
         }else{

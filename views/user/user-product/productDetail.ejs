@@ -3,7 +3,7 @@
   
 
 <%- include('../partials/head') %>
-
+<link rel="stylesheet" href="/user/css/magicZoom.css" type="text/css">
 
   <body>
 
@@ -41,7 +41,7 @@
                     <div class="ps-product__image">
 
                       <% for( let i = 0; i < data.image.length; i++ ) { %>
-                        <div class="item"><a href="/uploads/<%= data.image[i] %>"><img src="/uploads/<%= data.image[i] %>" alt=""></a></div>
+                        <div class="item"><a class="MagicZoom" id="Mag" href="/uploads/<%= data.image[i] %>"><img src="/uploads/<%= data.image[i] %>" alt=""></a></div>
                       <% } %>
                      
 
@@ -311,6 +311,7 @@
 
 
 
+    <script src="/user/js/magicZoom.js"></script>
 
 
     <%- include('../partials/footer')  %>
