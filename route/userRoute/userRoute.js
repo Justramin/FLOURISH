@@ -11,6 +11,9 @@ const product = require('../../controllers/userControllers/product/product')
 const productDetail = require('../../controllers/userControllers/product/productDetail')
 const dealOfTheMonth = require('../../controllers/userControllers/dealOf/dealOfTheMonth')
 const profilePage = require('../../controllers/userControllers/userAccount/profilePage')
+const adress = require('../../controllers/userControllers/userAccount/adress')
+const addAdress = require('../../controllers/userControllers/userAccount/addAdress')
+const resetPassword = require('../../controllers/userControllers/userAccount/resetPassword')
 
 
 
@@ -39,6 +42,11 @@ router.get('/productDetail',productDetail.productDetail)
 
 //Users Only
 router.get('/profilePage',isUser.isUser,profilePage.profilePage)
+router.get('/address',isUser.isUser,adress.address)
+router.get('/addAddress',isUser.isUser,addAdress.addAddress)
+router.post('/addAddresspost',isUser.isUser,addAdress.addAddresspost)
+router.get('/resetPassword',isUser.isUser,resetPassword.resetPassword)
+router.post('/resetPasswordPost',isUser.isUser,resetPassword.resetPasswordPost)
 
 
 

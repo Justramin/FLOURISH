@@ -1,0 +1,252 @@
+<%- include('navbar') -%>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+
+
+<style>
+    /* Basic styling */
+    .order {
+      border: 1px solid #161515;
+      margin-bottom: 20px;
+      padding: 10px;
+  }
+  .order-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+  }
+  .order-item img {
+      width: 230px;
+      height: 270px;
+      margin-right: 10px;
+  }
+  .cancel-order-button {
+      padding: 5px 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      background-color: rgb(233, 49, 49);
+      color: white;
+      border: none;
+      border-radius: 6px  ;
+  }
+  .order-details-button {
+      padding: 5px 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      background-color: rgb(40, 177, 74);
+      color: white;
+      border: none;
+      border-radius: 6px  ; 
+  }
+  .cancel-product-button {
+      padding: 3px 6px;
+      margin-right: 10px;
+      cursor: pointer;
+      background-color: rgb(190, 75, 75);
+      color: white;
+      border: none;
+      border-radius: 6px  ; 
+  }
+</style>
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-blog set-bg mb-5" data-setbg="img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Your Orders History > </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <div class="container">
+
+        <% if (order.length === 0) { %> 
+            <h4 class="p-4 mb-4 text-center">No Order Found.</h4>
+
+        <% } else { %> 
+
+            <% order.forEach(orderItem =>  { %> 
+                <div class="order">
+                    <!-- Order Item -->
+                    <div class="card-header">
+                        <h5>Order ID: <%= orderItem.orderId %> </h5>
+                    </div>
+                    <div class="order-item">
+                        <% orderItem.items.forEach(item => { %>
+                            <img src="<%= (item.productId && item.productId.image && item.productId.image.length > 0) ? '/' + item.productId.image[0] : 'item-picture.jpg' %>" alt="Item Picture" class="p-3">
+                            <div class="p-2 "> 
+                                <% if (item.productId && item.productId.name) { %>
+                                    <p class="font-weight-bold ">Item Name : <%= item.productId.name %></p>
+                                <% } else { %>
+                                    <p>Item Name : N/A</p>
+                                <% } %>
+    
+                                <p>Amount :  ₹
+                                    <% if (item.amount) { %>
+                                        <%= item.amount %>
+                                    <% } else { %>
+                                        N/A
+                                    <% } %>
+                                </p>
+                                <p>Status : <%= orderItem.status %></p>
+                                <% orderItem.address.forEach(address => { %>
+                                    <p>Delivery Address: <%= address.save_as %>, <%= address.housename %>, <%= address.city %>, <%= address.pincode %></p>
+                                <% }); %>
+                                <% if (item.quantity) { %>
+                                    <p>Quantity : <%= item.quantity %></p>
+                                <% } else { %>
+                                    <p>Quantity : N/A</p>
+                                <% } %>
+                                <% if (item.size) { %>
+                                    <p >Size : <%= item.size %></p>
+                                <% } else { %>
+                                    <p>Size : N/A</p>
+                                <% } %>
+
+                                     <!-- cancel product btn -->
+
+                             <% if (order.status !=='Cancelled' && order.status!=='delivered' && order.status !=='returned' ) { %>
+                                   <a onclick="confirmCancelProduct('<%= orderItem._id %>', '<%= item.productId._id %>')" 
+                                      class="btn btn-secondary" style="font-size: 16px; color: white; cursor: pointer;">
+                                      Cancel Product
+                                    </a>
+                                <% } %>
+
+                                                    
+                            </div>
+                        <% }); %>
+                    </div>
+                    
+                    <!-- End of Order Item -->
+            
+                    <!-- Buttons -->
+                    <button class="order-details-button" onclick="location.href='/order-tracking/<%= orderItem._id %>'">Order Details</button>
+                    <% if (orderItem.status !== 'Cancelled' && orderItem.status !== 'delivered' && orderItem.status !== 'returned') { %>
+                        <button class="cancel-order-button" onclick="confirmCancelOrder('<%= orderItem._id %>')">Cancel Order</button>
+                    <% } %>
+                    <% if (orderItem.return && orderItem.return.length > 0 && orderItem.return[0].status) { %>
+                        <span>Return Status: <%= orderItem.return[0].status %></span>
+                    <% } else if (orderItem.status === 'delivered' && new Date(orderItem.updated.getTime() + 5 * 24 * 60 * 60 * 1000) >= new Date()) { %>
+                        <button  >Return</button>
+                    <% } %>
+                    <!-- End of Buttons -->
+                
+                </div> 
+            <% }); %>
+        <% } %>
+    </div>
+         
+        
+    <!-- End of Another Order -->
+ 
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <a href="#"><img src="img/payment.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Shopping</h6>
+                        <ul>
+                            <li><a href="#">Clothing Store</a></li>
+                            <li><a href="#">Trending Shoes</a></li>
+                            <li><a href="#">Accessories</a></li>
+                            <li><a href="#">Sale</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Shopping</h6>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Delivary</a></li>
+                            <li><a href="#">Return & Exchanges</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>NewLetter</h6>
+                        <div class="footer__newslatter">
+                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                            <form action="#">
+                                <input type="text" placeholder="Your email">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright ©️
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>2020
+                            All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <script>
+        function confirmCancelProduct(orderId, productId) {
+            if (confirm("Are you sure you want to cancel this product?")) {
+                window.location.href = `/itemCancel/${orderId}/${productId}`;
+            } else {
+                console.log("User canceled");
+            }
+        }
+    </script>
+    
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
