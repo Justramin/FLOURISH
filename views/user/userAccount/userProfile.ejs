@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<%- include('../partials/head') %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-hhJAYVyrVlbRqysQsau+3E35KWx0pWaf27oV34roF03qYpNoAUVh43RJweuW4zYuwCm/6RrXyjeY8GCt6mpLOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .primary-btn{
+        color: white;
+        width: 100%;
+        background-color: rgb(34, 162, 34);
+        padding: 1.5%;
+        border-radius: 5px;
+        border: transparent;
+        
+    }
+
+    .primary-btn:hover{
+        background-color: rgb(17, 129, 17);
+    }
+
+    </style>
+<body>
+    <div class="header--sidebar"></div>
+
+
+
+     <!--  Header-->
+
+<%- include('../partials/navbar') %>
+
+
+
+
+<div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
+	<div class="ps-container">
+	  <h3>Shop Page</h3>
+	  <div class="ps-breadcrumb">
+		<ol class="breadcrumb">
+		  <li><a href="/">Home</a></li>
+		  <li class="active">USER ACCOUNT</li>
+		  <li class="active">User Profile</li>
+		</ol>
+	  </div>
+	</div>
+  </div> 
+
+	
+        <div class="container profile-container" style="margin-bottom: 5%;margin-top: 10%;">
+			<div class="row">
+                
+				<div class="col-lg-6" style="margin-left: 25%;">
+					<div class="login_form_inner" >
+						<p style="color: red;">
+					
+						</p>
+						<h1 style="margin-top:-10%;" >User Profile </h1>
+                       
+						<form class="row login_form" action="/profile" method="post">
+							<div class="col-md-12 form-group">
+                               
+								<input type="text" value="<%= isUser.name%>" class="form-control" id="name" name="username" placeholder="Username">
+                               
+							</div>
+							<div class="col-md-12 form-group">
+
+								<input type="text" value="<%= isUser.email %>" class="form-control" id="email" name="email" placeholder="Email">
+                               
+							</div>
+							<% if (isUser.phone) { %>
+								<div class="col-md-12 form-group">
+									<input type="text" value="<%= isUser.phone %>" class="form-control" id="number" name="phone" placeholder="Number">
+								</div>
+							<% } else { %>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="number" name="phone" placeholder="Enter your phone number">
+								</div>
+							<% } %>
+							
+
+
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<!-- <input type="checkbox" id="f-option2" name="selector"> -->
+									<!-- <label for="f-option2">Keep me logged in</label> -->
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn" >Make Changes</button>
+
+								<!-- <a href="#">Forgot Password?</a> -->
+							</div>
+							<span id="submitError"></span>
+                            <!-- Vertically centered modal -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                 ...
+                                </div>
+                    
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
+
+	
+
+    <%- include('../partials/footer')  %>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

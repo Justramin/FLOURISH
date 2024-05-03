@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const isUser = require('../../utils/isUserMiddleware')
 
-
+const userError = require('../../controllers/userControllers/404Error/404Error')
 const signup=require('../../controllers/userControllers/auth/signup')
 const signupOtp = require('../../controllers/userControllers/auth/signup-otp')
 const login = require('../../controllers/userControllers/auth/login')
@@ -14,7 +14,7 @@ const profilePage = require('../../controllers/userControllers/userAccount/profi
 const adress = require('../../controllers/userControllers/userAccount/adress')
 const addAdress = require('../../controllers/userControllers/userAccount/addAdress')
 const resetPassword = require('../../controllers/userControllers/userAccount/resetPassword')
-
+const userProfile = require('../../controllers/userControllers/userAccount/userProfile')
 
 
 //Gust
@@ -37,6 +37,7 @@ router.get('/dealOfTheMonth',dealOfTheMonth.dealOfTheMonth)
 router.get('/product',product.product)
 router.get('/productDetail',productDetail.productDetail)
 
+router.get('/userError',userError.userError)
 
 
 
@@ -47,6 +48,7 @@ router.get('/addAddress',isUser.isUser,addAdress.addAddress)
 router.post('/addAddresspost',isUser.isUser,addAdress.addAddresspost)
 router.get('/resetPassword',isUser.isUser,resetPassword.resetPassword)
 router.post('/resetPasswordPost',isUser.isUser,resetPassword.resetPasswordPost)
+router.get('/userProfile',isUser.isUser,userProfile.userProfile)
 
 
 

@@ -26,9 +26,13 @@ app.set('views', [
  ,path.join(__dirname,'views/user/user-product')
  ,path.join(__dirname,'views/user/dealOf')
  ,path.join(__dirname,'views/user/userAccount')
- , path.join( __dirname,'views/admin/admin-auth')
- , path.join( __dirname,'views/admin/partials')
- , path.join(__dirname,'views/admin/admin-dashbord')
+ ,path.join(__dirname,'views/user/404Error')
+
+
+
+ ,path.join(__dirname,'views/admin/admin-auth')
+ ,path.join(__dirname,'views/admin/partials')
+ ,path.join(__dirname,'views/admin/admin-dashbord')
  ,path.join(__dirname,'views/admin/admin-userManage')
  ,path.join(__dirname,'views/admin/admin-productManage')
  ,path.join(__dirname,'views/admin/admin-coupens')
@@ -51,7 +55,9 @@ app.use(session({
     saveUninitialized: false
 }))
 
-app.use(flash())
+app.use(flash());
+
+
 function isLoggedIn(req,res,next){
     req.user?next():res.sendStatus(401)
 }

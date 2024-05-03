@@ -21,8 +21,10 @@ const addAddresspost = async(req,res)=>{
     try {
         const addressData = req.body
         addressData.userID =req.session.isUser._id
-        console.log(addressData);
+        console.log(addressData,'===============body address');
         const addAddress =await addressCollection.create(addressData)
+        res.redirect('/profilePage')
+        console.log(addAddress,'======-------======await address');
     } catch (error) {
         console.error('Error in addAddresspost:', error);
         res.status(500).send('Internal Error');

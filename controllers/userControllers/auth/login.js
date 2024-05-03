@@ -13,17 +13,24 @@ const user_login = async(req,res)=>{
     
 }
 
+
+
 const user_loginPost = async(req,res)=>{
     const loginData = req.body
     console.log(loginData);
     const user = await collection.findOne({email:loginData.email})
     console.log(user);
     if(user && user.password === loginData.password){
+        if(!user.status){
+            req.session.isUser=false;
+            req.flash('error', 'Admin Blocked You');
+            return res.redirect('/login')
+        }
         req.session.isUser=user
-        res.redirect('/')
+        return res.redirect('/')
     }else{
         req.flash('error', 'Invalid Username or Password');
-        res.redirect('/login')
+        return res.redirect('/login')
     }
 }
 

@@ -26,11 +26,22 @@ router.get('/auth/google/callback',
         email: user.emails[0].value
       }
 
-      const alreadyLoginUserData = await collection.findOne({email:userData.email})
+     
       try {
-        if(alreadyLoginUserData && alreadyLoginUserData.length > 0){
-          req.session.isUser=alreadyLoginUserData
+        const alreadyLoginUserData = await collection.findOne({email:userData.email})
+        if(alreadyLoginUserData ){
+          const yes = alreadyLoginUserData.status
+          console.log(alreadyLoginUserData);
+          if(alreadyLoginUserData.status==false){
+            
+            req.session.isUser=false;
+            req.flash('error', 'Admin Blocked You');
+            return res.redirect('/login')
+          }else{
+            req.session.isUser=alreadyLoginUserData
             res.redirect('/');
+          }
+           
         }else{
             const createdUser = await collection.create(userData);
             req.session.isUser=createdUser            

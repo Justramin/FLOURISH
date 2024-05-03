@@ -1,3 +1,4 @@
+const collection = require("../model/userSchema");
 
 
 
@@ -5,8 +6,9 @@
 const isUser = async (req, res, next) => {
     try {
 
-        if (req.session.isUser) {
-       
+        const user =await collection.findOne({_id:req.session.isUser._id})
+console.log(user);
+        if (req.session.isUser && user.status) {
             next();
         } else {
             res.redirect('/login');
