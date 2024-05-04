@@ -9,7 +9,7 @@ const signupOtpGet = async(req,res)=>{
         res.render('signupOtp')
     } catch (error) {
         console.error('Error in signupOtpGet:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     } 
 }
 
@@ -47,8 +47,7 @@ const signupWithOtp = async (req, res) => {
         
     } catch (error) {
         console.error('Error in signupWithOtp:', error);
-        req.flash('error', 'Internal Error');
-        res.redirect('/signupOtp');
+        res.redirect('/userError')
     }
 };
 
@@ -73,7 +72,7 @@ const resendOtp = async (req,res)=>{
         res.redirect('/signupOtp')
     } catch (error) {
         console.error('Error in resendOtp:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     }
 }
 

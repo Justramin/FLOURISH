@@ -9,7 +9,7 @@ const product = async(req,res)=>{
         res.render('product',{data:productData,isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in product:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     } 
 }
 

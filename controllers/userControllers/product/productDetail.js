@@ -10,7 +10,7 @@ const productDetail = async(req,res)=>{
         res.render('productDetail',{data:productData,isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in productDetail:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     }    
 }
 

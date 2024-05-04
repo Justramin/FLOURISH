@@ -13,13 +13,13 @@ const user_signup = async(req,res)=>{
     res.render('signup',{details:userDetails})
   } catch (error) {
     console.error('Error in user_signup:', error);
-        res.status(500).send('Internal Error');
+    res.redirect('/userError')
   } 
 }
 
 
 
-// on submit sin
+
 const user_signupPost= async(req,res)=>{
   try {
     req.session.userDetails = req.body
@@ -66,7 +66,7 @@ const user_signupPost= async(req,res)=>{
     res.redirect('/signupOtp')
   } catch (error) {
     console.error('Error in user_signupPost:', error);
-        res.status(500).send('Internal Error');
+    res.redirect('/userError')
   } 
 }
 

@@ -8,8 +8,8 @@ const address = async(req,res)=>{
 
         res.render('address',{isUser:req.session.isUser})
     } catch (error) {
-        console.error('Error in profilePage:', error);
-        res.status(500).send('Internal Error');
+        console.error('Error in address:', error);
+        res.redirect('/userError')
     }  
 }
 

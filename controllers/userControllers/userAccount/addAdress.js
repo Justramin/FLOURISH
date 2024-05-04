@@ -10,7 +10,7 @@ const addAddress = async(req,res)=>{
         res.render('addAddress',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in addAddress:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     }  
 }
 
@@ -27,7 +27,7 @@ const addAddresspost = async(req,res)=>{
         console.log(addAddress,'======-------======await address');
     } catch (error) {
         console.error('Error in addAddresspost:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     }  
 }
 

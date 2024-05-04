@@ -5,7 +5,7 @@ const dealOfTheMonth = async(req,res)=>{
         res.render('dealOfTheMonth',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in dealOfTheMonth:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError')
     }
     
 }

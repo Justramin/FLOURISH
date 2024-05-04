@@ -10,7 +10,7 @@ const resetPassword = async(req,res)=>{
         res.render('resetPassword',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in resetPassword:', error);
-        res.status(500).send('Internal Error');
+        res.redirect('/userError');
     }  
 }
 
@@ -43,8 +43,8 @@ const resetPasswordPost = async(req,res)=>{
 
         res.render('resetPassword',{isUser:req.session.isUser})
     } catch (error) {
-        console.error('Error in resetPassword:', error);
-        res.status(500).send('Internal Error');
+        console.error('Error in resetPasswordPost:', error);
+        res.redirect('/userError')
     }  
 }
 
