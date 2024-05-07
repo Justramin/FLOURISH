@@ -41,7 +41,7 @@ const resetPasswordPost = async(req,res)=>{
 
 
 
-        res.render('resetPassword',{isUser:req.session.isUser})
+        // res.render('resetPassword',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in resetPasswordPost:', error);
         res.redirect('/userError')

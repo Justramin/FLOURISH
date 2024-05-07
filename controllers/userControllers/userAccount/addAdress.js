@@ -5,8 +5,6 @@ const addressCollection = require("../../../model/adressSchema");
 
 const addAddress = async(req,res)=>{
     try {
-        
-        console.log(req.session.isUser);
         res.render('addAddress',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in addAddress:', error);
@@ -19,12 +17,41 @@ const addAddress = async(req,res)=>{
 
 const addAddresspost = async(req,res)=>{
     try {
-        const addressData = req.body
-        addressData.userID =req.session.isUser._id
-        console.log(addressData,'===============body address');
-        const addAddress =await addressCollection.create(addressData)
+        const userAddress = req.body
+        const userAddressData = await addressCollection.find({ userID:req.session.isUser._id});
+
+        console.log(userAddressData);
+        let addressData = {
+            name: userAddress.name,
+            mobile: userAddress.mobile,
+            email: userAddress.email,
+            housename: userAddress.housename,
+            street: userAddress.street,
+            state: userAddress.state,
+            pincode: userAddress.pincode,
+            city: userAddress.city,
+            country: userAddress.country,
+            save_as: userAddress.saveas
+        };
+
+        if (userAddressData.length > 0) {
+            console.log('userAddress found')
+
+            const data = await addressCollection.updateOne(
+                { _id: userAddressData[0]._id },
+                { $push: { address: addressData } },
+            );
+        } else {
+            let address = new addressCollection({
+                userID: req.session.isUser._id,
+                address: [addressData]
+            })
+
+            await address.save()
+        }
+
         res.redirect('/profilePage')
-        console.log(addAddress,'======-------======await address');
+        
     } catch (error) {
         console.error('Error in addAddresspost:', error);
         res.redirect('/userError')

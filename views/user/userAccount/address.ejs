@@ -27,7 +27,7 @@
         .address-card {
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
             padding: 20px;
             margin-bottom: 20px;
             text-align: center;
@@ -58,7 +58,7 @@
             background-color: #f44336;
         }
         /* Larger font size for larger screens */
-        @media (min-width: 992px) {
+        @media (min-width: 1920px) {
             .address-card {
                 font-size: 18px;
             }
@@ -82,19 +82,23 @@
 
    
 
-     <div class="container">
-        <div class="row col-lg-12 text-center">
-            <div class="col-md-6 offset-md-3" style="margin-left: 25%; margin-bottom: 10%;margin-top: 10%;">
-                <h3 class="text-center m-4">Your Address</h3>
+     <div class="" style="margin-top: -70px;">
+        <div class="row">
+            <div class="col-md-6 offset-md-3" style="margin-left: 25%; margin-bottom: 5%;margin-top: 10%;">
+                <h3 class="text-center m-4" style="margin-bottom: 50px;">Your Address</h3>
                 <div class="address-card">
 
-                    <%  if (isUser && isUser.address) { %>
-                        <% isUser.address.forEach( (address) => { %> 
+                    <%  if (userAddress && userAddress.address) { %>
+                        <% userAddress.address.forEach( (address,i) => { %> 
+
                              
+            <div style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 30px; margin-bottom: 20px; border-radius: 5px;">
                              
                                 <div >
-                                    <h5 class="mb-4 bg-dark text-light p-4 ">Address: <%= address.save_as %>
+                                    <h4 style="position: absolute;color: black;"><%= i+1 %>.</h4>
+                                    <h5 class="mb-4 bg-dark text-light p-4 ">Address Of  <%= address.save_as %>
                                     </h5>
+                                    </div>
                                      
                 <div>       
                     <h5 class="mb-3">Name    :- <%= address.name %> </h5>
@@ -102,16 +106,18 @@
                     <p>Phone    :- <%= address.mobile %> </p>
                     <p>House    :- <%= address.housename %> </p>
                     <p>Street   :- <%= address.street %> </p>
-                    <p>Pincode  :- <%= address.Pincode %> </p>
+                    <p>Pincode  :- <%= address.pincode %> </p>
                     <p>City     :- <%= address.city %> </p>
                     <p>State    :- <%= address.state %> </p>
                     <p>Country  :- <%= address.country %></p>
                 </div>
-                <div class="mb-4">
+                <div class="mb-4" >
                     <a href="/editAddress/<%= address._id %>"> <button class="btn btn-edit">Edit</button> </a>
                     <a onclick="delAddress('<%= address._id %>')" > <button class="btn btn-delete">Delete</button> </a>  
                 </div>
-                <hr class="bg-dark">
+               
+
+            </div>
                     <% }) %>
 
                      <% } else { %>
@@ -127,22 +133,8 @@
     </div>
 
     
-
+  
  
-
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-
 <script>
         function delAddress(id) {
             Swal.fire({
@@ -168,6 +160,8 @@
 
 
 <%- include('../partials/footer')  %>
+
+
 </body>
 
 </html>
