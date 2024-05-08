@@ -21,26 +21,29 @@ const port = 4000
 
 
 app.set('views', [
-    path.join(__dirname,'views/user/user-auth')
- ,path.join(__dirname,'views/user/user-home')
- ,path.join(__dirname,'views/user/user-product')
- ,path.join(__dirname,'views/user/dealOf')
- ,path.join(__dirname,'views/user/userAccount')
- ,path.join(__dirname,'views/user/404Error')
+    path.join(__dirname,'views/user/404Error'),
+    path.join(__dirname,'views/user/user-auth'),
+    path.join(__dirname,'views/user/user-home'),
+    path.join(__dirname,'views/user/user-product'),
+    path.join(__dirname,'views/user/dealOf'),
+    path.join(__dirname,'views/user/userAccount'),
+    path.join(__dirname,'views/user/userWhishlist'),
+    path.join(__dirname,'views/user/userCart'),
+ 
 
 
 
- ,path.join(__dirname,'views/admin/admin-auth')
- ,path.join(__dirname,'views/admin/partials')
- ,path.join(__dirname,'views/admin/admin-dashbord')
- ,path.join(__dirname,'views/admin/admin-userManage')
- ,path.join(__dirname,'views/admin/admin-productManage')
- ,path.join(__dirname,'views/admin/admin-coupens')
- ,path.join(__dirname,'views/admin/admin-categoryList')
- ,path.join(__dirname,'views/admin/admin-banner')
- ,path.join(__dirname,'views/admin/admin-orders')
- ,path.join(__dirname,'views/admin/admin-adminManage')
- ,path.join(__dirname,'views/admin/404')
+    path.join(__dirname,'views/admin/admin-auth'),
+    path.join(__dirname,'views/admin/partials'),
+    path.join(__dirname,'views/admin/admin-dashbord'),
+    path.join(__dirname,'views/admin/admin-userManage'),
+    path.join(__dirname,'views/admin/admin-productManage'),
+    path.join(__dirname,'views/admin/admin-coupens'),
+    path.join(__dirname,'views/admin/admin-categoryList'),
+    path.join(__dirname,'views/admin/admin-banner'),
+    path.join(__dirname,'views/admin/admin-orders'),
+    path.join(__dirname,'views/admin/admin-adminManage'),
+    path.join(__dirname,'views/admin/404'),
 ])
 
 app.set('view engine', 'ejs')

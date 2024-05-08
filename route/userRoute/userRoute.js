@@ -15,6 +15,8 @@ const adress = require('../../controllers/userControllers/userAccount/adress')
 const addAdress = require('../../controllers/userControllers/userAccount/addAdress')
 const resetPassword = require('../../controllers/userControllers/userAccount/resetPassword')
 const userProfile = require('../../controllers/userControllers/userAccount/userProfile')
+const userWhishlist =require('../../controllers/userControllers/userWhishlist/userWhishlist')
+const userCart = require('../../controllers/userControllers/userCart/userCart')
 
 
 //Gust
@@ -42,6 +44,8 @@ router.get('/userError',userError.userError)
 
 
 //Users Only
+
+//User Account
 router.get('/profilePage',isUser.isUser,profilePage.profilePage)
 router.get('/address',isUser.isUser,adress.address)
 router.get('/addAddress',isUser.isUser,addAdress.addAddress)
@@ -51,8 +55,12 @@ router.post('/resetPasswordPost',isUser.isUser,resetPassword.resetPasswordPost)
 router.get('/userProfile',isUser.isUser,userProfile.userProfile)
 
 
+//Whishlist
+router.get('/userWhishlist',isUser.isUser,userWhishlist.userWhishlist)
 
 
+//Cart
+router.get('/userCart',isUser.isUser,userCart.userCart)
 
 
 
