@@ -112,8 +112,8 @@
                     <p>Country  :- <%= address.country %></p>
                 </div>
                 <div class="mb-4" >
-                    <a href="/editAddress/<%= address._id %>"> <button class="btn btn-edit">Edit</button> </a>
-                    <a onclick="delAddress('<%= address._id %>')" > <button class="btn btn-delete">Delete</button> </a>  
+                    <a href="/editAddress/<%= i %>"> <button class="btn btn-edit">Edit</button> </a>
+                    <a onclick="delAddress('<%= i %>')" > <button class="btn btn-delete">Delete</button> </a>  
                 </div>
                
 
@@ -133,6 +133,8 @@
     </div>
 
     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   
  
 <script>

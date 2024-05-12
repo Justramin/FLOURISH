@@ -124,15 +124,13 @@
 
 <% for( let i = 0; i < data.length; i++ ) { %>
 
- 
-
   
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+    <div style="max-height:60vh" class="col-lg-3 mt-5 col-sm-6" >
       <div class="ps-product">
         <div class="ps-product__thumbnail">
           <!-- <div class="ps-badge"><span>New</span></div> -->
-          <a class="ps-product__favorite" href="/userWhishlist"><i class="furniture-heart"></i></a>
-          <img src="/uploads/<%= data[i].image[0] %>" alt="Product Image" >
+          <a class="ps-product__favorite" onclick="whishlist('<%= data[i]._id %>')"><i class="furniture-heart"></i></a>
+          <img style="aspect-ratio: 1/1; border-radius: 5px;" src="/uploads/<%= data[i].image[0] %>" alt="Product Image" >
           <a class="ps-product__overlay" href="/productDetail?id=<%= data[i]._id %>"></a>
           <div class="ps-product__content full">
             <div class="ps-product__variants">
@@ -152,7 +150,7 @@
             <div class="ps-product__categories"><a href="product-listing.html"><%= data[i].discription %></a></div>
             <p class="ps-product__price">
               <del>RS :<%= data[i].price %></del>Rs: <%= data[i].offerPrice %>
-            </p><a class="ps-btn ps-btn--sm" href="product-detail-2.html">Add to cart</a>
+            </p><a class="ps-btn ps-btn--sm"  onclick="addToCart('<%= data[i]._id %>')">Add to cart</a>
             <p class="ps-product__feature"><i class="furniture-delivery-truck-2"></i>Free Shipping in 24 hours</p>
           </div>
         </div>
@@ -220,10 +218,135 @@
         </div>
       </div>
     </div>
- 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>//ADD TO CART
+      function addToCart(id){
+          // Stringify the id once
+          const data = JSON.stringify({ id: id });
+          console.log(data);
+  
+          fetch('/addToCart', {
+              body: data,
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json' // Specify the content type
+              }
+          })
+          .then(response => {
+
+            if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+
+            
+          }).then(data=>{
+               // Handle the response as needed
+              console.log('Response received:', data);
+              console.log(data.success)
+              if(data.success){
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2500
+              });   
+
+              }else{
+                              Swal.fire({
+                title: "You are Not Loged in",
+                text: "Do you want go Login. Press Login!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Login!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '/login';
+                }
+              });
+                
+
+              }
+          })
+          .catch(error => {
+              // Handle any errors
+              console.error('Error occurred:', error);
+          });
+      }
+  </script>
+  
+
+  <script>//WHISHLIST
+
+  function whishlist(id){
+    console.log('whishlist clicked');
+          console.log(id);
+          // Stringify the id once
+          const data = JSON.stringify({ id: id });
+          console.log(data);
+
+          fetch('/addWhishlist', {
+              body: data,
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json' // Specify the content type
+              }
+          })
+          .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+                return response.json();
+            }).then(data=>{
+               // Handle the response as needed
+                console.log('Response received:', data);
+                console.log(data.success)
+              if(data.success){
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2500
+                });   
+
+              }else{
+                Swal.fire({
+                    title: "You are Not Loged in",
+                    text: "Do you want go Login. Press Login!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Login!"
+                }).then((result) => 
+              {
+                
+              if (result.isConfirmed) {
+                  window.location.href = '/login';
+                }
+              });
+            }
+          })
+          .catch(error => {
+              // Handle any errors
+              console.error('Error occurred:', error);
+          });
+  }
+
+
+  </script>
+
+
 
  
     <%- include('../partials/footer')  %>
+
 
   </body>
 

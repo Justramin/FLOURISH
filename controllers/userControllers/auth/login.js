@@ -18,11 +18,7 @@ const user_login = async(req,res)=>{
 const user_loginPost = async(req,res)=>{
    try {
         const loginData = req.body
-        console.log(loginData);
-
         const user = await collection.findOne({email:loginData.email})
-        console.log(user);
-
         if(user && user.password === loginData.password){
             if(!user.status){
                 req.session.isUser=false;

@@ -5,22 +5,26 @@ const whishlistSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    proId:{
-        type:String,
-        required:true,
-    },
-    product: {
-        type: String,
-        required: true
-    },
-    Image: {
-        type: String,
-        required: true
-    },
-    Price: {
-        type: Number,
-        required: true
-    },
+    items:[
+        {
+        proId:{
+            type:String,
+            required:true,
+        },
+        product: {
+            type: String,
+            required: true
+        },
+        Image: {
+            type: String,
+            required: true
+        },
+        Price: {
+            type: Number,
+            required: true
+        },
+}]
+    
 
 })
 

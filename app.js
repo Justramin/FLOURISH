@@ -14,6 +14,8 @@ const passport = require('passport')
 const collection = require('./model/userSchema')
 app.use(passport.initialize())
 
+app.use(express.json());
+
 
 
 connectDB();
@@ -29,6 +31,7 @@ app.set('views', [
     path.join(__dirname,'views/user/userAccount'),
     path.join(__dirname,'views/user/userWhishlist'),
     path.join(__dirname,'views/user/userCart'),
+    path.join(__dirname,'views/user/checkOut'),
  
 
 

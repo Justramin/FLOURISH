@@ -1,7 +1,5 @@
 
 
-
-
 const profilePage = async(req,res)=>{
     try {
         res.render('profilePage',{isUser:req.session.isUser})
@@ -14,6 +12,8 @@ const profilePage = async(req,res)=>{
 
 
 
+
+
 module.exports = {
-    profilePage
+    profilePage,
 }

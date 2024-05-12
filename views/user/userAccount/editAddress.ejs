@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<%- include('../partials/head') %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-hhJAYVyrVlbRqysQsau+3E35KWx0pWaf27oV34roF03qYpNoAUVh43RJweuW4zYuwCm/6RrXyjeY8GCt6mpLOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body>
+    <div class="header--sidebar"></div>
+
+
+
+     <!--  Header-->
+
+<%- include('../partials/navbar') %>
+
+
+ 
+<style>
+    .container {
+        margin-bottom: 5%;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+    }
+
+    .cart-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 14px 16px rgba(232, 225, 225, 0.1);
+        /* width: 400px; */
+        /* background-color: #c7c7c7;; */
+    }
+
+    .card-body {
+        padding: 40px;
+    }
+
+    .card-body {
+        background-color: #ffffff;
+        /* Set the background color */
+        border-radius: 10px;
+        border: 2px solid;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* Add the box shadow */
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        color: address, daily body, black wall, shadow, danger, Nakoda#007bff;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-label span {
+        color: red;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        color: black;
+        margin-bottom: 15px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        font-style: italic;
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #19b22d;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        background-color: #0f8415;
+    }
+</style>
+
+
+
+<!-- Cart Area -->
+<div class="container">
+    <div class="cart-container">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h3 class="card-title">Edit Your Address</h3>
+
+                <form action="/editeAddressPost?id=<%= adressData._id %>" id="addressForm" method="POST" onsubmit="return validateAddress()">
+
+
+                    <div class="form-group">
+                        <label for="fullname" class="form-label">Full Name <span>*</span></label>
+                        <input type="text" id="fullname" name="name" class="form-control" required value="<%= adressData.name %>">
+                        <span id="fullnameError" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email </label>
+                            <input type="email" id="email" name="email" class="form-control"required value="<%= adressData.email %>">
+                            <span id="emailError" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="adname" class="form-label">House Name / Flat No <span>*</span></label>
+                            <input type="text" id="adname" name="housename" class="form-control"required value="<%= adressData.housename %>">
+                            <span id="adnameError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="street" class="form-label">Street <span>*</span></label>
+                            <input type="text" id="street" name="street" class="form-control"required value="<%= adressData.street %>">
+                            <span id="streetError" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pincode" class="form-label">Pincode <span>*</span></label>
+                            <input type="number" id="pincode" name="pincode" class="form-control"required value="<%= adressData.pincode %>">
+                            <span id="pincodeError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City <span>*</span></label>
+                            <input type="text" id="city" name="city" class="form-control" required value="<%= adressData.city %>">
+                            <span id="cityError" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="state" class="form-label">State <span>*</span></label>
+                            <select id="state" name="state" class="form-control" required>
+                                <option value="" disabled selected>Select a state</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="TamilNadu">Tamil Nadu</option>
+                            </select>
+                            <span id="stateError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="country" class="form-label">Country <span>*</span></label>
+                            <select id="country" name="country" class="form-control" required>
+                                <option value="India">India</option>
+                            </select>
+                            <span id="countryError" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="mobile" class="form-label">Phone Number <span>*</span></label>
+                            <input type="number" id="mobile" name="mobile" class="form-control" required value="<%= adressData.mobile  %>">
+                            <span id="mobileError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="saveas" class="form-label">Save as <span>*</span></label>
+                        <select id="saveas" name="saveas" class="form-control" required>
+                            <option value="" disabled selected>Choose One</option>
+                            <option value="Home">Home</option>
+                            <option value="WorkSpace">Work Space</option>
+                            <option value="WorkSpace">Other</option>
+                        </select>
+                        <span id="saveasError" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="saveChangesButton" class="btn btn-primary" type="submit">Add Address</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    // JavaScript validation function here
+    function validateAddress() {
+        var errors = '';
+        var saveas = document.getElementById('saveas').value;
+        var fullname = document.getElementById('fullname').value;
+        var email = document.getElementById('email').value;
+        var adname = document.getElementById('adname').value;
+        var street = document.getElementById('street').value;
+        var pincode = document.getElementById('pincode').value;
+        var city = document.getElementById('city').value;
+        var state = document.getElementById('state').value;
+        var country = document.getElementById('country').value;
+        var mobile = document.getElementById('mobile').value;
+
+        var saveasError = document.getElementById('saveasError');
+        var fullnameError = document.getElementById('fullnameError');
+        var emailError = document.getElementById('emailError');
+        var adnameError = document.getElementById('adnameError');
+        var streetError = document.getElementById('streetError');
+        var pincodeError = document.getElementById('pincodeError');
+        var cityError = document.getElementById('cityError');
+        var stateError = document.getElementById('stateError');
+        var countryError = document.getElementById('countryError');
+        var mobileError = document.getElementById('mobileError');
+
+        saveasError.innerHTML = '';
+        fullnameError.innerHTML = '';
+        emailError.innerHTML = '';
+        adnameError.innerHTML = '';
+        streetError.innerHTML = '';
+        pincodeError.innerHTML = '';
+        cityError.innerHTML = '';
+        stateError.innerHTML = '';
+        countryError.innerHTML = '';
+        mobileError.innerHTML = '';
+
+        var spacesRegex = /^\s*$/; // Regex to check for only spaces
+
+        if (spacesRegex.test(saveas)) {
+            saveasError.innerHTML = 'Save as is required.';
+            errors += 'Save as is required.\n';
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(fullname)) {
+            fullnameError.innerHTML = 'Full name can only contain letters and spaces.';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+
+        if (spacesRegex.test(fullname.match(/^[a-zA-Z\s]+$/))) {
+            fullnameError.innerHTML = 'Full name is required.';
+            errors += 'Full name is required.\n';
+        }
+        if (spacesRegex.test(email)) {
+            // emailError.innerHTML = 'Email is required.';
+            // errors += 'Email is required.\n';
+        } else if (!email.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)) {
+            emailError.innerHTML = 'Invalid email address.';
+            errors += 'Invalid email address.\n';
+        }
+        if (!/^[a-zA-Z\s]+$/.test(adname)) {
+            fullnameError.innerHTML = ' only contain letters ';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+        if (!/^[a-zA-Z\s]+$/.test(street)) {
+            fullnameError.innerHTML = 'Full name can only contain letters and spaces.';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+        if (spacesRegex.test(pincode)) {
+            pincodeError.innerHTML = 'Pincode is required.';
+            errors += 'Pincode is required.\n';
+        } else if (!pincode.match(/^\d{6}$/)) {
+            pincodeError.innerHTML = 'Invalid pincode.';
+            errors += 'Invalid pincode.\n';
+        }
+        if (!/^[a-zA-Z\s]+$/.test(city)) {
+            fullnameError.innerHTML = 'Full name can only contain letters and spaces.';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+        if (!/^[a-zA-Z\s]+$/.test(state)) {
+            fullnameError.innerHTML = 'Full name can only contain letters and spaces.';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+        if (!/^[a-zA-Z\s]+$/.test(country)) {
+            fullnameError.innerHTML = 'Full name can only contain letters and spaces.';
+            errors += 'Full name can only contain letters and spaces.\n';
+        }
+        if (spacesRegex.test(mobile)) {
+            mobileError.innerHTML = 'Mobile number is required.';
+            errors += 'Mobile number is required.\n';
+        } else if (!mobile.match(/^\d{10}$/)) {
+            mobileError.innerHTML = 'Invalid mobile number.';
+            errors += 'Invalid mobile number.\n';
+        }
+
+        if (errors) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    document.getElementById('saveChangesButton').addEventListener('click', function (event) {
+        if (!validateAddress()) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+<%- include('../partials/footer')  %>
+</body>
+
+</html>
+

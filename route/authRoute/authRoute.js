@@ -30,8 +30,6 @@ router.get('/auth/google/callback',
       try {
         const alreadyLoginUserData = await collection.findOne({email:userData.email})
         if(alreadyLoginUserData ){
-          const yes = alreadyLoginUserData.status
-          console.log(alreadyLoginUserData);
           if(alreadyLoginUserData.status==false){
             
             req.session.isUser=false;

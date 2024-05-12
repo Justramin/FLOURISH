@@ -25,11 +25,11 @@
 	</div>
   </div> 
 
-  <% if (data) { %>
-    <section class="cart_area">
+  <% if (whishlislData) { %>
+    <section class="cart_area" style="height: auto;">
         <div class="container">
             <div class="cart_inner">
-                <div class="table-responsive">
+                <div class="table-responsive" style="height: auto;">
                     <table class="table">
                         <thead>
                             <tr>
@@ -45,30 +45,28 @@
                    
 
                         <tbody>
-                            <% for( let i = 0; i < data.length; i++ ) { %>
+                            <% for( let i = 0; i < whishlislData.items.length; i++ ) { %>
                                 <tr>
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="<%= data[i].Image %>" alt="" style="height: 80px; width: 80px;">
+                                                <img src="/uploads/<%= whishlislData.items[i].Image %>" alt="Image" style="height: 80px; width: 80px;">
                                             </div>
-                                            <div class="media-body">
-                                                <!-- <p><#%= data[i].product %></p> -->
-                                            </div>
+                                            
                                         </div>
                                     </td>
                                     <td>
-                                        <h5><%= data[i].product  %></h5>
+                                        <h5><%= whishlislData.items[i].product  %></h5>
                                     </td>
                                     <td>
-                                        <h5><%= data[i].Price %></h5>
+                                        <h5><%= whishlislData.items[i].Price %></h5>
                                     </td>
                                     
                                     <td>
-                                        <a href="/wishlistRemove?wishId=<%= data[i]._id %>">Remove</a>
+                                        <a href="/wishlistRemove?wishId=<%= whishlislData.items[i]._id %>" class="btn btn-danger">Remove</a>
                                     </td>
                                     <td>
-                                        <a href="/addCart?proId=<%= data[i].proId %>">Add</a>
+                                        <a href="/addCart?proId=<%= whishlislData.items[i].proId %>" class="btn btn-success">Add</a>
                                     </td>
                                 </tr>
                             <% } %>

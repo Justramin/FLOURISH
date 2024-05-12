@@ -25,67 +25,106 @@
 
 
 
-    <div class="ps-content">
+    <div class="ps-content m-5">
       <div class="ps-container">
         <div class="ps-cart-listing">
           <table class="table ps-cart__table">
             <thead>
               <tr>
-                <th>All Products</th>
+                <th>Products</th>
+                <th>Name</th>
                 <th>Price</th>
-                <th>Quantity</th>
+                <th>Availability</th>
+                <th>Quantity</th> 
                 <th>Total</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a class="ps-product--compare" href="product-detail.html"><img class="mr-15" src="images/shopping-cart/1.jpg" alt=""> Air jordan One mid</a></td>
-                <td>$150</td>
-                <td>
-                  <div class="form-group--number">
-                    <button class="minus"><span>-</span></button>
-                    <input class="form-control" type="text" value="1">
-                    <button class="plus"><span>+</span></button>
-                  </div>
-                </td>
-                <td>$300</td>
-                <td>
-                  <div class="ps-remove"></div>
-                </td>
-              </tr>
-              <tr>
-                <td><a class="ps-product--compare" href="product-detail.html"><img class="mr-15" src="images/shopping-cart/2.jpg" alt=""> The Crusty Croissant</a></td>
-                <td>$150</td>
-                <td>
-                  <div class="form-group--number">
-                    <button class="minus"><span>-</span></button>
-                    <input class="form-control" type="text" value="1">
-                    <button class="plus"><span>+</span></button>
-                  </div>
-                </td>
-                <td>$300</td>
-                <td>
-                  <div class="ps-remove"></div>
-                </td>
-              </tr>
-              <tr>
-                <td><a class="ps-product--compare" href="product-detail.html"><img class="mr-15" src="images/shopping-cart/3.jpg" alt="">The Rolling Pin</a></td>
-                <td>$150</td>
-                <td>
-                  <div class="form-group--number">
-                    <button class="minus"><span>-</span></button>
-                    <input class="form-control" type="text" value="1">
-                    <button class="plus"><span>+</span></button>
-                  </div>
-                </td>
-                <td>$300</td>
-                <td>
-                  <div class="ps-remove"></div>
-                </td>
-              </tr>
+
+
+
+              <% if (cartData && cartData.items && cartData.items.length > 0) { %>
+
+                <% cartData.items.forEach(function(item,index) { %>
+
+                  <% if (item.productId.stock) { %>
+                    <tr>
+                      <td ><a class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px;" class="mr-8" src="/uploads/<%= item.Image %>"alt=""></a></td>
+                      <td><%= item.productId.productName %></td>
+                      <td><%= item.price %></td>
+                      <td>
+                       
+                         <p style="color: green;">In Stock</p>
+                      
+                      
+                      </td>
+                      <td>
+                        <div class="form-group--number">
+                          <button onclick="updateQuantity('<%=cartData._id %>','<%= item._id %>','<%= item.price %>','<%= index %>', -1)" ><span>-</span></button>
+  
+                          <input id="sst<%= index%>" type="text" class="form-control text-center" style="width: 70px; border: none;" value="<%= item.quantity %>" placeholder="" >
+                         
+  
+                          <button onclick="updateQuantity('<%=cartData._id %>','<%= item._id %>','<%= item.price %>','<%= index %>', 1)" ><span>+</span></button>
+                        </div>
+                      </td>
+                      <td><span id="total<%= index %>"><%= item.Product_total %></span></td>
+                      <td>
+                        <a href="/removeToCart/<%= index %>" class="ps-remove"></a>
+                    </td>
+                    </tr>
+                    <% } else { %>
+                      <tr style="color: red;">
+                        <td><a style="color: red;" class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px;" class="mr-8" src="/uploads/<%= item.Image %>"alt=""><%= item.productId.productName %></a></td>
+                        <td><%= item.price %></td>
+                        <td>
+                          
+                            <p style="color: red;">Out of Stock</p>
+                          
+                        
+                        </td>
+                        <td>
+                          <div class="form-group--number">
+                            <!-- <button onclick="updateQuantity('<%#=cartData._id %>','<%#= item._id %>','<%#= item.price %>','<%#= index %>', -1)" class="minus"><span>-</span></button> -->
+    
+                            <input id="sst<%= index%>" type="text" class="form-control text-center" style="width: 70px; border: none;" value="0" placeholder="" aria-label="Quantity" aria-describedby="button-addon1">
+                           
+    
+                            <!-- <button onclick="updateQuantity('<%#=cartData._id %>','<%#= item._id %>','<%##= index %>', 1)" class="plus"><span>+</span></button> -->
+                          </div>
+                        </td>
+                        <td ><span id="total<%= index %>"><%= item.Product_total %></span></td>
+                        <td>
+                          <div  class="ps-remove"><a href="/"></a></div>
+                        </td>
+                      </tr>
+                     
+                   <% } %>
+
+                  
+
+                  <% }) %>
+
+                <% } else { %>
+                  <tr>
+                    <td colspan="3">Cart is empty</td>
+                  </tr>
+               
+              <% } %>
+
+
             </tbody>
           </table>
+
+
+      
+
+
+
+          <% if (cartData && cartData.items && cartData.items.length > 0) { %>
+           
+          
           <div class="ps-cart__actions">
             <div class="ps-cart__promotion">
               <div class="form-group">
@@ -98,12 +137,17 @@
               </div>
             </div>
             <div class="ps-cart__total">
-              <h3>Total Price: <span> 2599.00 $</span></h3><a class="ps-btn" href="checkout.html">Process to checkout</a>
+              <h3 >Total Price: <span id="total">  <%= cartData.Cart_total %></span></h3><a class="ps-btn" href="checkout.html">Process to checkout</a>
             </div>
           </div>
+
+          <% } %>
+
         </div>
       </div>
     </div>
+  
+
     <div class="ps-partners">
       <div class="ps-container">
         <div class="ps-slider--partners owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="50" data-owl-nav="false" data-owl-dots="false" data-owl-item="7" data-owl-item-xs="3" data-owl-item-sm="5" data-owl-item-md="6" data-owl-item-lg="7" data-owl-duration="1000" data-owl-mousedrag="on"><img src="images/partner/1.png" alt=""><img src="images/partner/2.png" alt=""><img src="images/partner/3.png" alt=""><img src="images/partner/4.png" alt=""><img src="images/partner/5.png" alt=""><img src="images/partner/6.png" alt=""><img src="images/partner/7.png" alt=""></div>
@@ -111,9 +155,81 @@
     </div>
 
 
+    <script>  
+      async function updateQuantity(cartId, productId, price, index, count) {
+          console.log('Update quantity function called =============>>>>>> ',cartId, productId, price, index, count);
+         try {
+             let quantityInput = document.getElementById(`sst${index}`);
+             let currentQuantity = parseInt(quantityInput.value);
+            
+            const response = await fetch(`/updateCartQuantity/${productId}`, {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify({
+                     cartId: cartId,
+                     action: count,
+                     newQuantity: count + currentQuantity,
+                 })
+              });
+    
+             const data = await response.json();
+                console.log(data,'  data ----------> ');
+    
+          
+    
+                if (data.success) {
+        quantityInput.value = data.newQuantity;
+        document.getElementById(`total`).innerText = `Rs. ${data.total}`; 
+        document.getElementById(`total${index}`).innerText = `Rs. ${price * data.newQuantity}`;
+
+    } else {
+        console.error('Failed to update quantity:', data.error);
+        quantityInput.value = currentQuantity;
+    
+        if (data.error === 'Quantity exceeds stock limits') {
+            Swal.fire({
+                text: 'Quantity exceeds stock limits',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                customClass: {
+                    title: 'text-danger',
+                    popup: 'swal2-popup-custom',
+                    confirmButton: 'btn btn-danger'
+                },
+                showCancelButton: false,
+                showCloseButton: true,
+                showLoaderOnConfirm: false,
+                timer: 3000
+            });
+        } else {
+            Swal.fire({
+                text: 'Quantity Cannot be zero',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                customClass: {
+                    title: 'text-danger',
+                    popup: 'swal2-popup-custom',
+                    confirmButton: 'btn btn-danger'
+                },
+                showCancelButton: false,
+                showCloseButton: true,
+                showLoaderOnConfirm: false,
+                timer: 3000
+            });
+        }
+    }
+        } catch (error) {
+            console.error('Error parsing cart JSON:', error);
+        }
+    }
+    
+    </script>
+
+
     <%- include('../partials/footer')  %>
 
 
 </body>
-
 </html>

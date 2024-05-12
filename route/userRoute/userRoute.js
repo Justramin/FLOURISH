@@ -13,10 +13,14 @@ const dealOfTheMonth = require('../../controllers/userControllers/dealOf/dealOfT
 const profilePage = require('../../controllers/userControllers/userAccount/profilePage')
 const adress = require('../../controllers/userControllers/userAccount/adress')
 const addAdress = require('../../controllers/userControllers/userAccount/addAdress')
+const editAddress = require('../../controllers/userControllers/userAccount/editeAdress')
 const resetPassword = require('../../controllers/userControllers/userAccount/resetPassword')
 const userProfile = require('../../controllers/userControllers/userAccount/userProfile')
 const userWhishlist =require('../../controllers/userControllers/userWhishlist/userWhishlist')
 const userCart = require('../../controllers/userControllers/userCart/userCart')
+const checkOut = require('../../controllers/userControllers/checkOut/checkOut')
+
+
 
 
 //Gust
@@ -50,17 +54,30 @@ router.get('/profilePage',isUser.isUser,profilePage.profilePage)
 router.get('/address',isUser.isUser,adress.address)
 router.get('/addAddress',isUser.isUser,addAdress.addAddress)
 router.post('/addAddresspost',isUser.isUser,addAdress.addAddresspost)
+router.get('/editAddress/:id',isUser.isUser,editAddress.editeAddress)
+router.post('/editeAddressPost',isUser.isUser,editAddress.editeAddressPost)
+router.get('/deleteAddress/:id',isUser.isUser,editAddress.deleteAddress)
 router.get('/resetPassword',isUser.isUser,resetPassword.resetPassword)
 router.post('/resetPasswordPost',isUser.isUser,resetPassword.resetPasswordPost)
 router.get('/userProfile',isUser.isUser,userProfile.userProfile)
+router.post('/userProfilePost',isUser.isUser,userProfile.userProfilePost)
+
 
 
 //Whishlist
 router.get('/userWhishlist',isUser.isUser,userWhishlist.userWhishlist)
+router.post('/addWhishlist',userWhishlist.addWhishlist)
 
 
 //Cart
 router.get('/userCart',isUser.isUser,userCart.userCart)
+router.post('/addToCart',userCart.addToCart)
+router.post('/updateCartQuantity/:productId/',isUser.isUser,userCart.updateQuantity)
+router.get('/removeToCart/:id',isUser.isUser,userCart.removeToCart)
+
+
+//CheckOut
+router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 
 
 

@@ -18,6 +18,9 @@
     .primary-btn:hover{
         background-color: rgb(17, 129, 17);
     }
+	.form-control{
+		color: rgb(0, 0, 0);
+	}
 
     </style>
 <body>
@@ -56,7 +59,7 @@
 						</p>
 						<h1 style="margin-top:-10%;" >User Profile </h1>
                        
-						<form class="row login_form" action="/profile" method="post">
+						<form class="row login_form" action="/userProfilePost" method="post">
 							<div class="col-md-12 form-group">
                                
 								<input type="text" value="<%= isUser.name%>" class="form-control" id="name" name="username" placeholder="Username">
@@ -64,7 +67,7 @@
 							</div>
 							<div class="col-md-12 form-group">
 
-								<input type="text" value="<%= isUser.email %>" class="form-control" id="email" name="email" placeholder="Email">
+								<input type="text" value="<%= isUser.email %>" class="form-control" id="email" name="email" placeholder="Email" readonly>
                                
 							</div>
 							<% if (isUser.phone) { %>
@@ -93,7 +96,6 @@
 							<span id="submitError"></span>
                             <!-- Vertically centered modal -->
                             <div class="modal-dialog modal-dialog-centered">
-                                 ...
                                 </div>
                     
 						</form>
