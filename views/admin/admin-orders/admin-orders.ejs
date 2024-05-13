@@ -53,8 +53,6 @@
                           <th>SI No:</th>
                           <th>order ID</th>
                           <th>User Name</th>
-                          <th>Price</th>
-                          <th>Address</th>
                           <th>Payment Methode</th>
                           <th>Order Date</th>
                           <th>Status</th>
@@ -62,39 +60,20 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>igHfr4</td>
-                          <td>Justin Ram M</td>
-                          <td>9,900</td>
-                          <th>Punathil House </th>
-                          <th>Razorpay</th>
-                          <th>thu 29 mar 2024</th>
-                          <td>Listed </td>
-                          <td>...</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>igK^54</td>
-                          <td>Arshad Bin Abdhullha</td>
-                          <td>7,900</td>
-                          <th>Ulikkal House </th>
-                          <th>Razorpay</th>
-                          <th>fri 12 apr 2024</th>
-                          <td>Listed </td>
-                          <td>...</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>igNh8</td>
-                          <td>Akhil M</td>
-                          <td>5,900</td>
-                          <th>Moorkhandathil House</th>
+                        
+                          <% for( let i = 0; i < data.length; i++ ) { %>
+                            <tr>
+                            <th scope="row"><%= i+1  %></th>
+                          <td><%= data[i].orderID  %></td>
+                          <td><%= data[i].user  %></td>
                           <th>COD</th>
-                          <th>wed 12 apr 2024</th>
-                          <td>Listed </td>
-                          <td>...</td>
+                          <th><%= data[i].date.toLocaleDateString()  %></th>
+                          <td><%= data[i].status  %> </td>
+                          <td><a class="btn btn-primary" style="color: white;" href="/admin/adminOrderDetail/<%=  data[i].orderID  %>">Details</a></td>
                         </tr>
+                          <% } %>
+                          
+                        
                       </tbody>
                     </table>
                   </div>

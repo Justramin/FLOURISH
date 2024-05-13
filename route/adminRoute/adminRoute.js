@@ -45,7 +45,13 @@ router.post('/admin_editCategory/:id',admin_editCategory.admin_editCategoryPost)
 
 router.get('/admin_banner',admin_banner.admin_banner)
 router.get('/admin_addBanner',admin_addBanner.admin_addBanner)
+
+//order management
 router.get('/admin_orders',admin_orders.admin_orders)
+router.get('/adminOrderDetail/:id',admin_orders.adminOrderDetail)
+router.post('/updateStatus',admin_orders.updateStatus)
+
+
 router.get('/admin_adminMnage',admin_adminMnage.admin_adminManage)
 router.get('/admin_addAdmin',admin_addAdmin.admin_addAdmin)
 router.post('/admin_addAdmin',admin_addAdmin.newAdmin)

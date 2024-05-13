@@ -8,6 +8,7 @@ const userRouter = require('./route/userRoute/userRoute')
 const adminRouter = require('./route/adminRoute/adminRoute')
 const authRouter = require('./route/authRoute/authRoute')
 const connectDB = require('./config/db')
+const nocache = require('nocache');
 
 require('./utils/auth')
 const passport = require('passport')
@@ -15,6 +16,7 @@ const collection = require('./model/userSchema')
 app.use(passport.initialize())
 
 app.use(express.json());
+app.use(nocache());
 
 
 
@@ -32,6 +34,8 @@ app.set('views', [
     path.join(__dirname,'views/user/userWhishlist'),
     path.join(__dirname,'views/user/userCart'),
     path.join(__dirname,'views/user/checkOut'),
+    path.join(__dirname,'views/user/orders'),
+
  
 
 

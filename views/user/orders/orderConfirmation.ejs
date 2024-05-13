@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<%- include('../partials/head') %>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-hhJAYVyrVlbRqysQsau+3E35KWx0pWaf27oV34roF03qYpNoAUVh43RJweuW4zYuwCm/6RrXyjeY8GCt6mpLOA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+<body>
+    <div class="header--sidebar"></div>
+
+
+
+     <!--  Header-->
+
+<%- include('../partials/navbar') %>
+   
+        <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .order-details {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+    
+    </style>
+</head>
+
+<div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
+	<div class="ps-container">
+	  <h3>Shop Page</h3>
+	  <div class="ps-breadcrumb">
+		<ol class="breadcrumb">
+		  <li><a href="index-2.html">Home</a></li>
+          <li class="active">Check Out</li>
+		  <li class="active">Order Confirmation</li>
+		</ol>
+	  </div>
+	</div>
+  </div> 
+
+
+   
+
+     <div class="" style="margin-top: 70px;margin-bottom: 20px;">
+        <div class="container">
+            <h1>Order Confirmation</h1>
+            <div class="order-details">
+                <h2>Your Order</h2>
+                <p>Thank you for your order! Here are the details:</p>
+                <ul>
+                   <p>OrderID : <%= data.orderID  %></p>
+                   <p>Products Count : <%= data.products.length  %></p>
+                   <p>Total Amount : <%=  data.totalOrderValue %></p>
+                   <p>Date :<%= data.date.toLocaleString()  %> </p>
+                </ul>
+                <p>Your order will be shipped soon.</p>
+            </div>
+        </div>
+    <div>
+        <a href="/" class="btn btn-success">Continue Shopping</a>
+    </div>
+    </div>
+
+
+<%- include('../partials/footer')  %>
+
+
+</body>
+
+</html>

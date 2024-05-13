@@ -154,55 +154,42 @@
                       </div>
 
 
-                      <div class="line"></div>
+
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Price</label>
                         <div class="col-sm-9">
-                          <input type="number" name="price" class="form-control" required>
+                          <input type="number" id="priceInput" name="price" class="form-control" required min="1">
+                          <span id="price-error" style="color:red;"></span>
                         </div>
                       </div>
-                      <div class="line"></div>
-
-
-
-
-                      <div class="line"></div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Stock</label>
-                        <div class="col-sm-9">
-                          <input type="number" name="stock" class="form-control" required>
-                        </div>
-                      </div>
-                      <div class="line"></div>
-
-
-                      <div class="line"></div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">OfferPrice</label>
-                        <div class="col-sm-9">
-                          <input type="number" name="offerPrice" class="form-control" required>
-                        </div>
-                      </div>
-                      <div class="line"></div>
-
-
-                      <!-- <div class="line"></div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Image</label>
-                        <div class="col-sm-9">
-                          <input type="file" name="image" class="form-control" multiple>
-                        </div>
-                      </div>
-                      <div class="line"></div> -->
-
-
                       
 
 
 
 
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Stock</label>
+                        <div class="col-sm-9">
+                          <input type="number" id="stockInput" name="stock" class="form-control" required min="1">
+                          <span id="stock-error" style="color:red;"></span>
+                        </div>
+                      </div>
+                      
 
 
+
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Offer Price</label>
+                        <div class="col-sm-9">
+                          <input type="number" id="offerPriceInput" name="offerPrice" class="form-control" required min="1">
+                          <span id="offerPrice-error" style="color:red;"></span>
+                        </div>
+                      </div>
+                    
+
+
+                  
                       <div class="line"></div>
                           <div class="form-group row">
                             <label class="col-sm-3 form-control-label">Image</label>
@@ -215,69 +202,9 @@
                           </div>
                           <div class="line"></div>
 
-                          <!-- JavaScript for image preview and removal -->
-                          <script>
-                            // Function to preview uploaded images
-                            function previewImages(event) {
-                              const imagePreview = document.getElementById('imagePreview');
-                              imagePreview.innerHTML = ''; // Clear previous preview
-                          
-                              const files = event.target.files;
-                              for (let i = 0; i < files.length; i++) {
-                                const file = files[i];
-                                const reader = new FileReader();
-                          
-                                reader.onload = function (e) {
-                                  // Create image element for preview
-                                  const img = document.createElement('img');
-                                  img.src = e.target.result;
-                                  img.classList.add('img-thumbnail');
-                                  img.style.maxWidth = '80px';
-                                  img.style.maxHeight = '80px';
-                          
-                                  // Create button for image removal
-                                  const removeBtn = document.createElement('button');
-                                  removeBtn.textContent = 'Remove';
-                                  removeBtn.classList.add('btn', 'btn-danger', 'btn-sm' ,'mt-1');
-                                  removeBtn.onclick = function () {
-                                    // Remove the corresponding image and button from the preview
-                                    removeImage(img, removeBtn);
-                                    // Clear the file input value to allow selecting the same file again
-                                    // document.getElementById('imageInput').value = '';
-                                  };
-                          
-                                  // Append image and remove button to the preview container
-                                  imagePreview.appendChild(img);
-                                  imagePreview.appendChild(removeBtn);
-                                };
-                          
-                                // Read the image file as a data URL
-                                reader.readAsDataURL(file);
-                                console.log(reader);
-                              }
-                            }
-                          
-                            // Function to remove image and button
-                            function removeImage(img, btn) {
-                              console.log(img,'================');
-                              console.log(btn,'---------------------------');
-                              img.remove();
-                              btn.remove();
-                              
-                            }
-                          </script>
-                          
-                            
-                            
-                          
 
-
-
-
-
-
-
-
+                         
+                          
 
 
                       <div class="form-group row">
@@ -351,6 +278,112 @@
               }
             }
   
+          </script>
+           <script>
+            function validatePrice() {
+              const priceInput = document.getElementById('priceInput');
+              const priceError = document.getElementById('price-error');
+          
+              if (priceInput.value <= 0 || isNaN(priceInput.value)) {
+                priceError.textContent = 'Price must be a positive number.';
+                priceInput.classList.add('is-invalid');
+                return false;
+              } else {
+                priceError.textContent = '';
+                priceInput.classList.remove('is-invalid');
+                return true;
+              }
+            }
+          
+            function validateStock() {
+              const stockInput = document.getElementById('stockInput');
+              const stockError = document.getElementById('stock-error');
+          
+              if (stockInput.value <= 0 || isNaN(stockInput.value)) {
+                stockError.textContent = 'Stock must be a positive number.';
+                stockInput.classList.add('is-invalid');
+                return false;
+              } else {
+                stockError.textContent = '';
+                stockInput.classList.remove('is-invalid');
+                return true;
+              }
+            }
+          
+            function validateOfferPrice() {
+              const offerPriceInput = document.getElementById('offerPriceInput');
+              const offerPriceError = document.getElementById('offerPrice-error');
+          
+              if (offerPriceInput.value <= 0 || isNaN(offerPriceInput.value)) {
+                offerPriceError.textContent = 'Offer price must be a positive number.';
+                offerPriceInput.classList.add('is-invalid');
+                return false;
+              } else {
+                offerPriceError.textContent = '';
+                offerPriceInput.classList.remove('is-invalid');
+                return true;
+              }
+            }
+          
+            // Event listeners for input fields
+            document.getElementById('priceInput').addEventListener('keyup', validatePrice);
+            document.getElementById('stockInput').addEventListener('keyup', validateStock);
+            document.getElementById('offerPriceInput').addEventListener('keyup', validateOfferPrice);
+          </script>
+          
+
+
+
+          <!-- JavaScript for image preview and removal -->
+          <script>
+            // Function to preview uploaded images
+            function previewImages(event) {
+              const imagePreview = document.getElementById('imagePreview');
+              imagePreview.innerHTML = ''; // Clear previous preview
+          
+              const files = event.target.files;
+              for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+          
+                reader.onload = function (e) {
+                  // Create image element for preview
+                  const img = document.createElement('img');
+                  img.src = e.target.result;
+                  img.classList.add('img-thumbnail');
+                  img.style.maxWidth = '80px';
+                  img.style.maxHeight = '80px';
+          
+                  // Create button for image removal
+                  const removeBtn = document.createElement('button');
+                  removeBtn.textContent = 'Remove';
+                  removeBtn.classList.add('btn', 'btn-danger', 'btn-sm' ,'mt-1');
+                  removeBtn.onclick = function () {
+                    // Remove the corresponding image and button from the preview
+                    removeImage(img, removeBtn);
+                    // Clear the file input value to allow selecting the same file again
+                    // document.getElementById('imageInput').value = '';
+                  };
+          
+                  // Append image and remove button to the preview container
+                  imagePreview.appendChild(img);
+                  imagePreview.appendChild(removeBtn);
+                };
+          
+                // Read the image file as a data URL
+                reader.readAsDataURL(file);
+                console.log(reader);
+              }
+            }
+          
+            // Function to remove image and button
+            function removeImage(img, btn) {
+              console.log(img,'================');
+              console.log(btn,'---------------------------');
+              img.remove();
+              btn.remove();
+              
+            }
           </script>
 
 

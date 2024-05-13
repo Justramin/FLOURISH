@@ -21,10 +21,10 @@ const cartSchema = new mongoose.Schema({
                type : Number,
                require : true
            },
-           stock : {
-               type : Number,
-               require : true
-           },
+        //    stock : {
+        //        type : Number,
+        //        require : true
+        //    },
            price : {
                type : Number,
                required : true

@@ -19,6 +19,7 @@ const userProfile = require('../../controllers/userControllers/userAccount/userP
 const userWhishlist =require('../../controllers/userControllers/userWhishlist/userWhishlist')
 const userCart = require('../../controllers/userControllers/userCart/userCart')
 const checkOut = require('../../controllers/userControllers/checkOut/checkOut')
+const orders = require('../../controllers/userControllers/orders/orderConfirmation')
 
 
 
@@ -78,6 +79,13 @@ router.get('/removeToCart/:id',isUser.isUser,userCart.removeToCart)
 
 //CheckOut
 router.get('/checkOut',isUser.isUser,checkOut.checkOut)
+router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
+
+//orders
+router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)
+router.get('/orderHistory',isUser.isUser,orders.orderHistory)
+router.get('/orderDetail/:id',isUser.isUser,orders.orderDetail)
+router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
 
 
 

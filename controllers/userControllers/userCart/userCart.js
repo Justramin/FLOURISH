@@ -107,7 +107,7 @@ const updateQuantity = async (req, res) => {
         const price = cart.items[itemIndex].price;
         const opid = cart.items[itemIndex].productId;
         const product = await productCollection.findOne({ _id: opid });
-        const stockLimit2 = product.stock.quantity;
+        const stockLimit2 = product.stock;
 
         let updatedQuantity;
 
@@ -119,7 +119,13 @@ const updateQuantity = async (req, res) => {
             return res.status(400).json({ success: false, error: "Invalid action!!" });
         }
 
-        if (updatedQuantity > stockLimit2 && action == '1') {
+        if (updatedQuantity > 5){
+            console.log('stock limit')
+            return res
+                .status(400)
+                .json({ success: false, error: "Only 5 items in a single order" });
+        }
+        else if (updatedQuantity > stockLimit2 && action == '1') {
             return res
                 .status(400)
                 .json({ success: false, error: "Quantity exceeds stock limits" });
@@ -128,6 +134,7 @@ const updateQuantity = async (req, res) => {
                 .status(400)
                 .json({ success: false, error: "Quantity cannot be zero" });
         }
+
 
         cart.items[itemIndex].quantity = updatedQuantity;
 
