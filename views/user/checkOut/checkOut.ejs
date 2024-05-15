@@ -188,7 +188,8 @@
                   <div class="row" style="display: flex; ">
 
 
-                    <!-- <div > -->
+                    <% if (address) { %>
+                     <!-- <div > -->
                       <% for( let i = 0; i < address.address.length; i++ ) { %>
 
                         <div class="card" style="width: 400px;margin-right: 5%;">
@@ -209,6 +210,9 @@
                         </div>
                       
                       <% } %>
+                      
+                    <% } %>
+                    
                       
 
 

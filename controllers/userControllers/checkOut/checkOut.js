@@ -12,7 +12,6 @@ const checkOut = async(req,res)=>{
     try {
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
-        console.log(addressData,'././././././././././');
         res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
     } catch (error) {
         console.error('Error in checkOut:', error);
@@ -30,7 +29,6 @@ const placeOrder = async (req,res)=>{
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
         const address = addressData.address[index]
 
-        console.log(new Date())
 
         const orderId = otpGenerator.generate(16,
             {
@@ -61,7 +59,6 @@ const placeOrder = async (req,res)=>{
                 productData.push(obj);
             }
             
-            console.log(productData,'...........................');
             
         const newOrder = new orderCollection({
             userID:req.session.isUser._id,

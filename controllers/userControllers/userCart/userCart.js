@@ -120,7 +120,6 @@ const updateQuantity = async (req, res) => {
         }
 
         if (updatedQuantity > 5){
-            console.log('stock limit')
             return res
                 .status(400)
                 .json({ success: false, error: "Only 5 items in a single order" });

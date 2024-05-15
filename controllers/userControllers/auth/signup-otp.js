@@ -31,7 +31,6 @@ const signupWithOtp = async (req, res) => {
             if (timeDifference <= 30000) {
                 const userData = req.session.userData;
                 const value = await collection.create([userData]);
-                console.log(value);
                 req.session.userDetails=null
                 res.redirect('/');
             } else {

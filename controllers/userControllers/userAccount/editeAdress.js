@@ -57,9 +57,7 @@ const editeAddressPost = async(req,res)=>{
 const deleteAddress = async(req,res)=>{
     try {
         const userAddress = await addressCollection.findOne({ userID: req.session.isUser._id });
-        console.log(userAddress)
         const addressData = userAddress.address[req.params.id];
-        console.log(addressData,"-----",req.params.id);
         const result = await addressCollection.updateOne(
             { _id: userAddress._id },
             { $pull: { address: addressData } }

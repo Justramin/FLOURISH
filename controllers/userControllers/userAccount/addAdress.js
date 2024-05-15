@@ -20,7 +20,6 @@ const addAddresspost = async(req,res)=>{
         const userAddress = req.body
         const userAddressData = await addressCollection.find({ userID:req.session.isUser._id});
 
-        console.log(userAddressData);
         let addressData = {
             name: userAddress.name,
             mobile: userAddress.mobile,
@@ -35,7 +34,6 @@ const addAddresspost = async(req,res)=>{
         };
 
         if (userAddressData.length > 0) {
-            console.log('userAddress found')
 
             const data = await addressCollection.updateOne(
                 { _id: userAddressData[0]._id },
