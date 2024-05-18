@@ -80,6 +80,7 @@ router.get('/removeToCart/:id',isUser.isUser,userCart.removeToCart)
 //CheckOut
 router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
+router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
 
 //orders
 router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)

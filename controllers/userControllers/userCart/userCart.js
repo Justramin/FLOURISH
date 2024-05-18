@@ -41,35 +41,45 @@ const addToCart = async (req,res)=>{
         }
         let cartTotal = totalPrice;
 
+        
+
+
         if(cartData){
-            let itemExists = false;
-            //let flag = true
+            let itemExists = true;
             for(let i=0;i<cartData.items.length;i++){
-                if (cartData.items[i].productId.equals(productData._id)) {
-                    const updateCart = await cartCollection.updateOne(
-                        { userId: req.session.isUser._id },
-                        {$inc: {[`items.${i}.quantity`]: quantity} }
-                    );
-                    message ="Product added! Quantity increased in your cart."
-                    //flag =false   
+                if(cartData.items[i].productId.equals(productData._id)) {
+
+                    if(productData.stock >= cartData.items[i].quantity+quantity){
+                        const newQuantity = cartData.items[i].quantity + quantity;
+                        const newProductTotal = newQuantity * productData.offerPrice;
+                        const updateCart = await cartCollection.updateOne(
+                            { userId: req.session.isUser._id, "items.productId": productData._id },
+                            {
+                                $set: { [`items.${i}.quantity`]: newQuantity, [`items.${i}.Product_total`]: newProductTotal },
+                                $inc: { Cart_total: totalPrice }
+                            }
+                        );
+                        itemExists = false;
+                        message ="Product added! Quantity increased in your cart."
+                        break;  
+                    }else{
+                        itemExists = false;
+                        message ="Out of stock"
+                        break;  
+                    }
+                    
                 }
             }
-            if(!itemExists){
+            if(itemExists){
                 cartData.items.push(items);
-                    cartTotal += cartData.Cart_total;
-                    await cartCollection.updateOne(
-                        { userId: req.session.isUser._id },
-                        { $set: { items: cartData.items, Cart_total: cartTotal } }
-                    );
-                    message = "Product added to your cart.";
-                }
-            //     const data = await cartCollection.updateOne(
-            //         {userId:req.session.isUser._id},
-            //         {$push:{items:items}
-            //     })
-            //     message = "Added to your cart"
-            // }
-            // // const alreadyData = await cartCollection.findOne({userId})
+                cartTotal += cartData.Cart_total;
+                await cartCollection.updateOne(
+                    { userId: req.session.isUser._id },
+                    { $set: { items: cartData.items, Cart_total: cartTotal } }
+                );
+                message = "Product added to your cart.";
+            }
+
         }else{
             const newCart = new cartCollection({
                 userId:req.session.isUser._id,
@@ -89,6 +99,10 @@ const addToCart = async (req,res)=>{
 }
 
 
+
+
+
+
 const updateQuantity = async (req, res) => {
     console.log('updateQuantity reached =============== { } =========  ');
     try {
@@ -98,7 +112,7 @@ const updateQuantity = async (req, res) => {
         const cart = await cartCollection.findOne({ _id: cartId });
         const itemIndex = cart.items.findIndex(item => item._id == productId);
 
-        if (itemIndex === -1) {
+        if(itemIndex === -1) {
             return res.status(404).json({ success: false, error: 'Item not found in cart' });
         }
 
@@ -111,20 +125,20 @@ const updateQuantity = async (req, res) => {
 
         let updatedQuantity;
 
-        if (action == '1') {
+        if(action == '1') {
             updatedQuantity = currentQuantity + 1;
-        } else if (action == '-1') {
+        } else if(action == '-1') {
             updatedQuantity = currentQuantity - 1;
         } else {
             return res.status(400).json({ success: false, error: "Invalid action!!" });
         }
 
-        if (updatedQuantity > 5){
+        if(updatedQuantity > 5){
             return res
                 .status(400)
                 .json({ success: false, error: "Only 5 items in a single order" });
         }
-        else if (updatedQuantity > stockLimit2 && action == '1') {
+        else if(updatedQuantity > stockLimit2 && action == '1') {
             return res
                 .status(400)
                 .json({ success: false, error: "Quantity exceeds stock limits" });

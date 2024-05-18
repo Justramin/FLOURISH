@@ -85,7 +85,55 @@ const placeOrder = async (req,res)=>{
 }
 
 
+
+
+const newAddressCheckOut = async(req,res)=>{
+    try {
+        const userAddress = req.body
+        console.log(userAddress,'-------------ithe body data');
+        const userAddressData = await addressCollection.find({ userID:req.session.isUser._id});
+        console.log(userAddressData,'-----------------ithe database Data');
+
+        let addressData = {
+            name: userAddress.name,
+            mobile: userAddress.mobile,
+            email: userAddress.email,
+            housename: userAddress.housename,
+            street: userAddress.street,
+            state: userAddress.state,
+            pincode: userAddress.pincode,
+            city: userAddress.city,
+            country: userAddress.country,
+            save_as: userAddress.saveas
+        };
+
+        if (userAddressData.length > 0) {
+
+            const data = await addressCollection.updateOne(
+                { _id: userAddressData[0]._id },
+                { $push: { address: addressData } },
+            );
+        } else {
+            let address = new addressCollection({
+                userID: req.session.isUser._id,
+                address: [addressData]
+            })
+
+            await address.save()
+        }
+
+        res.redirect('/checkOut')
+        
+    } catch (error) {
+        console.error('Error in newAddressCheckOut:', error);
+        res.redirect('/userError')
+    }  
+}
+
+
+
 module.exports = {
     checkOut,
-    placeOrder
+    placeOrder,
+    newAddressCheckOut,
 }
