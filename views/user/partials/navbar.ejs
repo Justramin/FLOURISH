@@ -1,113 +1,124 @@
- <header class="header" data-sticky="true">
-      <div class="header__top">
-        <div class="ps-container">
-          <div class="row">
-                <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
-                </div>
-                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-
-                  <% if (isUser) { %>
-                    
-                    
-                    <div class="header__actions">
-                      <a><%= isUser.name %></a>
-                      <a href="/logout">Logout </a>
-                      
-                      <% } else { %>
-                        <div class="header__actions"><a href="/login">Login & Regiser</a>
-                  <% } %>
-                  
-                  </div>
-                </div>
-          </div>
-        </div>
-      </div>
-      <nav class="navigation">
-        <div class="ps-container"><a class="ps-logo" href="index-2.html"><img src="/user/images/logo.png" alt=""></a>
-              <ul class="main-menu menu">
-                <li><a href="/dealOfTheMonth">DEAL OF THE MONTH</a></li>
-                <li><a href="/">HOME PAGE</a></li>
-                <li><a href="/product">PRODUCT PAGE</a></li>
-                <li><a href="/profilePage">ACCOUNT</a></li>
-              </ul>
-
-
-
+<header class="header" data-sticky="true">
+  <div class="header__top">
+    <div class="ps-container">
+      <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
+            </div>
+            <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
 
               <% if (isUser) { %>
-          <div class="menu-toggle"><span></span></div>
-          <div class="ps-cart">
-            <a class="ps-cart__toggle" href="/userCart">
-            <span><i>20</i></span><img src="/user/images/market.svg" alt=""></a>
-            
-              <div class="ps-cart__listing">
-                <div class="ps-cart__content">
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/1.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Kingsman</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/2.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Joseph</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/3.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Todd Snyder</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="ps-cart__total">
-                  <p>Number of items:<span>36</span></p>
-                  <p>Item Total:<span>£528.00</span></p>
-                </div>
-                <div class="ps-cart__footer"><a class="ps-btn" href="cart.html">CHECK OUT<i class="furniture-next"></i></a></div>
+                
+                
+                <div class="header__actions">
+                  <a><%= isUser.name %></a>
+                  <a href="/logout">Logout </a>
+                  
+                  <% } else { %>
+                    <div class="header__actions"><a href="/login">Login & Regiser</a>
+              <% } %>
+              
               </div>
             </div>
-  
-            <div class="ps-cart">
-              <a class="ps-cart__toggle" href="/userWhishlist">
-              <span><i>20</i></span><img class="mr-10" src="/user/images/whishlist.svg" alt=""></a>
-              <div class="ps-cart__listing">
-                <div class="ps-cart__content">
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/1.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Kingsman</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/2.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Joseph</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                  <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/user/images/shopping-cart/3.jpg" alt=""></div>
-                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html">Todd Snyder</a>
-                      <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="ps-cart__total">
-                  <p>Number of items:<span>36</span></p>
-                  <p>Item Total:<span>£528.00</span></p>
-                </div>
-                <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">SHOPPING CART<i class="furniture-next"></i></a></div>
-              </div>
-            </div>
-            <% } %>
+      </div>
+    </div>
+  </div>
+  <nav class="navigation">
+    <div class="ps-container"><a class="ps-logo" href="index-2.html"><img src="/user/images/logo.png" alt=""></a>
+          <ul class="main-menu menu">
+            <li><a href="/dealOfTheMonth">DEAL OF THE MONTH</a></li>
+            <li><a href="/">HOME PAGE</a></li>
+            <li><a href="/product">PRODUCT PAGE</a></li>
+            <li><a href="/profilePage">ACCOUNT</a></li>
+          </ul>
 
-          <!-- <form class="ps-form--search" action="http://warethemes.com/html/flourish/do_action" method="post"><i class="furniture-search"></i>
-            <input class="form-control" type="text" placeholder="Find product">
-            <button>Search</button>
-          </form> -->
+
+
+
+          <% if (isUser) { %>
+
+
+
+            <% if (cartData && cartData.items && cartData.items.length > 0) { %>
+
+      <div class="menu-toggle"><span></span></div>
+      <div class="ps-cart">
+        <a class="ps-cart__toggle" href="/userCart">
+        <span><i><%= cartData.items.length %></i></span><img src="/user/images/market.svg" alt=""></a>
         
-        
+          <div class="ps-cart__listing">
+            <div class="ps-cart__content">
+
+              
+               
+             
+
+              <% for( let i = 0; i < cartData.items.length; i++ ) { %>
+              
+             
+
+
+              <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
+                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= cartData.items[i].Image %>" alt=""></div>
+                <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%=  cartData.items[i].productId.productName %></a>
+                  <p><span>Quantity:<i><%= cartData.items[i].quantity %></i></span><span>Total:<i><%= cartData.items[i].Product_total %></i></span></p>
+                </div>
+              </div>
+
+              <% } %>
+            </div>
+            <div class="ps-cart__total">
+              <p>Number of items:<span><%= cartData.items.length %></span></p>
+              <p>Item Total:<span><%= cartData.Cart_total %></span></p>
+            </div>
+            <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">CHECK OUT<i class="furniture-next"></i></a></div>
+          </div>
         </div>
-      </nav>
-    </header>
+
+        <% } %>
+
+
+        <% if (whishlistData && whishlistData.items && whishlistData.items.length > 0) { %>
+         
+       
+
+        <div class="ps-cart">
+          <a class="ps-cart__toggle" href="/userWhishlist">
+          <span><i><%= whishlistData.items.length %></i></span><img class="mr-10" src="/user/images/whishlist.svg" alt=""></a>
+          <div class="ps-cart__listing">
+            <div class="ps-cart__content">
+
+              <% for( let i = 0; i < whishlistData.items.length; i++ ) { %>
+              
+             
+              <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
+                <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= whishlistData.items[i].Image %>" alt=""></div>
+                <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%= whishlistData.items[i].product %></a>
+                  <!-- <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p> -->
+                </div>
+              </div>
+
+              <% } %>
+              
+            </div>
+            <div class="ps-cart__total">
+              <p>Number of items:<span><%= whishlistData.items.length %></span></p>
+            </div>
+            <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">SHOPPING CART<i class="furniture-next"></i></a></div>
+          </div>
+        </div>
+
+       
+
+        <% } %>
+
+        <% } %>
+
+      <!-- <form class="ps-form--search" action="http://warethemes.com/html/flourish/do_action" method="post"><i class="furniture-search"></i>
+        <input class="form-control" type="text" placeholder="Find product">
+        <button>Search</button>
+      </form> -->
+    
+    
+    </div>
+  </nav>
+</header>

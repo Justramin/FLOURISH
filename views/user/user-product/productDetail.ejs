@@ -43,24 +43,13 @@
                       <% for( let i = 0; i < data.image.length; i++ ) { %>
                         <div class="item"><a class="MagicZoom" id="Mag" href="/uploads/<%= data.image[i] %>"><img src="/uploads/<%= data.image[i] %>" alt=""></a></div>
                       <% } %>
-                     
-
-
-                      <!-- <div class="item"><a href="/uploads/<%#= data.image[1] %>"><img src="/uploads/<%#= data.image[1] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%#= data.image[2] %>"><img src="/uploads/<%#= data.image[2] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%#= data.image[3] %>"><img src="/uploads/<%#= data.image[3] %>" alt=""></a></div>
-                      <div class="item"><a href="/uploads/<%#= data.image[4] %>"><img src="/uploads/<%#= data.image[4] %>" alt=""></a></div> -->
                     </div>
+
                     <div class="ps-product__preview">
                       <div class="ps-product__variants">
                         <% for( let i = 0; i < data.image.length; i++ ) { %>
                           <div class="item"><img src="/uploads/<%= data.image[i] %>" alt=""></div>
                         <% } %>
-                        
-                        <!-- <div class="item"><img src="/uploads/<#%= data.image[1] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<#%= data.image[2] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<#%= data.image[3] %>" alt=""></div>
-                        <div class="item"><img src="/uploads/<#%= data.image[4] %>" alt=""></div> -->
                       </div>
                       <div class="ps-video"><a class="popup-youtube ps-product__video" href="https://www.youtube.com/watch?v=meBbDqAXago"><img src="user/images/product/detail/variant-5.jpg" alt=""><i class="fa fa-play"></i></a></div>
                     </div>
@@ -116,8 +105,8 @@
                         <input class="form-control" type="text" value="1"><span class="up"></span><span class="down"></span>
                       </div>
                     </div>
-                    <div class="ps-product__shopping"><a class="ps-btn" href="cart.html">Add To Cart</a>
-                      <div class="ps-product__actions"><a class="mr-10" href="/userWhishlist"><i class="furniture-heart"></i></a><a href="compare.html" title="Compare"><i class="furniture-reload"></i></a></div>
+                    <div class="ps-product__shopping"><a class="ps-btn" onclick="addToCart('<%= data._id %>')">Add To Cart</a>
+                      <div class="ps-product__actions"><a class="mr-10" onclick="whishlist('<%= data._id %>')"><i class="furniture-heart"></i></a><a href="compare.html" title="Compare"><i class="furniture-reload"></i></a></div>
                     </div>
                     <div class="ps-product__sharing">
                       <p>Share this:<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a></p>
@@ -308,7 +297,144 @@
    
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+    <script>//ADD TO CART
+      function addToCart(id){
+          // Stringify the id once
+          const data = JSON.stringify({ id: id });
+          console.log(data);
+  
+          fetch('/addToCart', {
+              body: data,
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json' // Specify the content type
+              }
+          })
+          .then(response => {
+
+            if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+
+            
+          }).then(data=>{
+               // Handle the response as needed
+              console.log('Response received:', data);
+              console.log(data.success)
+              if(data.success){
+
+
+                console.log(data.message);
+                if(data.message == "Out of stock" || data.message == "Only 5 items can be added"){
+                  Swal.fire({
+                    // position: "top-end",
+                    icon: "warning",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2500
+                });  
+                }else{
+                  Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2500
+                });  
+                }  
+
+              }else{
+                              Swal.fire({
+                title: "You are Not Loged in",
+                text: "Do you want go Login. Press Login!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Login!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '/login';
+                }
+              });
+                
+
+              }
+          })
+          .catch(error => {
+              // Handle any errors
+              console.error('Error occurred:', error);
+          });
+      }
+  </script>
+
+
+
+
+<script>//WHISHLIST
+
+  function whishlist(id){
+    console.log('whishlist clicked');
+          console.log(id);
+          // Stringify the id once
+          const data = JSON.stringify({ id: id });
+          console.log(data);
+
+          fetch('/addWhishlist', {
+              body: data,
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json' // Specify the content type
+              }
+          })
+          .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+                return response.json();
+            }).then(data=>{
+               // Handle the response as needed
+                console.log('Response received:', data);
+                console.log(data.success)
+              if(data.success){
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2500
+                });   
+
+              }else{
+                Swal.fire({
+                    title: "You are Not Loged in",
+                    text: "Do you want go Login. Press Login!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Login!"
+                }).then((result) => 
+              {
+                
+              if (result.isConfirmed) {
+                  window.location.href = '/login';
+                }
+              });
+            }
+          })
+          .catch(error => {
+              // Handle any errors
+              console.error('Error occurred:', error);
+          });
+  }
+
+
+  </script>
 
 
     <script src="/user/js/magicZoom.js"></script>

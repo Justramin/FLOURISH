@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const isUser = require('../../utils/isUserMiddleware')
+const {whishlistcart }= require('../../utils/navbarMiddleware')
+
+
 
 const userError = require('../../controllers/userControllers/404Error/404Error')
 const signup=require('../../controllers/userControllers/auth/signup')
@@ -23,6 +26,7 @@ const orders = require('../../controllers/userControllers/orders/orderConfirmati
 
 
 
+router.use(whishlistcart)
 
 //Gust
 router.get('/signup',signup.user_signup)
@@ -51,7 +55,7 @@ router.get('/userError',userError.userError)
 //Users Only
 
 //User Account
-router.get('/profilePage',isUser.isUser,profilePage.profilePage)
+router.get('/profilePage',profilePage.profilePage)
 router.get('/address',isUser.isUser,adress.address)
 router.get('/addAddress',isUser.isUser,addAdress.addAddress)
 router.post('/addAddresspost',isUser.isUser,addAdress.addAddresspost)
@@ -68,6 +72,7 @@ router.post('/userProfilePost',isUser.isUser,userProfile.userProfilePost)
 //Whishlist
 router.get('/userWhishlist',isUser.isUser,userWhishlist.userWhishlist)
 router.post('/addWhishlist',userWhishlist.addWhishlist)
+router.get('/wishlistRemove',isUser.isUser,userWhishlist.wishlistRemove)
 
 
 //Cart
@@ -79,6 +84,7 @@ router.get('/removeToCart/:id',isUser.isUser,userCart.removeToCart)
 
 //CheckOut
 router.get('/checkOut',isUser.isUser,checkOut.checkOut)
+router.post('/checkOutPost',isUser.isUser,checkOut.checkOutPost)
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
 router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
 

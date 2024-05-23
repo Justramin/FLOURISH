@@ -8,11 +8,59 @@ const otpGenerator = require('otp-generator')
 
 
 
+
+
 const checkOut = async(req,res)=>{
     try {
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
-        res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
+        let outOfStock = false;
+        for(let i=0;i<cartData.items.length;i++){
+            const data = await productCollection.findOne({_id:cartData.items[i].productId});
+            if(data.stock === 0){
+                outOfStock = true;
+                break
+            }
+        }
+        if(outOfStock){
+            res.json({ outOfStock: outOfStock });
+        }else{
+            res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
+        }
+        
+    } catch (error) {
+        console.error('Error in checkOut:', error);
+        res.redirect('/userError')
+    }
+    
+}
+
+
+
+
+
+
+
+const checkOutPost = async(req,res)=>{
+    try {
+        const { cartId } = req.body;
+        const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
+        const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
+        let outOfStock = false;
+        for(let i=0;i<cartData.items.length;i++){
+            const data = await productCollection.findOne({_id:cartData.items[i].productId});
+            if(data.stock === 0){
+                outOfStock = true;
+                break
+            }
+        }
+        if(outOfStock){
+            res.json({ outOfStock: outOfStock });
+        }else{
+            res.json({ outOfStock: '' });
+            // res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
+        }
+        
     } catch (error) {
         console.error('Error in checkOut:', error);
         res.redirect('/userError')
@@ -79,7 +127,7 @@ const placeOrder = async (req,res)=>{
 
         res.redirect(`/orderConfirmation?id=${orderId}`)
     }catch(error){
-        console.error('Error in placeOrder',error);
+        console.error('Error in checkOutPost',error);
         res.redirect('/userError');
     }
 }
@@ -134,6 +182,7 @@ const newAddressCheckOut = async(req,res)=>{
 
 module.exports = {
     checkOut,
+    checkOutPost,
     placeOrder,
     newAddressCheckOut,
 }

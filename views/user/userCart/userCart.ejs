@@ -3,7 +3,7 @@
   
 <%- include('../partials/head') %>
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <body>
     <div class="header--sidebar"></div>
 
@@ -31,13 +31,13 @@
           <table class="table ps-cart__table">
             <thead>
               <tr>
-                <th>Products</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Availability</th>
-                <th>Quantity</th> 
-                <th>Total</th>
-                <th></th>
+                <th >Products</th>
+                <th >Name</th>
+                <th >Price</th>
+                <th >Availability</th>
+                <th >Quantity</th> 
+                <th >Total</th>
+                <th ></th>
               </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
 
                   <% if (item.productId.stock) { %>
                     <tr>
-                      <td ><a class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px;" class="mr-8" src="/uploads/<%= item.Image %>"alt=""></a></td>
+                      <td ><a class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px; " class="mr-8" src="/uploads/<%= item.Image %>"alt=""></a></td>
                       <td><%= item.productId.productName %></td>
                       <td>Rs.<%= item.price %></td>
                       <td>
@@ -76,7 +76,8 @@
                     </tr>
                     <% } else { %>
                       <tr style="color: red;">
-                        <td><a style="color: red;" class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px;" class="mr-8" src="/uploads/<%= item.Image %>"alt=""><%= item.productId.productName %></a></td>
+                        <td><a style="color: red;" class="ps-product--compare" href="product-detail.html"><img style="border-radius: 5px;" class="mr-8" src="/uploads/<%= item.Image %>"alt=""></a></td>
+                        <td><%= item.productId.productName %></td>
                         <td>Rs.<%= item.price %></td>
                         <td>
                           
@@ -137,7 +138,7 @@
               </div>
             </div>
             <div class="ps-cart__total">
-              <h3 >Total Price: <span id="total"> Rs. <%= cartData.Cart_total %></span></h3><a class="ps-btn" href="/checkOut">Process to checkout</a>
+              <h3 >Total Price: <span id="total"> Rs. <%= cartData.Cart_total %></span></h3><a class="ps-btn" onclick="CheckOut('<%= cartData._id %>')" >Process to checkout</a>
             </div>
           </div>
 
@@ -227,8 +228,72 @@
             console.error('Error parsing cart JSON:', error);
         }
     }
-    
     </script>
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<!-- Check outoff Stock or Not -->
+<script>
+async function CheckOut(cartData){
+  try {
+    console.log('----------ithaannu ejs inta ullilulla consoleee...---------');
+    const response = await fetch('/checkOutPost', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ cartId: cartData })
+    });
+
+    const data = await response.json();
+
+    if (data.outOfStock) {
+      toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+
+toastr["warning"]("Remove out-of-stock items to proceed ! ")
+
+
+
+
+
+
+    } else {
+      window.location.href = '/checkOut';
+    }
+  } catch (error) {
+    console.error('Error checking stock:', error);
+  }
+}
+</script>
+
+
+
+
+
 
 
 <!-- Cart Delete  -->

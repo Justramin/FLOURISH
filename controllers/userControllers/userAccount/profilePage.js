@@ -2,7 +2,11 @@
 
 const profilePage = async(req,res)=>{
     try {
-        res.render('profilePage',{isUser:req.session.isUser})
+        if(req.session.isUser){
+            res.render('profilePage',{isUser:req.session.isUser})
+        }else{
+            res.redirect('/login')
+        }
     } catch (error) {
         console.error('Error in profilePage:', error);
         res.redirect('/userError');

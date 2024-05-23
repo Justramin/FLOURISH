@@ -62,9 +62,24 @@ const addWhishlist = async(req,res)=>{
 
 
 
+const wishlistRemove = async(req,res)=>{
+    try {
+        const index = req.query.index
+        const whishlistData = await whishlistCollection.findOne({userId:req.session.isUser._id})
+        whishlistData.items.splice(index,1)
+        await whishlistData.save()
+        res.redirect('/userWhishlist')
+    } catch (error) {
+        console.error('Error in wishlistRemove:', error);
+        res.redirect('/userError')
+    }  
+}
+
+
 
 
 module.exports = {
     userWhishlist,
-    addWhishlist
+    addWhishlist,
+    wishlistRemove
 }

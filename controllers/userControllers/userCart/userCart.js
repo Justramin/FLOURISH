@@ -52,6 +52,11 @@ const addToCart = async (req,res)=>{
                     if(productData.stock >= cartData.items[i].quantity+quantity){
                         const newQuantity = cartData.items[i].quantity + quantity;
                         const newProductTotal = newQuantity * productData.offerPrice;
+                        if(newQuantity > 5){
+                            itemExists = false;
+                        message ="Only 5 items can be added"
+                        break;
+                        }
                         const updateCart = await cartCollection.updateOne(
                             { userId: req.session.isUser._id, "items.productId": productData._id },
                             {

@@ -69,8 +69,10 @@ router.get('/productStatus/:id',admin_productManage.admin_productStatus)
 router.get('/errorPage',errorPage.errorPage)
 
 
+router.post('/adminAddCoupensPost',admin_addCoupens.adminAddCoupensPost)
 
 
 module.exports = router
+
 
 
