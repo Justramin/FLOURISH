@@ -11,7 +11,7 @@ const sendMail = async (email,name,otp) => {
       secure:true,
       auth: {
         user: "justramin000@gmail.com",
-        pass: "mipj aiby fcfc lwwd",
+        pass: "slbc tvdv upse gayc",
       },
     });
 
@@ -25,6 +25,7 @@ const sendMail = async (email,name,otp) => {
     }); 
   } catch (error) {
     console.log('node mail error ',error)
+    res.redirect('/userError')
   }
   
 };

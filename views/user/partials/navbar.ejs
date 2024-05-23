@@ -57,7 +57,7 @@
              
 
 
-              <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
+              <div class="ps-cart-item">
                 <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= cartData.items[i].Image %>" alt=""></div>
                 <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%=  cartData.items[i].productId.productName %></a>
                   <p><span>Quantity:<i><%= cartData.items[i].quantity %></i></span><span>Total:<i><%= cartData.items[i].Product_total %></i></span></p>
@@ -68,9 +68,9 @@
             </div>
             <div class="ps-cart__total">
               <p>Number of items:<span><%= cartData.items.length %></span></p>
-              <p>Item Total:<span><%= cartData.Cart_total %></span></p>
+              <p>Total Price:<span><%= cartData.Cart_total %></span></p>
             </div>
-            <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">CHECK OUT<i class="furniture-next"></i></a></div>
+            <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">SHOPPING CART<i class="furniture-next"></i></a></div>
           </div>
         </div>
 
@@ -90,10 +90,10 @@
               <% for( let i = 0; i < whishlistData.items.length; i++ ) { %>
               
              
-              <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
+              <div class="ps-cart-item">
                 <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= whishlistData.items[i].Image %>" alt=""></div>
                 <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%= whishlistData.items[i].product %></a>
-                  <!-- <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p> -->
+                  <p><span>Price:<i><%= whishlistData.items[i].Price %></i></span></p>
                 </div>
               </div>
 
@@ -103,7 +103,7 @@
             <div class="ps-cart__total">
               <p>Number of items:<span><%= whishlistData.items.length %></span></p>
             </div>
-            <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">SHOPPING CART<i class="furniture-next"></i></a></div>
+            <div class="ps-cart__footer"><a class="ps-btn" href="/userWhishlist">WHISH LIST<i class="furniture-next"></i></a></div>
           </div>
         </div>
 

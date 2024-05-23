@@ -20,12 +20,7 @@
         </div>
     <% } %>
 
-    <!-- Display error flash message -->
-    <% if (messages.error) { %>
-        <div id="error" style="color:rgb(145, 8, 8); font-size: 22px; font-weight: bold;" class="alert alert-warning">
-            <%= messages.error %>
-        </div>
-    <% } %>
+    
 
 
  
@@ -38,21 +33,47 @@
         <div class="input-field">
             <input type="text" name="name" value="<%= details.name %>" id="name" onkeyup="validateName()" required />
             <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
-            <span id="name-error" style="font-weight: bold; font-size: 18px;"></span>
-
+            <span id="name-error" style="font-weight: bold; font-size: 18px;">
+                 <!-- Display error flash message -->
+    <% if (messages.nameError) { %>
+        <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.nameError %>
         </div>
+    <% } %>
+            </span>
+        </div>
+       
+
         <div class="input-field">
-            <input type="text" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()" required />
+            <input type="email" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()" required />
             <label style="color: black; ">ENTER EMAIL</label>
-            <span id="email-error" style="font-weight: bold; font-size: 18px;"></span>
-
+            <span id="email-error" style="font-weight: bold; font-size: 18px;">
+                 <!-- Display error flash message -->
+    <% if (messages.emailError) { %>
+        <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.emailError %>
         </div>
+    <% } %>
+            </span>
+        </div>
+
+       
+
+
         <div class="input-field">
-            <input type="tel" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()" required />
+            <input type="number" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()" required />
             <label style="color: black; ">ENTER PHONE NUMBER</label>
-            <span id="phone-error" style="font-weight: bold; font-size: 18px;"></span>
-
+            <span id="phone-error" style="font-weight: bold; font-size: 18px;">
+                         <!-- Display error flash message -->
+    <% if (messages.numberError) { %>
+        <div id="error" style="color:rgb(255, 0, 0); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.numberError %>
         </div>
+    <% } %>
+            </span>
+        </div>
+
+   
 
 
 
@@ -63,21 +84,51 @@
             <div class="input-field">
                 <input type="text" name="name" id="name" onkeyup="validateName()" required />
                 <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
-                <span id="name-error" style="font-weight: bold; font-size: 18px;"></span>
-
+                <span id="name-error" style="font-weight: bold; font-size: 18px;">
+                        <!-- Display error flash message -->
+    <% if (messages.nameError) { %>
+        <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.nameError %>
+        </div>
+    <% } %>
+                </span>
             </div>
+
+            
+
+
             <div class="input-field">
-                <input type="text" name="email" id="email" onkeyup="validateEmail()" required />
+                <input type="email" name="email" id="email" onkeyup="validateEmail()" required />
                 <label style="color: black; ">ENTER EMAIL</label>
-                <span id="email-error" style="font-weight: bold; font-size: 18px;"></span>
-
+                <span id="email-error" style="font-weight: bold; font-size: 18px;">
+                        <!-- Display error flash message -->
+    <% if (messages.emailError) { %>
+        <div id="error" style="color:rgb(255, 8, 8); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.emailError %>
+        </div>
+    <% } %>
+                </span>
             </div>
+
+            
+
+
             <div class="input-field">
-                <input type="tel" name="phone" id="phone" onkeyup="validatePhone()" required />
+                <input type="number" name="phone" id="phone" onkeyup="validatePhone()" required />
                 <label style="color: black; ">ENTER PHONE NUMBER</label>
-                <span id="phone-error" style="font-weight: bold; font-size: 18px;"></span>
+                <span id="phone-error" style="font-weight: bold; font-size: 18px;">
+                        <!-- Display error flash message -->
+    <% if (messages.numberError) { %>
+        <div id="error" style="color:rgb(255, 8, 8); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+            <%= messages.numberError %>
+        </div>
+    <% } %>
+                </span>
 
             </div>
+
+            
+
 
 
     <% } %>
@@ -88,12 +139,22 @@
     <div class="input-field">
         <input type="password" name="password" id="password" onkeyup="validatePassword()"  required />
         <label style="color: black; ">ENTER PASSWORD</label>
-        <span id="password-error"></span>
+        <span id="password-error">
+             <!-- Display error flash message -->
+        <% if (messages.passwordError) { %>
+            <div id="error" style="color:rgb(255, 8, 8); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                <%= messages.passwordError %>
+            </div>
+        <% } %>
+        </span>
     </div>
+
+       
+
 
     <button type="submit" style="color: black; ">SIGN UP</button>
             <div class="Create-account">
-                <p style="color: rgb(128, 20, 20); "><a href="/login" style="color: black; ">YOU HAVE AN ACCOUNT?LOGIN ACCOUNT</a></p>
+                <p style="color: rgb(255, 8, 8); "><a href="/login" style="color: black; ">YOU HAVE AN ACCOUNT?LOGIN ACCOUNT</a></p>
             </div>
 
     
@@ -115,7 +176,7 @@
     </script>
 
 
-<script>
+<!-- <script>
     const nameError = document.getElementById('name-error');
     const emailError = document.getElementById('email-error');
     const phoneError = document.getElementById('phone-error');
@@ -192,7 +253,7 @@
             return true;
         }
     }
-</script>
+</script> -->
 
 
 

@@ -298,7 +298,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });  
+                }).then(()=>{
+                    window.location.reload()
+                  })
                 }else{
                   Swal.fire({
                     // position: "top-end",
@@ -306,7 +308,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });  
+                }).then(()=>{
+                    window.location.reload()
+                  })
                 }  
 
               }else{
@@ -367,7 +371,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });   
+                }).then(()=>{
+                    window.location.reload()
+                  })  
 
               }else{
                 Swal.fire({

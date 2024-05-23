@@ -27,22 +27,22 @@ const user_signupPost= async(req,res)=>{
 
     // Simple validation
     if (!validateName(name)) {
-      req.flash('error', 'Enter a valid username');
+      req.flash('nameError', 'Enter a valid username');
       return res.redirect('/signup');
     }
  
     else if ( !validateEmail(email)) {
-      req.flash('error', 'Enter valid email');
+      req.flash('emailError', 'Enter valid email');
       return res.redirect('/signup'); 
     }
 
     else if ( !validatePhoneNumber(phone)) {
-      req.flash('error', 'Enter a valid Phone Number');
+      req.flash('numberError', 'Enter a valid Phone Number');
       return res.redirect('/signup');
     }
 
     else if ( !validatePassword(password)) {
-      req.flash('error', 'Make a strong Paasword');
+      req.flash('passwordError', 'Make a strong Paasword');
       return res.redirect('/signup');
     }
 

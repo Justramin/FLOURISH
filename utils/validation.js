@@ -7,7 +7,7 @@ const validateName = (name) => {
   
   const validateEmail = (email) => {
     // Basic email validation using a regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex =/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return emailRegex.test(email);
   };
   
@@ -19,9 +19,17 @@ const validateName = (name) => {
 
   const validatePhoneNumber = (phoneNumber) => {
     // Phone number should contain exactly 10 digits
-    const phoneNumberRegex = /^\d{10}$/;
+    const phoneNumberRegex =/^[0-9]{10}$/
     return phoneNumberRegex.test(phoneNumber);
 };
   
-  module.exports = { validateName, validateEmail, validatePassword, validatePhoneNumber };
+  module.exports = {
+    validateName,
+    validateEmail,
+    validatePassword,
+    validatePhoneNumber
+  };
+
+
+  
   

@@ -32,6 +32,7 @@ const signupWithOtp = async (req, res) => {
                 const userData = req.session.userData;
                 const value = await collection.create([userData]);
                 req.session.userDetails=null
+                req.session.isUser=value[0];
                 res.redirect('/');
             } else {
                 console.log("error OTP has expired");
