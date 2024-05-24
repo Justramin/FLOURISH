@@ -4,9 +4,16 @@ const orderCollection = require("../../../model/orderSchema");
 const productCollection = require("../../../model/productSchema");
 const userCollection = require("../../../model/userSchema");
 const otpGenerator = require('otp-generator')
+const Razorpay = require('razorpay')
+const dotenv = require('dotenv')
 
+dotenv.config()
 
-
+// RazorPay key id and key secret 
+var instance = new Razorpay({
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.KEY_SECRET,
+});
 
 
 

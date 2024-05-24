@@ -12,7 +12,7 @@
                 <li><a href="/admin"> <i class="icon-home"></i>Home </a></li>
                 <li><a href="/admin/admin-userManage""> <i class="icon-grid"></i>User Manage </a></li>
                 <li><a href="/admin/admin-productManage"> <i class="icon-grid"></i>Product Manage </a></li>
-                <li class="active"><a href="/admin/admin_coupensManage"> <i class="icon-grid"></i>Coupens Manage</a></li>
+                <li class="active"><a href="/admin/admin_coupensManage"> <i class="icon-grid"></i>Coupons Manage</a></li>
                 <li><a href="/admin/admin_categoryList"> <i class="icon-grid"></i> Category Manage </a></li>
                 <li><a href="/admin/admin_banner"> <i class="icon-grid"></i> Banner Manage</a></li>
                 <li><a href="/admin/admin_orders"> <i class="icon-grid"></i> Orders Manage</a></li>
@@ -31,14 +31,14 @@
         <!-- Page Header-->
         <div class="page-header no-margin-bottom">
           <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Add A New Coupen</h2>
+            <h2 class="h5 no-margin-bottom">Add A New Coupon</h2>
           </div>
         </div>
         <!-- Breadcrumb-->
         <div class="container-fluid">
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item active">Add Coupen</li>
+            <li class="breadcrumb-item active">Add Coupon</li>
           </ul>
         </div>
         <section class="no-padding-top">
@@ -86,13 +86,13 @@
               <!-- Form Elements -->
               <div class="col-lg-12">
                 <div class="block">
-                  <div class="title"><strong>Add A New Coupen</strong></div>
+                  <div class="title"><strong>Add A New Coupon</strong></div>
                   <div class="block-body">
-                    <form method="post" action="/admin/adminAddCoupensPost" class="form-horizontal">
+                    <form method="post" action="/admin/adminAddCouponsPost" class="form-horizontal">
                       <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Coupen Code</label>
+                        <label class="col-sm-3 form-control-label">Coupon Code</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control">
+                          <input type="text" name="couponCode" class="form-control">
                         </div>
                       </div>
                       
@@ -104,9 +104,9 @@
 
 
                       <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Coupen Type</label>
+                        <label class="col-sm-3 form-control-label">Coupon Type</label>
                         <div class="col-sm-9">
-                          <select name="account" class="form-control mb-3 mb-3">
+                          <select name="couponType" class="form-control mb-3">
                             <option>Flat Discount</option>
                             <option>Percentage Discount</option>
                            
@@ -118,54 +118,54 @@
                       </div>
 
 
-                      <div class="line"></div>
+                      
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">minimum Price</label>
                         <div class="col-sm-9">
-                          <input type="number" name="minPrice" class="form-control">
+                          <input type="number" name="minimumPrice" class="form-control">
                         </div>
                       </div>
-                      <div class="line"></div>
+                      
 
 
 
 
-                      <div class="line"></div>
+                     
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Discount</label>
                         <div class="col-sm-9">
-                          <input type="number" name="" class="form-control">
+                          <input type="number" name="discount" class="form-control">
                         </div>
                       </div>
-                      <div class="line"></div>
+                     
 
 
 
 
 
 
-                      <div class="line"></div>
+                   
                       <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Maximum Amount </label>
+                        <label class="col-sm-3 form-control-label">Maximum Radeem</label>
                         <div class="col-sm-9">
-                          <input type="number" name="maxAmount" class="form-control">
+                          <input type="number" name="maxRedeem" class="form-control">
                         </div>
                       </div>
-                      <div class="line"></div>
+                     
 
 
                       
 
 
 
-                      <div class="line"></div>
+                      
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Expiry Date</label>
                         <div class="col-sm-9">
-                          <input type="date" name="ExpiryDate" class="form-control">
+                          <input type="date" name="expiry" class="form-control">
                         </div>
                       </div>
-                      <div class="line"></div>
+                    
 
 
 
@@ -179,7 +179,7 @@
 
                       <div class="form-group row">
                         <div class="col-sm-9 ml-auto">
-                          <button type="submit" class="btn btn-secondary">Add Coupen</button>
+                          <button type="submit" class="btn btn-secondary">Add Coupon</button>
                           <!-- <button type="submit" class="btn btn-primary">Add Product</button> -->
                         </div>
                       </div>
