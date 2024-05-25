@@ -23,11 +23,12 @@
 
     <div class="ps-hero bg--cover" data-background="user/images/hero/bread-2.jpg">
       <div class="ps-container">
-        <h3>Shop Page</h3>
+        <h3>PRODUCT DETAIL PAGE</h3>
         <div class="ps-breadcrumb">
           <ol class="breadcrumb">
-            <li><a href="index-2.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="active">Shop Page</li>
+            <li class="active">Product detail Page</li>
           </ol>
         </div>
       </div>
@@ -344,7 +345,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });  
+                }).then(()=>{
+                    window.location.reload()
+                  });
                 }  
 
               }else{
@@ -407,7 +410,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });   
+                }).then(()=>{
+                    window.location.reload()
+                  });  
 
               }else{
                 Swal.fire({

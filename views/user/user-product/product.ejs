@@ -23,7 +23,7 @@
         <h3>Shop Page</h3>
         <div class="ps-breadcrumb">
           <ol class="breadcrumb">
-            <li><a href="index-2.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="active">Shop Page</li>
           </ol>
         </div>
@@ -264,7 +264,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });  
+                }).then(()=>{
+                    window.location.reload()
+                  })  
                 }  
 
               }else{
@@ -325,7 +327,9 @@
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });   
+                }).then(()=>{
+                    window.location.reload()
+                  }); 
 
               }else{
                 Swal.fire({
