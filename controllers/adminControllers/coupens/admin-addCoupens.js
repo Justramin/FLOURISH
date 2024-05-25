@@ -16,6 +16,7 @@ const admin_addCoupens = async (req, res) => {
 
 const adminAddCouponsPost = async (req, res) => {
     try {
+        console.log('--------------enteriing.....');
         if (req.session.isAdminAuth) {
             const { couponCode, minimumPrice, discount, expiry, maxRedeem, couponType } = req.body;
 
