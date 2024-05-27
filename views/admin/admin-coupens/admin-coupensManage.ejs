@@ -72,18 +72,31 @@
                         </tr>
                       </thead>
                       <tbody>
+
+                        <% for( let i = 0; i < coupons.length; i++ ) { %>
+                        
+                        
+
+
                         <tr>
-                          <th scope="row">1</th>
-                          <td>OFF100</td>
-                          <td>flatDiscount</td>
-                          <td>50000</td>
-                          <td>1000 </td>
-                          <td>100 </td>
-                          <td>2024-03-29</td>
-                          <td>Listed</td>
-                          <td>...</td>
+                          <th scope="row"><%= i+1 %></th>
+                          <td><%= coupons[i].couponCode %></td>
+                          <td><%= coupons[i].type %></td>
+                          <td><%= coupons[i].minimumPrice %></td>
+                          <td><%= coupons[i].discount %></td>
+                          <td><%= coupons[i].maxRedeem %></td>
+                          <td><%= coupons[i].expiry.toLocaleDateString() %></td>
+                          <% if (coupons[i].status) { %>
+                            <td><a href="#"><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>
+                        <% } else { %>
+                            <td><a href="#"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">List</button></a></td>
+                        <% } %>
+                        <td><a href="#"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
+
                         </tr>
-                        <tr>
+
+                        <% } %>
+                        <!-- <tr>
                           <th scope="row">2</th>
                           <td>LeetWod</td>
                           <td>flatDiscount</td>
@@ -93,8 +106,8 @@
                           <td>2024-03-29</td>
                           <td>Listed</td>
                           <td>...</td>
-                        </tr>
-                        <tr>
+                        </tr> -->
+                        <!-- <tr>
                           <th scope="row">3</th>
                           <td>flatDiscount</td>
                           <td>Stool</td>
@@ -104,7 +117,7 @@
                           <td>2024-03-29</td>
                           <td>Listed</td>
                           <td>...</td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>
