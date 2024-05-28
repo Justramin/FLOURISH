@@ -10,7 +10,7 @@ const alphanumValid = (name) => {
 
 const isValidCoupon = (coupon) => {
     try {
-        const couponRegex = /^[A-Za-z0-9%]+(?:-[A-Za-z0-9%]+)?$/;
+        const couponRegex = /^[A-Z0-9]{6}$/;
         return couponRegex.test(coupon);
     } catch (error) {
         console.error(error);

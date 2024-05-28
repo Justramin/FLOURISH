@@ -87,6 +87,7 @@ router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 router.post('/checkOutPost',isUser.isUser,checkOut.checkOutPost)
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
 router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
+router.get('/checkOutEditeAddress',isUser.isUser,checkOut.checkOutEditeAddress)
 
 //orders
 router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)

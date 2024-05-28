@@ -7,7 +7,7 @@ const couponSchema = new mongoose.Schema({
         required: true,
         upppercase: true
     },
-    type: {
+    discription: {
         type: String,
         required: true
     },

@@ -32,6 +32,7 @@ const checkOut = async(req,res)=>{
         if(outOfStock){
             res.json({ outOfStock: outOfStock });
         }else{
+            console.log(addressData);
             res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
         }
         
@@ -188,9 +189,26 @@ const newAddressCheckOut = async(req,res)=>{
 
 
 
+const checkOutEditeAddress = async(req,res)=>{
+    try {
+        const adressIndex = req.params.id
+        const userAddress = await addressCollection.findOne({ userID: req.session.isUser._id })
+        const userAddressData = userAddress.address[adressIndex];
+        res.render('checkOutEditeAddress',{isUser:req.session.isUser,adressData:userAddressData})
+    } catch (error) {
+        console.error('Error in editeAddress:', error);
+        res.redirect('/userError')
+    }
+}
+
+
+
+
+
 module.exports = {
     checkOut,
     checkOutPost,
     placeOrder,
     newAddressCheckOut,
+    checkOutEditeAddress
 }

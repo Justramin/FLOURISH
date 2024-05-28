@@ -93,12 +93,12 @@
                         <label class="col-sm-3 form-control-label">Coupon Code</label>
                         <span id="couponCodeError" style="font-weight: bold; font-size: 18px;">
                          
-                        <div class="col-sm-9">
+                          <div class="col-sm-12">
                           <input type="text" name="couponCode" class="form-control" required>
                         </div>
 
                         <% if(messages.couponCodeError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
                             <%= messages.couponCodeError %>
                           </div>
                         <%}%>
@@ -107,6 +107,21 @@
 
                       </div>
                       
+
+
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Discription</label>
+                        <span id="discriptionError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
+                          <input type="text" name="discription" class="form-control" required>
+                        </div>
+
+                        
+                      </span>
+
+                      </div>
+                     
                      
 
 
@@ -114,11 +129,11 @@
 
 
 
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Coupon Type</label>
                         <div class="col-sm-9">
                           <select name="couponType" class="form-control mb-3">
-                            <option>Flat Discount</option>
+                            <option></option>
                             <option>Percentage Discount</option>
                            
                           </select>
@@ -126,19 +141,19 @@
                         <div class="col-sm-9 ml-auto">
                          
                         </div>
-                      </div>
+                      </div> -->
 
 
                       
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">minimum Price</label>
                         <span id="minimumPriceError" style="font-weight: bold; font-size: 18px;">
-                        <div class="col-sm-9">
+                          <div class="col-sm-12">
                           <input type="number" name="minimumPrice" class="form-control" required>
                         </div>
 
                         <% if(messages.minimumPriceError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
                             <%= messages.minimumPriceError %>
                         </div>
                         <%}%>
@@ -154,17 +169,17 @@
                      
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Discount</label>
-                        <span id="discountError" style="font-weight: bold; font-size: 18px;"></span>
-                        <div class="col-sm-9">
+                        <span id="discountError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
                           <input type="number" name="discount" class="form-control" required> 
                         </div>
 
                         <% if(messages.discountError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
                             <%= messages.discountError %>
                         </div>
                         <%}%>
-
+                      </span>
                       </div>
                      
 
@@ -176,16 +191,17 @@
                    
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Maximum Radeem</label>
-                        <span id="maxRedeemError" style="font-weight: bold; font-size: 18px;"></span>
-                        <div class="col-sm-9">
+                        <span id="maxRedeemError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
                           <input type="number" name="maxRedeem" class="form-control" required>
                         </div>
 
                         <% if(messages.maxRedeemError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
                             <%= messages.maxRedeemError %>
                         </div>
                         <%}%>
+                      </span>
 
                       </div>
                      
@@ -198,17 +214,18 @@
                       
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Expiry Date</label>
-                        <span id="expiryError" style="font-weight: bold; font-size: 18px;"></span>
-                        <div class="col-sm-9">
+                        <span id="expiryError" style="font-weight: bold; font-size: 18px;">
+                        <div class="col-sm-12">
                           <input type="date" name="expiry" class="form-control" required>
                         </div>
 
                         <% if(messages.expiryError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
                             <%= messages.expiryError %>
                         </div>
                         <%}%>
-
+                      </span>
+                      
                       </div>
                     
 
@@ -249,7 +266,7 @@
       
               setTimeout(()=>{
                   error.innerHTML=''
-              },4000)
+              },3000)
           }
           </script>
      
