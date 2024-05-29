@@ -191,9 +191,14 @@
     } else {
         console.error('Failed to update quantity:', data.error);
         quantityInput.value = currentQuantity;
-    
-        // if (data.error === 'Quantity exceeds stock limits') {
-            Swal.fire({
+
+        if(data.error=="Quantity cannot be zero"){
+
+          cartDelete(index)
+          
+        }else{
+
+          Swal.fire({
                 text: `${data.error}`,
                 icon: 'error',
                 confirmButtonText: 'OK',
@@ -207,22 +212,9 @@
                 showLoaderOnConfirm: false,
                 timer: 3000
             });
-        // } else {
-        //     Swal.fire({
-        //         text: `${data.error}`,
-        //         icon: 'error',
-        //         confirmButtonText: 'OK',
-        //         customClass: {
-        //             title: 'text-danger',
-        //             popup: 'swal2-popup-custom',
-        //             confirmButton: 'btn btn-danger'
-        //         },
-        //         showCancelButton: false,
-        //         showCloseButton: true,
-        //         showLoaderOnConfirm: false,
-        //         timer: 3000
-        //     });
-        // }
+
+        }
+      
     }
         } catch (error) {
             console.error('Error parsing cart JSON:', error);

@@ -32,7 +32,6 @@ const checkOut = async(req,res)=>{
         if(outOfStock){
             res.json({ outOfStock: outOfStock });
         }else{
-            console.log(addressData);
             res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
         }
         
@@ -191,12 +190,62 @@ const newAddressCheckOut = async(req,res)=>{
 
 const checkOutEditeAddress = async(req,res)=>{
     try {
+        console.log('--------------entering.');
         const adressIndex = req.params.id
         const userAddress = await addressCollection.findOne({ userID: req.session.isUser._id })
         const userAddressData = userAddress.address[adressIndex];
         res.render('checkOutEditeAddress',{isUser:req.session.isUser,adressData:userAddressData})
     } catch (error) {
         console.error('Error in editeAddress:', error);
+        res.redirect('/userError')
+    }
+}
+
+
+
+const checkOutediteAddressPost = async(req,res)=>{
+    try {
+        const data = req.body
+        const addressId = req.query.id
+        const userId = req.session.isUser._id
+        const result = await addressCollection.updateOne({ 
+            'userID' : userId , 'address._id' : addressId } ,
+            {
+                $set : {
+                    'address.$.save_as' :data.saveas,
+                    'address.$.name':data.name,
+                    'address.$.email':data.email,
+                    'address.$.mobile':data.mobile,
+                    'address.$.housename':data.housename,
+                    'address.$.street':data.street,
+                    'address.$.pincode':data.pincode,
+                    'address.$.city':data.city,
+                    'address.$.state':data.state,
+                    'address.$.country':data.country,
+                }
+            }
+        )
+        res.redirect('/checkOut')
+    } catch (error) {
+        console.error('Error in checkOutediteAddressPost:', error);
+        res.redirect('/userError')
+    }  
+}
+
+
+
+
+const checkOutdeleteAddress = async(req,res)=>{
+    try {
+        const userAddress = await addressCollection.findOne({ userID: req.session.isUser._id });
+        const addressData = userAddress.address[req.params.id];
+        const result = await addressCollection.updateOne(
+            { _id: userAddress._id },
+            { $pull: { address: addressData } }
+        )
+        res.redirect('/checkOut')
+    } catch (error) {
+        console.error('Error in checkOutdeleteAddress:', error);
         res.redirect('/userError')
     }
 }
@@ -210,5 +259,8 @@ module.exports = {
     checkOutPost,
     placeOrder,
     newAddressCheckOut,
-    checkOutEditeAddress
+    checkOutEditeAddress,
+    checkOutediteAddressPost,
+    checkOutdeleteAddress
+    
 }

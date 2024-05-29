@@ -17,7 +17,10 @@ const schema = new mongoose.Schema({
     status:{
         type:Boolean,
         default:true
-    }
+    },
+    usedCoupons:[{
+        type: String 
+    }],
     
 })
 const collection = new mongoose.model('user',schema)

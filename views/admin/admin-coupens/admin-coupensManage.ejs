@@ -82,9 +82,9 @@
                           <th scope="row"><%= i+1 %></th>
                           <td><%= coupons[i].couponCode %></td>
                           <td><%= coupons[i].discription %></td>
-                          <td><%= coupons[i].minimumPrice %></td>
-                          <td><%= coupons[i].discount %></td>
-                          <td><%= coupons[i].maxRedeem %></td>
+                          <td>₹ <%= coupons[i].minimumPrice %></td>
+                          <td><%= coupons[i].discount %>%</td>
+                          <td>₹ <%= coupons[i].maxRedeem %></td>
                           <td><%= coupons[i].expiry.toLocaleDateString() %></td>
                           <% if (coupons[i].status) { %>
                             <td><a href="#"><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>

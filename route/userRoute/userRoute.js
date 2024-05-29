@@ -23,6 +23,7 @@ const userWhishlist =require('../../controllers/userControllers/userWhishlist/us
 const userCart = require('../../controllers/userControllers/userCart/userCart')
 const checkOut = require('../../controllers/userControllers/checkOut/checkOut')
 const orders = require('../../controllers/userControllers/orders/orderConfirmation')
+const coupon = require('../../controllers/userControllers/coupon/coupon')
 
 
 
@@ -87,13 +88,18 @@ router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 router.post('/checkOutPost',isUser.isUser,checkOut.checkOutPost)
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
 router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
-router.get('/checkOutEditeAddress',isUser.isUser,checkOut.checkOutEditeAddress)
+router.get('/checkOutEditeAddress/:id',isUser.isUser,checkOut.checkOutEditeAddress)
+router.post('/checkOutediteAddressPost',isUser.isUser,checkOut.checkOutediteAddressPost)
+router.get('/checkOutdeleteAddress/:id',isUser.isUser,checkOut.checkOutdeleteAddress)
+
 
 //orders
 router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)
 router.get('/orderHistory',isUser.isUser,orders.orderHistory)
 router.get('/orderDetail/:id',isUser.isUser,orders.orderDetail)
 router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
+
+router.post('/applyCoupon',isUser.isUser,coupon.applyCoupon)
 
 
 

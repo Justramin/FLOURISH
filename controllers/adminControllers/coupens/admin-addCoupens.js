@@ -17,8 +17,12 @@ const admin_addCoupens = async (req, res) => {
 const adminAddCouponsPost = async (req, res) => {
     try {
         if (req.session.isAdminAuth) {
+
+            
             const { couponCode, minimumPrice, discount, expiry, maxRedeem, discription,} = req.body;
-            console.log(typeof maxRedeem);
+
+            const couponAlready = await couponCollection.findOne({couponCode:couponCode})
+           
 
             // Validate inputs
             const couponValid = isValidCoupon(couponCode);
@@ -26,9 +30,16 @@ const adminAddCouponsPost = async (req, res) => {
             const discountValid = onlyNumbers(discount) && discount >= 0 && discount <= 100;
             const maxRedeemValid = onlyNumbers(maxRedeem) && maxRedeem > 0;
             const expiryValid = isFutureDate(expiry);
-            if (!couponValid) {
+
+
+            if(couponAlready){
+                req.flash('couponCodeError', 'Invalid. This Coupons Already Created');
+                return res.redirect('/admin/admin_addCoupens');
+            }
+
+            else if (!couponValid) {
                 console.log('--------------enteriing.....2')
-                req.flash('couponCodeError', 'Invalid. Use 6+ uppercase letters/digits.');
+                req.flash('couponCodeError', 'Invalid. Use 6 uppercase letters/digits.');
                 return res.redirect('/admin/admin_addCoupens');
             }
             else if (!minimumPriceValid) {
