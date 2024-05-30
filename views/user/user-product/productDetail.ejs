@@ -57,7 +57,7 @@
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
-                  <div class="ps-product__info">
+                  <div class="ps-product__info" style="margin-top: 25px;">
                     <div class="ps-product__rating">
                       <select class="ps-rating">
                         <option value="1">1</option>
@@ -65,11 +65,11 @@
                         <option value="1">3</option>
                         <option value="1">4</option>
                         <option value="2">5</option>
-                      </select><a href="#">(Read all 8 reviews)</a>
+                      </select><a href="#"></a>
                     </div>
                     <h1><%= data.productName  %></h1>
                     <p class="ps-product__category"><a href="#"> <a href="#"></a><a href="#"> <%= data.category.categoryName %></a></p>
-                    <h3 class="ps-product__price"><del><span></span>Rs:<%= data.price %></del> <span></span>Rs:<%= data.offerPrice %></h3>
+                    <h3 class="ps-product__price" style="margin-top: 20px;"><del><span></span>Rs:<%= data.price %></del> <span></span>Rs:<%= data.offerPrice %></h3>
                     <div class="ps-product__short-desc">
                       <p><%= data.discription %></p>
                     </div>
@@ -92,29 +92,30 @@
                             <label for="color-4"></label>
                           </div>
                     </div> -->
-                    <div class="ps-product__block ps-product__size">
-                      <h4>CHOOSE SIZE & QUANTITY</h4>
-                      <select class="ps-select selectpicker" title="Select Size">
+                    <div class="ps-product__block ps-product__size" style="margin-top: 25px;">
+                      <h4>CHOOSE QUANTITY</h4>
+                      <select class="ps-select selectpicker" title="Select Quantity">
                         <option value="0">1</option>
                         <option value="1">2</option>
                         <option value="2">3</option>
                         <option value="3">4</option>
                         <option value="4">5</option>
-                        <option value="5">6</option>
                       </select>
                       <div class="form-group ps-number">
-                        <input class="form-control" type="text" value="1"><span class="up"></span><span class="down"></span>
+                        <!-- <input class="form-control" type="text" value="1"><span class="up"></span><span class="down"></span> -->
                       </div>
                     </div>
-                    <div class="ps-product__shopping"><a class="ps-btn" onclick="addToCart('<%= data._id %>')">Add To Cart</a>
-                      <div class="ps-product__actions"><a class="mr-10" onclick="whishlist('<%= data._id %>')"><i class="furniture-heart"></i></a><a href="compare.html" title="Compare"><i class="furniture-reload"></i></a></div>
+                    <div class="ps-product__shopping" style="margin-top: 50px;"><a class="ps-btn" onclick="addToCart('<%= data._id %>')">Add To Cart</a>
+                      <div class="ps-product__actions"><a class="mr-10" onclick="whishlist('<%= data._id %>')"><i class="furniture-heart"></i></a></i></a></div>
                     </div>
                     <div class="ps-product__sharing">
-                      <p>Share this:<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a></p>
+                      <!-- <p>Share this:<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a></p> -->
                     </div>
                   </div>
                 </div>
           </div>
+
+          
           <div class="ps-product__content">
             <ul class="tab-list" role="tablist">
               <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Overview</a></li>
@@ -205,6 +206,12 @@
         </div>
       </div>
     </main>
+
+
+
+
+
+
     <div class="ps-section ps-home-promotions">
       <div class="ps-container">
         <div class="ps-section__header text-center">
@@ -212,11 +219,16 @@
           <h3 class="ps-section__title">YOU MIGHT ALSO LIKE</h3><span class="ps-section__line"></span>
         </div>
         <div class="ps-section__content">
-          <div class="ps-slider--center owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="off">
-            <div class="ps-product">
+          <div class="ps-slider--center owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="3000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="off">
+
+
+            <% for( let i = 0; i < fewPro.length; i++ ) { %>
+            
+            
+
+            <div class="ps-product" >
               <div class="ps-product__thumbnail">
-                <div class="ps-badge"><span>New</span></div>
-                <div class="ps-badge ps-badge--sale"><span>-35%</span></div><a class="ps-product__favorite" href="#"><i class="furniture-heart"></i></a><img src="user/images/product/Item-1.jpg" alt=""><a class="ps-product__overlay" href="product-detail.html"></a>
+                <div ></div><a  ><i ></i></a><img style="aspect-ratio: 1/1; border-radius: 5px;"  src="/uploads/<%= fewPro[i].image[0] %>" alt=""><a class="ps-product__overlay" href="/productDetail?id=<%= fewPro[i]._id %>"></a>
               </div>
               <div class="ps-product__content">
                     <select class="ps-rating">
@@ -225,76 +237,25 @@
                       <option value="1">3</option>
                       <option value="1">4</option>
                       <option value="2">5</option>
-                    </select><a class="ps-product__title" href="product-detail-2.html">VEDBO Version 2018</a>
-                <div class="ps-product__categories"><a href="product-listing.html">Armchair</a></div>
+                    </select><a class="ps-product__title" href="product-detail-2.html"><%= fewPro[i].productName %></a>
+                <div class="ps-product__categories"><a href="product-listing.html"><%= fewPro[i].discription %></a></div>
                 <p class="ps-product__price">
-                  <del>£220</del>£120
+                  <del><%= fewPro[i].price %></del><%= fewPro[i].offerPrice %>
                 </p>
               </div>
             </div>
-            <div class="ps-product">
-              <div class="ps-product__thumbnail"><a class="ps-product__favorite" href="#"><i class="furniture-heart"></i></a><img src="user/images/product/Item-2.jpg" alt=""><a class="ps-product__overlay" href="product-detail.html"></a>
-              </div>
-              <div class="ps-product__content">
-                    <select class="ps-rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="2">5</option>
-                    </select><a class="ps-product__title" href="product-detail-2.html">VEDBO Version 2018</a>
-                <div class="ps-product__categories"><a href="product-listing.html">Armchair</a></div>
-                <p class="ps-product__price">
-                  <del>£220</del>£120
-                </p>
-              </div>
-            </div>
-            <div class="ps-product">
-              <div class="ps-product__thumbnail">
-                <div class="ps-badge ps-badge--sale"><span>-35%</span></div><a class="ps-product__favorite" href="#"><i class="furniture-heart"></i></a><img src="user/images/product/Item-3.jpg" alt=""><a class="ps-product__overlay" href="product-detail.html"></a>
-              </div>
-              <div class="ps-product__content">
-                    <select class="ps-rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="2">5</option>
-                    </select><a class="ps-product__title" href="product-detail-2.html">VEDBO Version 2018</a>
-                <div class="ps-product__categories"><a href="product-listing.html">Armchair</a></div>
-                <p class="ps-product__price">
-                  <del>£220</del>£120
-                </p>
-              </div>
-            </div>
-            <div class="ps-product">
-              <div class="ps-product__thumbnail">
-                <div class="ps-badge"><span>New</span></div>
-                <div class="ps-badge ps-badge--sale"><span>-35%</span></div><a class="ps-product__favorite" href="#"><i class="furniture-heart"></i></a><img src="user/images/product/Item-4.jpg" alt=""><a class="ps-product__overlay" href="product-detail.html"></a>
-              </div>
-              <div class="ps-product__content">
-                    <select class="ps-rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="2">5</option>
-                    </select><a class="ps-product__title" href="product-detail-2.html">VEDBO Version 2018</a>
-                <div class="ps-product__categories"><a href="product-listing.html">Armchair</a></div>
-                <p class="ps-product__price">
-                  <del>£220</del>£120
-                </p>
-              </div>
-            </div>
+
+
+            <% } %>
+
+
+
+
           </div>
         </div>
       </div>
     </div>
-    <div class="ps-partners">
-      <div class="ps-container">
-        <div class="ps-slider--partners owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="50" data-owl-nav="false" data-owl-dots="false" data-owl-item="7" data-owl-item-xs="3" data-owl-item-sm="5" data-owl-item-md="6" data-owl-item-lg="7" data-owl-duration="1000" data-owl-mousedrag="on"><img src="user/images/partner/1.png" alt=""><img src="user/images/partner/2.png" alt=""><img src="user/images/partner/3.png" alt=""><img src="user/images/partner/4.png" alt=""><img src="user/images/partner/5.png" alt=""><img src="user/images/partner/6.png" alt=""><img src="user/images/partner/7.png" alt=""></div>
-      </div>
-    </div>
+   
    
 
 

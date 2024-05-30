@@ -27,11 +27,11 @@ const orderSchema = new mongoose.Schema({
         trim: true,
     },
 
-//   discount: {
-//     type: Number,
-//     required: true,
-//     trim: true,
-//   },
+  discount: {
+    type: Number,
+    // required: true,
+    trim: true,
+  },
 
     address: {
         type: Object,
@@ -39,11 +39,11 @@ const orderSchema = new mongoose.Schema({
         trim: true,
     },
 
-//   paymentMethod: {
-//     type: String,
-//     required: true,
-//     trim: true,
-//   },
+  paymentMethod: {
+    type: String,
+    // required: true,
+    trim: true,
+  },
 
     date: {
         type: Date,
@@ -55,15 +55,15 @@ const orderSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-//   paymentStatus: {
-//     type: String,
-//     required: true,
-//     trim: true,
-//   },
-//   return_Reason: {
-//     type: String,
-//     trim: true,
-//   },
+  paymentStatus: {
+    type: String,
+    // required: true,
+    trim: true,
+  },
+  return_Reason: {
+    type: String,
+    trim: true,
+  },
 
     cancel: {
         type: String,

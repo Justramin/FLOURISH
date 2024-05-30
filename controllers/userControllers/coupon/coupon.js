@@ -12,6 +12,7 @@ const collection = require("../../../model/userSchema");
 const applyCoupon = async (req, res) => {
     try {    
        const {couponCode,subtotal}= req.body
+       req.session.couponCode = couponCode
        const coupon = await couponCollection.findOne({couponCode:couponCode})
        const userId = req.session.isUser._id
 
@@ -29,12 +30,10 @@ const applyCoupon = async (req, res) => {
                 dicprice = coupon.maxRedeem;
               }
               price = subtotal - dicprice;
+              req.session.finalPrice = price
 
               console.log("ithu priceaahmu", price, dicprice);
 
-              await couponCollection.findByIdAndUpdate(userId,
-                { $addToSet: { usedCoupons: couponCode } },
-                { new: true });
                 res.json({ success: true, dicprice, price });
         }else{
             res.json({ success: false, message: "Invalid Coupon" });

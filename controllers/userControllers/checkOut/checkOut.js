@@ -5,7 +5,8 @@ const productCollection = require("../../../model/productSchema");
 const userCollection = require("../../../model/userSchema");
 const otpGenerator = require('otp-generator')
 const Razorpay = require('razorpay')
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+
 
 dotenv.config()
 
@@ -113,13 +114,19 @@ const placeOrder = async (req,res)=>{
                 }
                 productData.push(obj);
             }
-            
+            let discountPrice;
+            if(req.session.finalPrice){
+                discountPrice =cartData.Cart_total - req.session.finalPrice 
+            }else{
+                discountPrice =0
+            }
             
         const newOrder = new orderCollection({
             userID:req.session.isUser._id,
             orderID:orderId,
             user:address.name,
-            totalOrderValue:cartData.Cart_total,
+            totalOrderValue: req.session.finalPrice || cartData.Cart_total,
+            discount:discountPrice,
             address:address,
             date: new Date(),
             products:productData,
@@ -127,6 +134,14 @@ const placeOrder = async (req,res)=>{
         })
 
         await newOrder.save();
+
+        await userCollection.findByIdAndUpdate(req.session.isUser._id,
+            { $addToSet: { usedCoupons: req.session.couponCode } },
+            { new: true });
+
+            req.session.finalPrice = null
+            req.session.couponCode = null
+
 
 
         await cartCollection.deleteOne({userId:req.session.isUser._id});

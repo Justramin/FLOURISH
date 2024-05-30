@@ -271,17 +271,10 @@
                         <% for( let i=0; i < data.items.length; i++ ) { %>
 
                           <tr>
-                            <td>
-                              <%= i+1 %>
-                            </td>
-                            <td>
-                              <%= data.items[i].productId.productName %>
-                            </td>
-                            <td>
-                              <%= data.items[i].quantity %>
-                            </td>
-                            <td>:<%= data.items[i].Product_total %>
-                            </td>
+                            <td><%= i+1 %></td>
+                            <td><%= data.items[i].productId.productName %></td>
+                            <td><%= data.items[i].quantity %></td>
+                            <td>:<%= data.items[i].Product_total %></td>
                           </tr>
 
                           <% } %>
@@ -289,10 +282,10 @@
                               <thead>
                                 <tr>
                                   <th class="text-uppercase">Total</th>
-                                  <th class="text-uppercase"> <span id="cart_total"><%= data.Cart_total %></span>
-                                  </th>
+                                  <th class="text-uppercase"> <span id="cart_total"><%= data.Cart_total %></span></th>
+                                  </tr>
                               </thead>
-                              <!-- <tr>
+                              <!-- 
                             <td>Card Subtitle</td>
                             <td>$300.00</td>
                           </tr>
@@ -313,8 +306,7 @@
                     style="margin-right: 100px; margin-left: 30px; border-radius: 160px; display: flex;">
                     <input class="form-control" type="text" id="coupon" placeholder="Promo Code"
                       style="border-radius: 60px; flex-grow: 1; margin-right: 10px;">
-                    <button class="btn btn-success" 
-                      style="height:46px;border-radius: 60px;text-align: center;justify-content: center;" onclick="applyCoupon()">Apply Coupon</button>
+                    <button class="btn btn-success" style="height:46px;border-radius: 60px;text-align: center;justify-content: center;" onclick="applyCoupon()">Apply Coupon</button>
                   </div>
 
 
@@ -350,11 +342,18 @@
                         <label for="rdo01">COD</label>
                       </div>
                     </div>
+                    <div class="form-group cheque">
+                      <div class="ps-radio ps-radio--small">
+                        <input class="form-control" type="radio" id="rdo02" name="payment"
+                          onclick="paymentMethod('WALLET')">
+                        <label for="rdo02">WALLET</label>
+                      </div>
+                    </div>
                     <div class="form-group paypal">
                       <div class="ps-radio ps-radio--small">
-                        <input class="form-control" type="radio" name="payment" id="rdo02"
-                          onclick="paymentMethod('Online')">
-                        <label for="rdo02">Razor Pay</label>
+                        <input class="form-control" type="radio" name="payment" id="rdo03"
+                          onclick="paymentMethod('RazorPay')">
+                        <label for="rdo03">Razor Pay</label>
                       </div>
                       <ul class="ps-payment-method">
                         <li><a href="#"><img src="/user/images/payment/1.png" alt=""></a></li>
@@ -386,9 +385,89 @@
 
 
 
+
+      <script>
+        const finalAmout = document.getElementById('cartotal').innerText 
+        console.log(finalAmout,'------------final amout');
+        // const finalAmout1 = document.getElementById('carttotal').value
+
+        console.log(finalAmout1,'=============final ayaal mathi enu');
+        let method = ''
+        let index = -1
+        function paymentMethod(payment) {
+          method = payment
+          console.log(payment)
+
+          if (method == 'RazorPay') {
+            console.log('--------RAZOR PAYIL AAYITTUND--------');
+
+
+            fetch('/razorPay',{
+              method:'GET',
+              headers:{
+                'Content-Type': 'application/json'
+              },
+              body:JSON.stringify({finalPrice})
+            })
+          }
+          
+
+        }
+
+        function selectAddress(i) {
+          index = i;
+          console.log('address funcion called!')
+        }
+
+
+        function placeOrder() {
+
+          console.log(method, 'method payment')
+
+          if (index < 0) {
+            Swal.fire({
+              title: "Please Select!",
+              text: "Select the address to proceed!",
+              icon: "warning",
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+
+          else if (method == '') {
+            Swal.fire({
+              title: "Please Select!",
+              text: "Select a payment method!",
+              icon: "warning",
+              showConfirmButton: false,
+              timer: 2000
+            });
+
+          }
+          else {
+
+            window.location.href = `/placeOrder?address=${index}&&payment=${method}`
+
+          }
+
+          console.log('placeOrder function called!!!!');
+        }
+      </script>
+
+
+
+
+
+
+
+
+
+
+
       <script>
         async function applyCoupon(){
 
+          
           const couponCode = document.getElementById('coupon').value
           const subtotal = document.getElementById('cart_total').innerText
 
@@ -405,15 +484,10 @@
 							if (data.success) {
 								Swal.fire({
 									text: "coupon applied",
-									icon: 'success',
-									confirmButtonText: 'OK',
-									customClass: {
-										title: 'text-danger',
-										popup: 'swal2-popup-custom',
-										confirmButton: 'btn btn-danger'
-									},
+									icon: 'success',									
 									showCancelButton: false,
-									showCloseButton: true,
+									showCloseButton: false,
+                  showConfirmButton:false,
 									showLoaderOnConfirm: false,
 									timer: 3000
 								});
@@ -421,21 +495,16 @@
                 console.log("ivideumethi")
 								document.getElementById('dicprice').innerText = "-" + data.dicprice
 								document.getElementById('cartotal').innerText = data.price
-								document.getElementById('carttotal').value = data.price
+								// document.getElementById('carttotal').value = data.price
 
 
               } else {
 								Swal.fire({
 									text: data.message,
 									icon: 'error',
-									confirmButtonText: 'OK',
-									customClass: {
-										title: 'text-danger',
-										popup: 'swal2-popup-custom',
-										confirmButton: 'btn btn-danger'
-									},
 									showCancelButton: false,
-									showCloseButton: true,
+									showCloseButton: false,
+                  showConfirmButton:false,
 									showLoaderOnConfirm: false,
 									timer: 3000
 								});
@@ -443,7 +512,7 @@
 						})
 						.catch(error => {
 							console.error('Error applying coupon:', error);
-							alert('An error occurred while applying the coupon. Please try again.');
+							// alert('An error occurred while applying the coupon. Please try again.');
 						});
 
                 
@@ -573,54 +642,7 @@
 
       <!-- order placed  -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script>
-        let method = ''
-        let index = -1
-        function paymentMethod(payment) {
-          method = payment
-          console.log(payment)
 
-        }
-
-        function selectAddress(i) {
-          index = i;
-          console.log('address funcion called!')
-        }
-
-
-        function placeOrder() {
-
-          console.log(method, 'method payment')
-
-          if (index < 0) {
-            Swal.fire({
-              title: "Please Select!",
-              text: "Select the address to proceed!",
-              icon: "warning",
-              showConfirmButton: false,
-              timer: 2000
-            });
-          }
-
-          else if (method == '') {
-            Swal.fire({
-              title: "Please Select!",
-              text: "Select a payment method!",
-              icon: "warning",
-              showConfirmButton: false,
-              timer: 2000
-            });
-
-          }
-          else {
-
-            window.location.href = `/placeOrder?address=${index}&&payment=${method}`
-
-          }
-
-          console.log('placeOrder function called!!!!');
-        }
-      </script>
       
 
       <script>//DELETE ADDRESS
