@@ -7,6 +7,20 @@
   .ps-product__title,.ps-product__categories,.ps-product__price {
        text-align: center;
    }
+   .ps-form--search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+  }
+  .ps-form--search {
+    display: flex;
+    align-items: center;
+  }
+  .ps-form--search input.form-control {
+    flex-grow: 1;
+    margin-right: 5px;
+  }
 </style>
 
   <body>
@@ -29,6 +43,10 @@
         </div>
       </div>
     </div> 
+
+
+
+
     <main class="ps-main">
       <div class="ps-container">
         <div class="ps-filter">
@@ -40,44 +58,57 @@
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                  <div class="ps-filter__result">
-                    <!-- <p>Showing 1–12 of 35 results</p> -->
-                  </div>
+
+                  <div class="ps-form--search-container">
+              <form class="ps-form--search" action="/product" method="GET">
+                <button type="submit" class="btn btn-light" style="color: white;">Search</button>
+                <input  class="form-control" type="text" name="search" placeholder="Find product">
+                
+              </form>
+            </div>
+                  
+                 
                 </div>
           </div>
+
+
           <div class="ps-filter__content">
             <div class="ps-filter__column" data-mh="column">
               <h3>SORT CATEGORIES BY</h3>
               <ul class="ps-list--filter">
-                <li class="current"><a href="product-listing.html">All</a></li>
-                <li><a href="product-listing.html">Men</a></li>
-                <li><a href="product-listing.html">Women</a></li>
+                <li class="current"><a href="/product">All</a></li>
+                <% for( let i = 0; i < catData.length; i++ ) { %>
+                
+                
+                <li><a href="/product?category=<%= catData[i].categoryName %>"><%= catData[i].categoryName %></a></li>
+                <% } %>
+                <!-- <li><a href="product-listing.html">Women</a></li>
                 <li><a href="product-listing.html">Suite & Jean</a></li>
                 <li><a href="product-listing.html">Accessories</a></li>
                 <li><a href="product-listing.html">Kids</a></li>
-                <li><a href="product-listing.html">Handmade</a></li>
+                <li><a href="product-listing.html">Handmade</a></li> -->
               </ul>
             </div>
             <div class="ps-filter__column" data-mh="column">
               <h3>SORT PRODUCTS BY</h3>
               <ul class="ps-list--filter">
-                <li class="current"><a href="product-listing.html">Default Sorting</a></li>
-                <li><a href="product-listing.html">Sort by popularity</a></li>
-                <li><a href="product-listing.html">Sort by average rating</a></li>
-                <li><a href="product-listing.html">Sort by newness</a></li>
-                <li><a href="product-listing.html">Sort by price: low to high</a></li>
-                <li><a href="product-listing.html">Sort by price: high to low</a></li>
+                <li class="current"><a href="/product">Default Sorting</a></li>
+                <li><a href="/product">Sort by popularity</a></li>
+                <li><a href="/product">Sort by average rating</a></li>
+                <li><a href="/product?sort=newness">Sort by newness</a></li>
+                <li><a href="/product?sort=priceLow">Sort by price: low to high</a></li>
+                <li><a href="/product?sort=priceHigh">Sort by price: high to low</a></li>
               </ul>
             </div>
             <div class="ps-filter__column" data-mh="column">
               <h3>FILTER BY PRICE</h3>
               <ul class="ps-list--filter">
-                <li class="current"><a href="product-listing.html">All</a></li>
-                <li><a href="product-listing.html">RS:0     - Rs:1000</a></li>
-                <li><a href="product-listing.html">Rs:1000   - Rs:5000</a></li>
-                <li><a href="product-listing.html">Rs:5000   - Rs:25000</a></li>
-                <li><a href="product-listing.html">Rs:25000  - Rs:100000</a></li>
-                <li><a href="product-listing.html">Rs:100000 +</a></li>
+                <li class="current"><a href="/product">All</a></li>
+                <li><a href="/product?filter=0to1k">RS:0     - Rs:1000</a></li>
+                <li><a href="/product?filter=1kto5k">Rs:1000   - Rs:5000</a></li>
+                <li><a href="/product?filter=5kto25k">Rs:5000   - Rs:25000</a></li>
+                <li><a href="/product?filter=25kto1lak">Rs:25000  - Rs:100000</a></li>
+                <li><a href="/product?filter=1lakPlus">Rs:100000 +</a></li>
               </ul>
             </div>
             <!-- <div class="ps-filter__column" data-mh="column">
@@ -99,14 +130,14 @@
               </ul>
             </div> -->
             <div class="ps-filter__column" data-mh="column">
-              <h3>FILTER BY PRICE</h3>
+              <h3>FILTER BY STOCK</h3>
               <ul class="ps-list--filter">
-                <li class="current"><a href="product-listing.html">All</a></li>
-                <li><a href="product-listing.html">New</a></li>
-                <li><a href="product-listing.html">SaleOff</a></li>
-                <li><a href="product-listing.html">Show Only Products On Sale</a></li>
-                <li><a href="product-listing.html">In Stock Only</a></li>
-                <li><a href="product-listing.html">Out of stock</a></li>
+                <li class="current"><a href="/product">All</a></li>
+                <li><a href="/product?sort=newness">New</a></li>
+                <li><a href="/product">SaleOff</a></li>
+                <li><a href="/product?stock=inStock">Show Only Products On Sale</a></li>
+                <li><a href="/product?stock=inStock">In Stock Only</a></li>
+                <li><a href="/product?stock=outOffStock">Out of stock</a></li>
               </ul>
             </div>
           </div>

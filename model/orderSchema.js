@@ -55,7 +55,7 @@ const orderSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-  paymentStatus: {
+  razor_payment_id: {
     type: String,
     // required: true,
     trim: true,
