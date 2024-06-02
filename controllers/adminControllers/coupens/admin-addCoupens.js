@@ -38,38 +38,38 @@ const adminAddCouponsPost = async (req, res) => {
             }
 
             else if (!couponValid) {
-                console.log('--------------enteriing.....2')
+               
                 req.flash('couponCodeError', 'Invalid. Use 6 uppercase letters/digits.');
                 return res.redirect('/admin/admin_addCoupens');
             }
             else if (!minimumPriceValid) {
-                console.log('--------------enteriing.....3')
+              
                 req.flash('minimumPriceError', 'Enter a valid minimum price');
                 return res.redirect('/admin/admin_addCoupens');
             }
             else if (!discountValid) {
-                console.log('--------------enteriing.....4')
+             
                 req.flash('discountError', 'Enter a valid discount (0-100)');
                 return res.redirect('/admin/admin_addCoupens');
             }
             else if (!maxRedeemValid) {
-                console.log('--------------enteriing.....5')
+            
                 req.flash('maxRedeemError', 'Enter a valid max redeem count');
                 return res.redirect('/admin/admin_addCoupens');
             }
             else if (!expiryValid) {
-                console.log('--------------enteriing.....6')
+             
                 req.flash('expiryError', 'Enter a future expiry date');
                 return res.redirect('/admin/admin_addCoupens');
             }
 
             const couponExists = await couponCollection.findOne({ couponCode });
             if (couponExists) {
-                console.log('--------------enteriing.....7')
+              
                 req.flash('couponCodeError', 'Coupon already exists');
                 return res.redirect('/admin/admin_addCoupens');
             }
-            console.log('--------------enteriing.....8')
+        
             const couponData = await couponCollection.create({
                 couponCode,
                 discription: discription,
@@ -78,7 +78,7 @@ const adminAddCouponsPost = async (req, res) => {
                 maxRedeem,
                 expiry
             });
-            console.log("Coupon created:", couponData);
+          
             res.redirect('/admin/admin_coupensManage');
         } else {
             res.redirect('/admin/admin-login');

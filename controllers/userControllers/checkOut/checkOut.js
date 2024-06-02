@@ -80,6 +80,7 @@ const checkOutPost = async(req,res)=>{
 const placeOrder = async (req,res)=>{
     try{
         const index = Number(req.query.address)
+        const paymentMethod = req.query.payment
         const userData = await userCollection.findOne({_id:req.session.isUser._id});
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
@@ -128,6 +129,7 @@ const placeOrder = async (req,res)=>{
             totalOrderValue: req.session.finalPrice || cartData.Cart_total,
             discount:discountPrice,
             address:address,
+            paymentMethod:paymentMethod,
             date: new Date(),
             products:productData,
             status:"Pending"
@@ -146,8 +148,8 @@ const placeOrder = async (req,res)=>{
 
         await cartCollection.deleteOne({userId:req.session.isUser._id});
 
-
-        res.redirect(`/orderConfirmation?id=${orderId}`)
+            res.json({result:'success',orderId:orderId})
+        // res.redirect(`/orderConfirmation?id=${orderId}`)
     }catch(error){
         console.error('Error in checkOutPost',error);
         res.redirect('/userError');
@@ -159,10 +161,8 @@ const placeOrder = async (req,res)=>{
 
 const newAddressCheckOut = async(req,res)=>{
     try {
-        const userAddress = req.body
-        console.log(userAddress,'-------------ithe body data');
-        const userAddressData = await addressCollection.find({ userID:req.session.isUser._id});
-        console.log(userAddressData,'-----------------ithe database Data');
+        const userAddress = req.body     
+        const userAddressData = await addressCollection.find({ userID:req.session.isUser._id});     
 
         let addressData = {
             name: userAddress.name,
@@ -205,7 +205,6 @@ const newAddressCheckOut = async(req,res)=>{
 
 const checkOutEditeAddress = async(req,res)=>{
     try {
-        console.log('--------------entering.');
         const adressIndex = req.params.id
         const userAddress = await addressCollection.findOne({ userID: req.session.isUser._id })
         const userAddressData = userAddress.address[adressIndex];

@@ -17,7 +17,8 @@ const orderConfirmation =async (req,res)=>{
 
 const orderHistory =async (req,res)=>{
     try{
-        const orderData = await orderCollection.find({userID:req.session.isUser._id});
+        const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products')
+
         res.render('orderHistory',{isUser:req.session.isUser,data:orderData});
     }catch(error){
         console.error('Error in orderHistory :',error);
@@ -28,7 +29,12 @@ const orderHistory =async (req,res)=>{
 const orderDetail =async (req,res)=>{
     try{
         const orderData = await orderCollection.findOne({orderID:req.params.id});
-        res.render('orderDetails',{isUser:req.session.isUser,data:orderData});
+        if (!orderData) {
+            console.error('Order not found');
+            return res.render('orderDetails', { isUser: req.session.isUser, data: null, error: 'Order not found' });
+        }
+        
+        res.render('orderDetails',{isUser:req.session.isUser,data:orderData, error: null });
     }catch(error){
         console.error('Error in orderDetail :',error);
         res.redirect('/userError');
@@ -38,8 +44,10 @@ const orderDetail =async (req,res)=>{
 
 const cancelProducts = async (req, res) => {
     try {    
+        console.log(req.query);
         const data = await orderCollection.findOne({orderID: req.query.id})
         const updateData = data.products[req.query.i]
+        console.log(updateData);
                 // Await the update operation
         const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
             {
@@ -56,7 +64,7 @@ const cancelProducts = async (req, res) => {
         );
 
         // Redirect or render response
-        res.redirect(`/orderDetail/${req.query.id}`);
+        res.redirect('/orderHistory');
     } catch (error) {
         console.error('Error in cancelProducts:', error);
         res.redirect('/userError');
@@ -64,11 +72,25 @@ const cancelProducts = async (req, res) => {
 }
 
 
+const invoice =async (req,res)=>{
+    try{
+        const orderId = req.params.id
+        const orderData = await orderCollection.findOne({orderID:orderId})
+
+        res.render('orderInvoice',{isUser:req.session.isUser,data:orderData});
+    }catch(error){
+        console.error('Error in invoice :',error);
+        res.redirect('/userError');
+    }
+}
+
 
 
 module.exports = {
     orderConfirmation,
     orderHistory,
     orderDetail,
-    cancelProducts
+    cancelProducts,
+    invoice
 }
+

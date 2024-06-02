@@ -5,7 +5,7 @@ const couponCollection = require("../../../model/CouponSchema");
 const admin_coupensManage = async(req,res)=>{
     try {
         const coupons = await couponCollection.find()
-        console.log(coupons);
+      
         if(req.session.isAdminAuth){
             res.render('admin-coupensManage',{isSuperAdmin:req.session.isSuperAdmin,coupons:coupons})
         }else{

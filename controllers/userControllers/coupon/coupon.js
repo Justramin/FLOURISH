@@ -18,7 +18,7 @@ const applyCoupon = async (req, res) => {
 
        if(coupon && coupon.status === true){
         const user = await collection.findOne({_id:userId})
-        console.log(user);
+     
         if(user && user.usedCoupons.includes(couponCode)){
             res.json({ success: false, message: "Already Redeemed" });
 
@@ -32,7 +32,6 @@ const applyCoupon = async (req, res) => {
               price = subtotal - dicprice;
               req.session.finalPrice = price
 
-              console.log("ithu priceaahmu", price, dicprice);
 
                 res.json({ success: true, dicprice, price });
         }else{

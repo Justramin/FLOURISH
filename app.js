@@ -35,6 +35,7 @@ app.set('views', [
     path.join(__dirname,'views/user/userCart'),
     path.join(__dirname,'views/user/checkOut'),
     path.join(__dirname,'views/user/orders'),
+    path.join(__dirname,'views/user/userWallet'),
 
  
 

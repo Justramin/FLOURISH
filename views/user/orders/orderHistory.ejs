@@ -4,11 +4,326 @@
 <%- include('../partials/head') %>
 
 
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+<style>
+  /* Basic styling */
+  .order {
+    border: 1px solid #161515;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+  .order-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .order-item .img-container {
+    float: left;
+    flex: 0 0 250px;
+    max-width: 250px;
+  }
+  .order-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+  .order-item .details {
+    padding-left: 56px;
+    margin-left: 26rem;
+    flex: 1;
+    padding-left: 20px;
+  }
+  .cancel-order-button, .order-details-button, .cancel-product-button, .return-order-button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  .cancel-order-button, .return-order-button {
+    background-color: rgb(233, 49, 49);
+  }
+  .order-details-button {
+    background-color: rgb(40, 177, 74);
+  }
+  .cancel-product-button {
+    background-color: rgb(190, 75, 75);
+  }
+</style>
+
+<body>
+  <div class="header--sidebar"></div>
+
+  
+  <%- include('../partials/navbar') %>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-blog set-bg mb-5" data-setbg="img/breadcrumb-bg.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>Your Orders History ></h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<div class="container">
+
+  <% if (data.length === 0) { %> 
+    <h3 class="p-4 mb-2 text-center font-weight-bold">No Order Found.</h3>
+    <div class="continue__btn text-center mb-4">
+      <a href="/shop">Continue Shopping</a>
+    </div>
+
+  <% } else { %> 
+
+    <% for( let i = 0; i < data.length; i++ ) { %>
+    
+    
+      <div class="order">
+        <!-- Order Item -->
+        <div class="card-header mb-4 p-3 text-center font-weight-bold" style="background-color: #FFF2D7; border-radius: 50px;">
+          <h4>Order ID: <%= data[i].orderID %></h4>
+        </div>
+
+        <div class="m-2 mt-4 text-center">
+          <% if (data[i].status == 'Pending') { %>
+            <h4 class="font-weight-bold">"Move To The Order Details Page To Make a Payment."</h4>
+          <% } %>
+        </div>
+
+        <div class="order-item row">
+          <% for( let j = 0; j < data[i].products.length; j++ ) { %>
+          
+         
+            <div class="col-12 col-md-6 mb-5 d-flex" style="margin-bottom: 40px;">
+              <div class="img-container">
+                <img style="width: 250px; height: 210px;" src="/uploads/<%= data[i].products[j].Image  %>" alt="Item Picture" class="img-fluid">
+              </div>
+              <div class="details">
+              
+                  <p class="font-weight-bold">Item Name: <%= data[i].products[j].productName %></p>
+          
+                <p>Amount: ₹ <%= data[i].products[j].price ? data[i].products[j].price : 'N/A' %></p>
+                <p>Status: <span class="font-weight-bold"><%= data[i].status %></span></p>
+               
+                  <p>Delivery Address: <%= data[i].address.name %>, <%= data[i].address.housename %>, <%= data[i].address.city %>, <%= data[i].address.mobile %></p>
+
+                <p>Quantity: <%= data[i].products[j].quantity ? data[i].products[j].quantity : 'N/A' %></p>
+                
+                
+                <% if (data[i].products[j].status !== 'Cancelled' && data[i].products[j].status !== 'Delivered' && data[i].products[j].status !== 'returned') { %>
+                  <a onclick="cancelProduct('<%= data[i].orderID %>','<%= j%>')" class="btn cancel-product-button">
+                    Cancel Product
+                  </a>
+                <% } %>
+                <% if (data[i].products[j].status == 'Cancelled') { %>
+                 <p>product canceld</p>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- End of Order Item -->
+
+        <!-- Buttons -->
+        <button class="order-details-button" onclick="location.href='/order-tracking/<%= data._id %>'">
+          Order Details
+        </button>
+
+        <% if (data[i].paymentMethod !== 'COD' || data[i].status !== 'Pending' ) { %>
+          <button class="order-details-button" > 
+            Invoice
+          </button>
+        <% } %>
+
+        <% if (data.return && data.return.length > 0 && data.return[0].status) { %>
+          <span class="bg-warning p-2 rounded font-weight-bold">
+            Return Status: <%= data.return[0].status %>
+          </span>
+        <% } else if (data.status === 'Delivered' && new Date(data.updated.getTime() + 5 * 24 * 60 * 60 * 1000) >= new Date()) { %>
+          <button class="return-order-button" onclick="confirmReturnOrder('<%= data._id %>')">
+            Return Order
+          </button>
+        <% } %>
+        <!-- End of Buttons -->
+
+      </div>
+    <% } %>
+  <% } %>
+</div>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+  function confirmCancelProduct(orderId, productId) {
+    if (confirm("Are you sure you want to cancel this product?")) {
+      window.location.href = `/itemCancel/${orderId}/${productId}`;
+    } else {
+      console.log("User canceled");
+    }
+  }
+</script>
+
+<script>
+  function confirmCancelOrder(itemId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to proceed?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+      dangerMode: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = itemId;
+      } else {
+        console.log("User canceled");
+      }
+    });
+  }
+</script>
+
+<script>
+  function confirmReturnOrder(itemId) {
+    Swal.fire({
+      title: 'Order Return',
+      input: 'text',
+      inputPlaceholder: 'Enter your Reason',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      cancelButtonText: 'Cancel',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to enter something!';
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const inputValue = result.value;
+        $.ajax({
+          url: '/Return_Reason',
+          method: 'POST',
+          data: { itemId: itemId, reason: inputValue },
+          success: function(response) {
+            Swal.fire('Submitted!', `Your reason has been submitted.`, 'success');
+            setTimeout(function() {
+              location.reload();
+            }, 1000);
+          },
+          error: function(xhr, status, error) {
+            Swal.fire('Error!', `Failed to send data: ${error}`, 'error');
+          }
+        });
+      }
+    });
+  }
+</script>
+
+
+
+
+//CANCEl A SINGLE PRODUCT
+<script>
+  function cancelProduct(orderID,index){
+     console.log(orderID);
+     console.log(index);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to cancel the product",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Cancel it!"
+    }).then((result) => {
+      window.location.href = `/cancelProducts?id=${orderID}&&i=${index}`
+    });
+
+  }
+</script>
+
+    <%- include('../partials/footer')  %>
+
+
+  </body>
+  </html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  
+<%#- include('../partials/head') %>
+
+
   <body>
     <div class="header--sidebar"></div>
 
     
-    <%- include('../partials/navbar') %>
+    <%#- include('../partials/navbar') %>
 
 
     <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg"><img src="images/hero/contact-us.html" alt="">
@@ -41,18 +356,18 @@
               </tr>
             </thead>
             <tbody>
-                <% for( let i = 0; i < data.length; i++ ) { %>
+                <%# for( let i = 0; i < data.length; i++ ) { %>
 
                     <tr>
-                      <td><%=data[i].orderID  %></td>
-                      <td><%=data[i].date.toLocaleDateString()  %></td>
-                      <td><%=data[i].products.length  %></td>
-                      <td><%=data[i].totalOrderValue  %></td>
+                      <td><%#=data[i].orderID  %></td>
+                      <td><%#=data[i].date.toLocaleDateString()  %></td>
+                      <td><%#=data[i].products.length  %></td>
+                      <td><%#=data[i].totalOrderValue  %></td>
                       <td>COD</td>
-                      <td><a class="btn btn-success" href="/orderDetail/<%= data[i].orderID  %>">Details</a></td>
+                      <td><a class="btn btn-success" href="/orderDetail/<%#= data[i].orderID  %>">Details</a></td>
                     </tr>
                 
-                <% } %>
+                <%# } %>
                     
 
 
@@ -72,8 +387,8 @@
     </div>
 
 
-    <%- include('../partials/footer')  %>
+    <%#- include('../partials/footer')  %>
 
 
 </body>
-</html>
+</html> -->

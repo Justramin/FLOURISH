@@ -24,6 +24,8 @@ const userCart = require('../../controllers/userControllers/userCart/userCart')
 const checkOut = require('../../controllers/userControllers/checkOut/checkOut')
 const orders = require('../../controllers/userControllers/orders/orderConfirmation')
 const coupon = require('../../controllers/userControllers/coupon/coupon')
+const razorPay =require('../../controllers/userControllers/razorPay/razorPay')
+const wallet = require('../../controllers/userControllers/wallet/userWallet')
 
 
 
@@ -86,11 +88,17 @@ router.get('/removeToCart/:id',isUser.isUser,userCart.removeToCart)
 //CheckOut
 router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 router.post('/checkOutPost',isUser.isUser,checkOut.checkOutPost)
+
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
+
 router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
 router.get('/checkOutEditeAddress/:id',isUser.isUser,checkOut.checkOutEditeAddress)
 router.post('/checkOutediteAddressPost',isUser.isUser,checkOut.checkOutediteAddressPost)
 router.get('/checkOutdeleteAddress/:id',isUser.isUser,checkOut.checkOutdeleteAddress)
+
+
+//Razor Pay
+router.post('/razorPay',isUser.isUser,razorPay.razorPay)
 
 
 //orders
@@ -98,8 +106,12 @@ router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)
 router.get('/orderHistory',isUser.isUser,orders.orderHistory)
 router.get('/orderDetail/:id',isUser.isUser,orders.orderDetail)
 router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
+router.get('/invoice/:id',isUser.isUser,orders.invoice)
 
 router.post('/applyCoupon',isUser.isUser,coupon.applyCoupon)
+
+//  WALLET
+router.get('/userWallet',isUser.isUser,wallet.userWallet)
 
 
 

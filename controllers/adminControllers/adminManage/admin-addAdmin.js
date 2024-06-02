@@ -24,7 +24,7 @@ const newAdmin = async (req,res)=>{
         await adminCollection.create([adminData])
         res.redirect('/admin/admin_adminMnage')
     }catch(error){
-        console.log('error in the newAdmin ',error)
+        console.error('error in the newAdmin ',error)
         res.redirect('/admin/errorPage')
     }
 }

@@ -26,11 +26,12 @@
 
 
     <div class="ps-content m-5">
-      <h3 style="margin-left: 10%;">Order # : <%=data.orderID %></h3>
+      <% if (data) { %>
+      <h3 style="margin-left: 10%;">Order # : <%= data.orderID %></h3>
       <br><br>
       <h5 style="margin-left: 20%;">Shipping Details:</h5>
-      <h6 style="margin-left: 25%;">Address: <span style="font-size: small;"><b><%=data.address.name %></b>, <%=data.address.housename %>, <%=data.address.street %>, <%=data.address.city %>, <%=data.address.state %>, <%=data.address.country %>-<%=data.address.pincode %></span></h6>
-      <h6 style="margin-left: 25%;">Contact: <span style="font-size: small;"><%=data.address.mobile %> </span></h6>
+      <h6 style="margin-left: 25%;">Address: <span style="font-size: small;"><b><%= data.address.name %></b>, <%= data.address.housename %>, <%= data.address.street %>, <%= data.address.city %>, <%= data.address.state %>, <%= data.address.country %>-<%= data.address.pincode %></span></h6>
+      <h6 style="margin-left: 25%;">Contact: <span style="font-size: small;"><%= data.address.mobile %> </span></h6>
 
       <div class="ps-container">
         <div class="ps-cart-listing">
@@ -86,6 +87,13 @@
 
         </div>
       </div>
+      <% } else { %>
+        <h3 style="margin-left: 10%;">No order details available.</h3>
+        <% if (error) { %>
+          <p style="margin-left: 10%; color: red;"><%= error %></p>
+          <% } %>
+          
+          <% } %>
     </div>
   
 

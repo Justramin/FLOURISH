@@ -385,34 +385,152 @@
 
 
 
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
       <script>
-        const finalAmout = document.getElementById('cartotal').innerText 
-        console.log(finalAmout,'------------final amout');
-        // const finalAmout1 = document.getElementById('carttotal').value
-
-        console.log(finalAmout1,'=============final ayaal mathi enu');
+        const finalPrice = document.getElementById('cartotal').innerText 
+       
+      
         let method = ''
         let index = -1
         function paymentMethod(payment) {
           method = payment
           console.log(payment)
-
-          if (method == 'RazorPay') {
-            console.log('--------RAZOR PAYIL AAYITTUND--------');
+        }
 
 
-            fetch('/razorPay',{
-              method:'GET',
+
+
+        //cod anankil
+        async function COD(){
+
+await fetch(`/placeOrder?address=${index}&payment=${method}`,{
+  method:'GET',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+}) .then(response =>{
+  if(!response.ok){
+    console.log('some error aoccourd by fetching data in order get');
+  }
+  return response.json()
+}).then(data => {
+  if(data.result == 'success'){
+    const orderId = data.orderId
+    Swal.fire({
+        text: "Order placed",
+        icon: 'success',									
+        showCancelButton: false,
+        showCloseButton: false,
+        showConfirmButton:false,
+        showLoaderOnConfirm: false,
+        timer: 3000
+      }).then(()=>{
+window.location.href=`/orderConfirmation?id=${orderId}`
+
+      })
+
+  }
+}).catch(error=>{
+  console.error('error in order placed:',error);
+})
+
+}
+
+
+
+
+
+
+
+
+
+
+        //RAZOR PAY ANANKIL
+        async function RazorPay(){
+         const response =  await fetch('/razorPay',{
+              method:'POST',
               headers:{
                 'Content-Type': 'application/json'
               },
               body:JSON.stringify({finalPrice})
             })
-          }
-          
+
+            if (!response.ok) {
+                                throw new Error('Failed to create order');
+                            }
+
+                            const order = await response.json();
+                            console.log(order, 'order is showing');
+                            const options = {
+                                key: 'rzp_test_nPpZYyvi8hdf04',
+                                amount: order.amount,
+                                currency: order.currency,
+                                order_id: order.id,
+                                name: 'FLOURISH',
+                                description: 'Test Payment',
+                                image: 'https://via.placeholder.com/150',
+                                handler: function (response) {
+                                    Swal.fire({
+                                        text: 'Payment Successful! Payment ID: ' + response.razorpay_payment_id,
+                                        icon: 'success'
+                                    }).then(() => {
+                                        razorpaySuccess(response.razorpay_payment_id);
+                                    });
+                                },
+                                prefill: {
+                                    name: 'Justin Ram',
+                                    email: 'john.doe@example.com',
+                                    contact: '1234567890'
+                                },
+                                theme: {
+                                    color: '#528FF0'
+                                }
+                            };
+
+                            const razorpayInstance = new Razorpay(options);
+                            razorpayInstance.open();
+        }
+
+
+        async function razorpaySuccess(payment_id){
+
+          await fetch(`/placeOrder?address=${index}&payment=${method}`,{
+            method:'GET',
+              headers:{
+                'Content-Type': 'application/json'
+              },
+          }) .then(response =>{
+            if(!response.ok){
+              console.log('some error aoccourd by fetching data in order get');
+            }
+            return response.json()
+          }).then(data => {
+            if(data.result == 'success'){
+              const orderId = data.orderId
+              Swal.fire({
+									text: "Order placed",
+									icon: 'success',									
+									showCancelButton: false,
+									showCloseButton: false,
+                  showConfirmButton:false,
+									showLoaderOnConfirm: false,
+									timer: 3000
+								}).then(()=>{
+        window.location.href=`/orderConfirmation?id=${orderId}`
+
+                })
+
+            }
+          }).catch(error=>{
+            console.error('error in order placed:',error);
+          })
 
         }
+
+
+
+
 
         function selectAddress(i) {
           index = i;
@@ -445,12 +563,18 @@
 
           }
           else {
+            if(method === 'RazorPay'){
+              RazorPay()
+            }
+            else if (method === 'COD' ){
+              COD()
+            }
 
-            window.location.href = `/placeOrder?address=${index}&&payment=${method}`
+            
 
           }
 
-          console.log('placeOrder function called!!!!');
+          
         }
       </script>
 
