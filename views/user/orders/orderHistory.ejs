@@ -94,7 +94,7 @@
 
         <div class="m-2 mt-4 text-center">
           <% if (data[i].status == 'Pending') { %>
-            <h4 class="font-weight-bold">"Move To The Order Details Page To Make a Payment."</h4>
+            <!-- <h4 class="font-weight-bold">"Move To The Order Details Page To Make a Payment."</h4> -->
           <% } %>
         </div>
 
@@ -123,6 +123,18 @@
                     Cancel Product
                   </a>
                 <% } %>
+
+
+
+                <% if (data[i].products[j].status !== 'Cancelled' && data[i].products[j].status == 'Delivered' && data[i].products[j].status !== 'returned') { %>
+                  <a onclick="returnOrder('<%#= data[i].orderID %>','<%#= j %>')" class="btn cancel-product-button">
+                    RETURN PRODUCT
+                  </a>
+                <% } %>
+
+
+
+
                 <% if (data[i].products[j].status == 'Cancelled') { %>
                  <p>product canceld</p>
                 <% } %>
@@ -140,7 +152,7 @@
 
         <% if (data[i].paymentMethod !== 'COD' || data[i].status !== 'Pending' ) { %>
           <button class="order-details-button" > 
-            Invoice
+            <a href="/invoice/<%= data[i].orderID  %>" >Invoice</a>
           </button>
         <% } %>
 
@@ -238,7 +250,7 @@
 
 
 
-//CANCEl A SINGLE PRODUCT
+<!-- CANCEl A SINGLE PRODUCT -->
 <script>
   function cancelProduct(orderID,index){
      console.log(orderID);

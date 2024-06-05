@@ -332,6 +332,20 @@
 
 
 
+                  <div class="content">
+                    <table class="table ps-checkout__products">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase">Wallet Balance </th>
+                          <% if (wallet) { %>
+                            <th id="wallet" class="text-uppercase"> <%= wallet.wallet %> </th>
+                          <% } %>
+                          <th id="wallet" class="text-uppercase"> 0</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+
 
                   <footer>
                     <h3>Payment Method</h3>
@@ -390,6 +404,8 @@
       <script>
         const finalPrice = document.getElementById('cartotal').innerText 
        
+     
+       
       
         let method = ''
         let index = -1
@@ -397,6 +413,92 @@
           method = payment
           console.log(payment)
         }
+
+
+
+
+
+
+        //WALLET ANAKIL
+        async function WALLET (){
+          const walletAmount = document.getElementById('wallet').innerText
+          console.log(walletAmount,'--------------walletAmount ahannu');
+          await fetch('/userWalletPost',{
+            method: 'POST',
+            headers:{
+              'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({walletAmount:walletAmount,finalPrice:finalPrice})
+          }).then(response=>{
+            if(!response.ok){
+              console.log('some error occured while fetching Wallet');
+            }
+            return response.json()
+          }).then(data=>{
+            if(data.result==='Within Limit'){
+              orderUsingWallet(method)
+              console.log('Within Limit');
+            }else{
+              console.log('Limit Exceeded');
+              Swal.fire({
+              title: "Limit Exceeded !",
+              text: "Wallet doesn't have enough Money !",
+              icon: "warning",
+              showConfirmButton: false,
+              timer: 2000
+            });
+            }
+          }).catch(error=>{
+            console.log('Some error occure', error);
+          })
+
+
+
+
+
+
+        }
+
+        async function orderUsingWallet(){
+
+await fetch(`/placeOrder?address=${index}&payment=${method}`,{
+  method:'GET',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+}) .then(response =>{
+  if(!response.ok){
+    console.log('some error aoccourd by fetching data in order get');
+  }
+  return response.json()
+}).then(data => {
+  if(data.result == 'success'){
+    const orderId = data.orderId
+    Swal.fire({
+        text: "Order placed",
+        icon: 'success',									
+        showCancelButton: false,
+        showCloseButton: false,
+        showConfirmButton:false,
+        showLoaderOnConfirm: false,
+        timer: 3000
+      }).then(()=>{
+window.location.href=`/orderConfirmation?id=${orderId}`
+
+      })
+
+  }
+}).catch(error=>{
+  console.error('error in order placed:',error);
+})
+
+}
+
+
+
+
+
+
 
 
 
@@ -568,6 +670,9 @@ window.location.href=`/orderConfirmation?id=${orderId}`
             }
             else if (method === 'COD' ){
               COD()
+            }
+            else if (method === 'WALLET'){
+              WALLET()
             }
 
             

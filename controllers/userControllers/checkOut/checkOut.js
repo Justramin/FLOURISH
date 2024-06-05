@@ -6,6 +6,7 @@ const userCollection = require("../../../model/userSchema");
 const otpGenerator = require('otp-generator')
 const Razorpay = require('razorpay')
 const dotenv = require('dotenv');
+const walletCollection = require("../../../model/walletSchema");
 
 
 dotenv.config()
@@ -20,6 +21,7 @@ var instance = new Razorpay({
 
 const checkOut = async(req,res)=>{
     try {
+        const wallet = await walletCollection.findOne({userId:req.session.isUser._id})
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
         let outOfStock = false;
@@ -33,7 +35,7 @@ const checkOut = async(req,res)=>{
         if(outOfStock){
             res.json({ outOfStock: outOfStock });
         }else{
-            res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
+            res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData,wallet:wallet})
         }
         
     } catch (error) {

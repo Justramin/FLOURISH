@@ -1,5 +1,7 @@
+const { session } = require("passport");
 const orderCollection = require("../../../model/orderSchema");
 const productCollection = require("../../../model/productSchema");
+const walletCollection = require("../../../model/walletSchema");
 
 
 
@@ -44,11 +46,10 @@ const orderDetail =async (req,res)=>{
 
 const cancelProducts = async (req, res) => {
     try {    
-        console.log(req.query);
         const data = await orderCollection.findOne({orderID: req.query.id})
         const updateData = data.products[req.query.i]
-        console.log(updateData);
-                // Await the update operation
+
+               
         const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
             {
             $set: {
@@ -62,6 +63,22 @@ const cancelProducts = async (req, res) => {
                 $inc: { stock: updateData.quantity } // Decrement the 'stock' field by cartData.items[i].quantity
             }
         );
+
+
+        if(data.paymentMethod !=='COD'){
+                const amount = updateData?.Product_total 
+            const walletTransactions = {
+                date:new Date(),
+                type:'Credit',
+                amount:amount,
+            }
+            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +amount},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+
+        }
+        
+
+  
+
 
         // Redirect or render response
         res.redirect('/orderHistory');

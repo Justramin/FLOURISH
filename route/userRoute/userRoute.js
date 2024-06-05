@@ -112,6 +112,7 @@ router.post('/applyCoupon',isUser.isUser,coupon.applyCoupon)
 
 //  WALLET
 router.get('/userWallet',isUser.isUser,wallet.userWallet)
+router.post('/userWalletPost',isUser.isUser,wallet.userWalletPost)
 
 
 

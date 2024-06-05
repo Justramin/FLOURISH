@@ -109,30 +109,34 @@
 
 
 
+      <% if (data) { %>
+
+       
+     
 
   <div class="container mt-5">
     <h3 class="mb-4 text-center">Wallet History</h3>
-    <h4 class="mb-4 text-center">Balance: ₹<%#= user.wallet %></h4>
+    <h4 class="mb-4 text-center">Balance: ₹<%= data.wallet %></h4>
 
-    <form id="Form" class="mb-4">
+    <!-- <form id="Form" class="mb-4">
         <div class="input-group">
             <input type="number" id="Amount" name="Amount" class="form-control form-control-custom" placeholder="Enter Amount" min="0">
             <button type="button" class="btn btn-outline-dark btn-custom" onclick="RazorpayWallet(event)">Add To Wallet</button>
         </div>
-    </form>
+    </form> -->
 
-    <% if(!isUser) { %>
+    <% if(data) { %>
         <div class="row">
-            <% wallet.forEach((entry, index) => { %>
+            <% data.walletTransactions.forEach((wallet, index) => { %>
                 <div class="col-md-6 mb-4">
-                    <div class="card wallet-card <%#= entry.history.transaction === 'Credited' ? 'wallet-card-credited' : 'wallet-card-debited' %>">
+                    <div class="card wallet-card <%= wallet.type === 'Credit' ? 'wallet-card-credited' : 'wallet-card-debited' %>">
                         <div class="card-body wallet-card-body">
-                            <h5 class="card-title wallet-card-title <%#= entry.history.transaction === 'Credited' ? 'text-success' : 'text-danger' %>">
-                                <%#= entry.history.transaction %>
+                            <h5 class="card-title wallet-card-title <%= wallet.type === 'Credit'  ? 'text-success' : 'text-danger' %>">
+                                <%= wallet.type %>
                             </h5>
-                            <p class="card-text text-black">Reason: <%#= entry.history.reason %></p>
-                            <p class="card-text text-black">Amount: ₹<%#= entry.history.amount %></p>
-                            <p class="card-text text-black">Date: <%#= new Date(entry.history.date).toLocaleString() %></p>
+                            <!-- <p class="card-text text-black">Reason: <%#= wallet.reason %></p> -->
+                            <p class="card-text text-black">Amount: ₹<%= wallet.amount %></p>
+                            <p class="card-text text-black">Date: <%= new Date(wallet.date).toLocaleString() %></p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +153,17 @@
     <% } %>
 </div>
 
+
+
+
+
+<% } else { %>
+    <div class="container mt-5">
+        <h3 class="mb-4 text-center">Wallet History</h3>
+        <h4 class="mb-4 text-center">Balance: 0</h4>       
+    </div>
  
+<% } %>
 
    
   
