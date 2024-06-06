@@ -10,7 +10,6 @@ const walletCollection = require("../../../model/walletSchema");
 const orderConfirmation =async (req,res)=>{
     try{
         const orderData = await orderCollection.findOne({orderID:req.query.id});
-        console.log(orderData);
         res.render('orderConfirmation',{isUser:req.session.isUser,data:orderData});
     }catch(error){
         console.error('Error in orderConfirmation :',error);

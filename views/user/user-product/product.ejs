@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 
 <%- include('../partials/head') %>
-<style>
-  .ps-product__title,.ps-product__categories,.ps-product__price {
-       text-align: center;
-   }
-   .ps-form--search-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    
-  }
-  .ps-form--search {
-    display: flex;
-    align-items: center;
-  }
-  .ps-form--search input.form-control {
-    flex-grow: 1;
-    margin-right: 5px;
-  }
-</style>
+  <style>
+    .ps-product__title,
+    .ps-product__categories,
+    .ps-product__price {
+      text-align: center;
+    }
+
+    .ps-form--search-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+    }
+
+    .ps-form--search {
+      display: flex;
+      align-items: center;
+    }
+
+    .ps-form--search input.form-control {
+      flex-grow: 1;
+      margin-right: 5px;
+    }
+  </style>
 
   <body>
     <%- include('../partials/navbar') %>
@@ -31,87 +36,90 @@
 
 
 
-    
-    <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
-      <div class="ps-container">
-        <h3>Shop Page</h3>
-        <div class="ps-breadcrumb">
-          <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li class="active">Shop Page</li>
-          </ol>
+
+      <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
+        <div class="ps-container">
+          <h3>Shop Page</h3>
+          <div class="ps-breadcrumb">
+            <ol class="breadcrumb">
+              <li><a href="/">Home</a></li>
+              <li class="active">Shop Page</li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div> 
 
 
 
 
-    <main class="ps-main">
-      <div class="ps-container">
-        <div class="ps-filter">
-          <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
-                  <div class="ps-filter__trigger">
-                    <div class="ps-filter__icon"><span></span></div>
-                    <p>Filter Product</p>
-                  </div>
+      <main class="ps-main">
+        <div class="ps-container">
+          <div class="ps-filter">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
+                <div class="ps-filter__trigger">
+                  <div class="ps-filter__icon"><span></span></div>
+                  <p>Filter Product</p>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+              </div>
 
-                  <div class="ps-form--search-container">
-              <form class="ps-form--search" action="/product" method="GET">
-                <button type="submit" class="btn btn-light" style="color: white;">Search</button>
-                <input  class="form-control" type="text" name="search" placeholder="Find product">
-                
-              </form>
+
+              <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+                <form action="/product" method="GET" style="display: flex; gap: 10px;">
+                  <input type="text" name="search" placeholder="Find product" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;">
+                  <button type="submit" style="background-color: rgb(132 188 60); color: rgb(255, 255, 255); padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Search</button>
+                </form>
+              </div>
+              
+     
+
+
+
             </div>
-                  
-                 
-                </div>
-          </div>
 
 
-          <div class="ps-filter__content">
-            <div class="ps-filter__column" data-mh="column">
-              <h3>SORT CATEGORIES BY</h3>
-              <ul class="ps-list--filter">
-                <li class="current"><a href="/product">All</a></li>
-                <% for( let i = 0; i < catData.length; i++ ) { %>
-                
-                
-                <li><a href="/product?category=<%= catData[i].categoryName %>"><%= catData[i].categoryName %></a></li>
-                <% } %>
-                <!-- <li><a href="product-listing.html">Women</a></li>
+            <div class="ps-filter__content">
+              <div class="ps-filter__column" data-mh="column">
+                <h3>SORT CATEGORIES BY</h3>
+                <ul class="ps-list--filter">
+                  <li class="current"><a href="/product">All</a></li>
+                  <% for( let i=0; i < catData.length; i++ ) { %>
+
+
+                    <li><a href="/product?category=<%= catData[i].categoryName %>">
+                        <%= catData[i].categoryName %>
+                      </a></li>
+                    <% } %>
+                      <!-- <li><a href="product-listing.html">Women</a></li>
                 <li><a href="product-listing.html">Suite & Jean</a></li>
                 <li><a href="product-listing.html">Accessories</a></li>
                 <li><a href="product-listing.html">Kids</a></li>
                 <li><a href="product-listing.html">Handmade</a></li> -->
-              </ul>
-            </div>
-            <div class="ps-filter__column" data-mh="column">
-              <h3>SORT PRODUCTS BY</h3>
-              <ul class="ps-list--filter">
-                <li class="current"><a href="/product">Default Sorting</a></li>
-                <li><a href="/product">Sort by popularity</a></li>
-                <li><a href="/product">Sort by average rating</a></li>
-                <li><a href="/product?sort=newness">Sort by newness</a></li>
-                <li><a href="/product?sort=priceLow">Sort by price: low to high</a></li>
-                <li><a href="/product?sort=priceHigh">Sort by price: high to low</a></li>
-              </ul>
-            </div>
-            <div class="ps-filter__column" data-mh="column">
-              <h3>FILTER BY PRICE</h3>
-              <ul class="ps-list--filter">
-                <li class="current"><a href="/product">All</a></li>
-                <li><a href="/product?filter=0to1k">RS:0     - Rs:1000</a></li>
-                <li><a href="/product?filter=1kto5k">Rs:1000   - Rs:5000</a></li>
-                <li><a href="/product?filter=5kto25k">Rs:5000   - Rs:25000</a></li>
-                <li><a href="/product?filter=25kto1lak">Rs:25000  - Rs:100000</a></li>
-                <li><a href="/product?filter=1lakPlus">Rs:100000 +</a></li>
-              </ul>
-            </div>
-            <!-- <div class="ps-filter__column" data-mh="column">
+                </ul>
+              </div>
+              <div class="ps-filter__column" data-mh="column">
+                <h3>SORT PRODUCTS BY</h3>
+                <ul class="ps-list--filter">
+                  <li class="current"><a href="/product">Default Sorting</a></li>
+                  <li><a href="/product">Sort by popularity</a></li>
+                  <li><a href="/product">Sort by average rating</a></li>
+                  <li><a href="/product?sort=newness">Sort by newness</a></li>
+                  <li><a href="/product?sort=priceLow">Sort by price: low to high</a></li>
+                  <li><a href="/product?sort=priceHigh">Sort by price: high to low</a></li>
+                </ul>
+              </div>
+              <div class="ps-filter__column" data-mh="column">
+                <h3>FILTER BY PRICE</h3>
+                <ul class="ps-list--filter">
+                  <li class="current"><a href="/product">All</a></li>
+                  <li><a href="/product?filter=0to1k">RS:0 - Rs:1000</a></li>
+                  <li><a href="/product?filter=1kto5k">Rs:1000 - Rs:5000</a></li>
+                  <li><a href="/product?filter=5kto25k">Rs:5000 - Rs:25000</a></li>
+                  <li><a href="/product?filter=25kto1lak">Rs:25000 - Rs:100000</a></li>
+                  <li><a href="/product?filter=1lakPlus">Rs:100000 +</a></li>
+                </ul>
+              </div>
+              <!-- <div class="ps-filter__column" data-mh="column">
               <h3>FILTER BY PRICE</h3>
               <ul class="ps-list--color">
                 <li><a href="#"></a></li>
@@ -129,270 +137,293 @@
                 
               </ul>
             </div> -->
-            <div class="ps-filter__column" data-mh="column">
-              <h3>FILTER BY STOCK</h3>
-              <ul class="ps-list--filter">
-                <li class="current"><a href="/product">All</a></li>
-                <li><a href="/product?sort=newness">New</a></li>
-                <li><a href="/product">SaleOff</a></li>
-                <li><a href="/product?stock=inStock">Show Only Products On Sale</a></li>
-                <li><a href="/product?stock=inStock">In Stock Only</a></li>
-                <li><a href="/product?stock=outOffStock">Out of stock</a></li>
-              </ul>
+              <div class="ps-filter__column" data-mh="column">
+                <h3>FILTER BY STOCK</h3>
+                <ul class="ps-list--filter">
+                  <li class="current"><a href="/product">All</a></li>
+                  <li><a href="/product?sort=newness">New</a></li>
+                  <li><a href="/product">SaleOff</a></li>
+                  <li><a href="/product?stock=inStock">Show Only Products On Sale</a></li>
+                  <li><a href="/product?stock=inStock">In Stock Only</a></li>
+                  <li><a href="/product?stock=outOffStock">Out of stock</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+          <div class="row">
+
+            <% for( let i=0; i < data.length; i++ ) { %>
+
+
+              <div style="max-height:60vh" class="col-lg-3 mt-5 col-sm-6">
+                <div class="ps-product">
+                  <div class="ps-product__thumbnail">
+                    <!-- <div class="ps-badge"><span>New</span></div> -->
+                    <a class="ps-product__favorite" onclick="whishlist('<%= data[i]._id %>')"><i
+                        class="furniture-heart"></i></a>
+                    <img style="aspect-ratio: 1/1; border-radius: 5px;" src="/uploads/<%= data[i].image[0] %>"
+                      alt="Product Image">
+                    <a class="ps-product__overlay" href="/productDetail?id=<%= data[i]._id %>"></a>
+                    <div class="ps-product__content full">
+                      <div class="ps-product__variants">
+                        <div class="item"><img src="/uploads/<%= data[i].image[0] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<%= data[i].image[1] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<%= data[i].image[2] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<%= data[i].image[3] %>" alt=""></div>
+                        <div class="item"><img src="/uploads/<%= data[i].image[4] %>" alt=""></div>
+                      </div>
+                      <select class="ps-rating">
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                        <option value="2">5</option>
+                      </select><a class="ps-product__title" href="product-detail-2.html">
+                        <%= data[i].productName %>
+                      </a>
+                      <div class="ps-product__categories"><a href="product-listing.html">
+                          <%= data[i].discription %>
+                        </a></div>
+                      <p class="ps-product__price">
+                        <del>RS :<%= data[i].price %></del>Rs: <%= data[i].offerPrice %>
+                      </p><a class="ps-btn ps-btn--sm" onclick="addToCart('<%= data[i]._id %>')">Add to cart</a>
+                      <p class="ps-product__feature"><i class="furniture-delivery-truck-2"></i>Free Shipping in 24 hours
+                      </p>
+                    </div>
+                  </div>
+                  <div class="ps-product__content">
+                    <select class="ps-rating">
+                      <option value="1">1</option>
+                      <option value="1">2</option>
+                      <option value="1">3</option>
+                      <option value="1">4</option>
+                      <option value="2">5</option>
+                    </select><a class="ps-product__title" href="product-detail-2.html">
+                      <%=data[i].productName %>
+                    </a>
+                    <div class="ps-product__categories"><a href="product-listing.html">
+                        <%= data[i].discription %>
+                      </a></div>
+                    <p class="ps-product__price">
+                      <del>RS :<%= data[i].price %></del>Rs: <%= data[i].offerPrice %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <% } %>
+          </div>
+
+
+          <div class="ps-pagination">
+            <ul class="pagination">
+                <% if (page > 1) { %>
+                    <li><a href="/product?page=<%= page - 1 %>"><i class="fa fa-angle-left"></i></a></li>
+                <% } else { %>
+                    <li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                <% } %>
+        
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="<%= page === i ? 'active' : '' %>">
+                        <a href="/product?page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } %>
+        
+                <% if (page < totalPages) { %>
+                    <li><a href="/product?page=<%= page + 1 %>"><i class="fa fa-angle-right"></i></a></li>
+                <% } else { %>
+                    <li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                <% } %>
+            </ul>
+        </div>
+        
+
+
+
+
+      </main>
+      <div class="ps-home-features-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+              <div class="ps-block--icon"><i class="furniture-delivery-truck-1"></i>
+                <h4>Free Shipping <span> ON ORDER OVER $199</span></h4>
+                <p>Want to track a package? Find tracking information and order details from Your Orders.</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+              <div class="ps-block--icon"><i class="furniture-sofa"></i>
+                <h4>Everything Home <span> CHOOSE YOUR ITEM</span></h4>
+                <p>Shop zillions of finds, with new arrivals added daily.</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+              <div class="ps-block--icon"><i class="furniture-credit-card-1"></i>
+                <h4>Secure Payment <span> INFORMATION SECURITY</span></h4>
+                <p>Use the Shop Card for exclusive savings and financing options.</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+              <div class="ps-block--icon"><i class="furniture-hours"></i>
+                <h4>Support 24/7 <span> ALWAYS LISTEN</span></h4>
+                <p>We offer a 24/7 customer hotline so you’re never alone if you have a question.</p>
+              </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-        <div class="row">
-
-<% for( let i = 0; i < data.length; i++ ) { %>
-
-  
-    <div style="max-height:60vh" class="col-lg-3 mt-5 col-sm-6" >
-      <div class="ps-product">
-        <div class="ps-product__thumbnail">
-          <!-- <div class="ps-badge"><span>New</span></div> -->
-          <a class="ps-product__favorite" onclick="whishlist('<%= data[i]._id %>')"><i class="furniture-heart"></i></a>
-          <img style="aspect-ratio: 1/1; border-radius: 5px;" src="/uploads/<%= data[i].image[0] %>" alt="Product Image" >
-          <a class="ps-product__overlay" href="/productDetail?id=<%= data[i]._id %>"></a>
-          <div class="ps-product__content full">
-            <div class="ps-product__variants">
-              <div class="item"><img src="/uploads/<%= data[i].image[0] %>" alt=""></div>
-              <div class="item"><img src="/uploads/<%= data[i].image[1] %>" alt=""></div>
-              <div class="item"><img src="/uploads/<%= data[i].image[2] %>" alt=""></div>
-              <div class="item"><img src="/uploads/<%= data[i].image[3] %>" alt=""></div>
-              <div class="item"><img src="/uploads/<%= data[i].image[4] %>" alt=""></div>
-            </div>
-                <select class="ps-rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select><a class="ps-product__title" href="product-detail-2.html"><%= data[i].productName %></a>
-            <div class="ps-product__categories"><a href="product-listing.html"><%= data[i].discription %></a></div>
-            <p class="ps-product__price">
-              <del>RS :<%= data[i].price %></del>Rs: <%= data[i].offerPrice %>
-            </p><a class="ps-btn ps-btn--sm"  onclick="addToCart('<%= data[i]._id %>')">Add to cart</a>
-            <p class="ps-product__feature"><i class="furniture-delivery-truck-2"></i>Free Shipping in 24 hours</p>
-          </div>
-        </div>
-        <div class="ps-product__content">
-              <select class="ps-rating">
-                <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="2">5</option>
-              </select><a class="ps-product__title" href="product-detail-2.html"><%=data[i].productName %></a>
-          <div class="ps-product__categories"><a href="product-listing.html"><%= data[i].discription %></a></div>
-          <p class="ps-product__price">
-            <del>RS :<%= data[i].price %></del>Rs: <%= data[i].offerPrice %>
-          </p>
-        </div>
       </div>
-    </div>
- 
 
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-<% } %>
-</div>
-  
-    
-      <div class="ps-pagination">
-        <ul class="pagination">
-          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
-      </div>
-    </main>
-    <div class="ps-home-features-2">
-      <div class="container">
-        <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-                <div class="ps-block--icon"><i class="furniture-delivery-truck-1"></i>
-                  <h4>Free Shipping <span> ON ORDER OVER $199</span></h4>
-                  <p>Want to track a package? Find tracking information and order details from Your Orders.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-                <div class="ps-block--icon"><i class="furniture-sofa"></i>
-                  <h4>Everything Home <span> CHOOSE YOUR ITEM</span></h4>
-                  <p>Shop zillions of finds, with new arrivals added daily.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-                <div class="ps-block--icon"><i class="furniture-credit-card-1"></i>
-                  <h4>Secure Payment <span> INFORMATION SECURITY</span></h4>
-                  <p>Use the Shop Card for exclusive savings and financing options.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-                <div class="ps-block--icon"><i class="furniture-hours"></i>
-                  <h4>Support 24/7 <span> ALWAYS LISTEN</span></h4>
-                  <p>We offer a 24/7 customer hotline so you’re never alone if you have a question.</p>
-                </div>
-              </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>//ADD TO CART
-      function addToCart(id){
+      <script>//ADD TO CART
+        function addToCart(id) {
           // Stringify the id once
           const data = JSON.stringify({ id: id });
           console.log(data);
-  
+
           fetch('/addToCart', {
-              body: data,
-              method: 'post',
-              headers: {
-                  'Content-Type': 'application/json' // Specify the content type
-              }
+            body: data,
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json' // Specify the content type
+            }
           })
-          .then(response => {
+            .then(response => {
 
-            if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
 
-            
-          }).then(data=>{
-               // Handle the response as needed
+
+            }).then(data => {
+              // Handle the response as needed
               console.log('Response received:', data);
               console.log(data.success)
-              if(data.success){
+              if (data.success) {
 
 
-                if(data.message == "Out of stock" || data.message == "Only 5 items can be added"){
+                if (data.message == "Out of stock" || data.message == "Only 5 items can be added") {
                   Swal.fire({
                     // position: "top-end",
                     icon: "warning",
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                });  
-                }else{
+                  });
+                } else {
                   Swal.fire({
                     // position: "top-end",
                     icon: "success",
                     title: data.message,
                     showConfirmButton: false,
                     timer: 2500
-                }).then(()=>{
+                  }).then(() => {
                     window.location.reload()
-                  })  
-                }  
-
-              }else{
-                              Swal.fire({
-                title: "You are Not Loged in",
-                text: "Do you want go Login. Press Login!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Login!"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = '/login';
+                  })
                 }
-              });
-                
+
+              } else {
+                Swal.fire({
+                  title: "You are Not Loged in",
+                  text: "Do you want go Login. Press Login!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Login!"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '/login';
+                  }
+                });
+
 
               }
-          })
-          .catch(error => {
+            })
+            .catch(error => {
               // Handle any errors
               console.error('Error occurred:', error);
-          });
-      }
-  </script>
-  
+            });
+        }
+      </script>
 
-  <script>//WHISHLIST
 
-  function whishlist(id){
-    console.log('whishlist clicked');
+      <script>//WHISHLIST
+
+        function whishlist(id) {
+          console.log('whishlist clicked');
           console.log(id);
           // Stringify the id once
           const data = JSON.stringify({ id: id });
           console.log(data);
 
           fetch('/addWhishlist', {
-              body: data,
-              method: 'post',
-              headers: {
-                  'Content-Type': 'application/json' // Specify the content type
-              }
+            body: data,
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json' // Specify the content type
+            }
           })
-          .then(response => {
+            .then(response => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
-                return response.json();
-            }).then(data=>{
-               // Handle the response as needed
-                console.log('Response received:', data);
-                console.log(data.success)
-              if(data.success){
+              return response.json();
+            }).then(data => {
+              // Handle the response as needed
+              console.log('Response received:', data);
+              console.log(data.success)
+              if (data.success) {
                 Swal.fire({
-                    // position: "top-end",
-                    icon: "success",
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 2500
-                }).then(()=>{
-                    window.location.reload()
-                  }); 
+                  // position: "top-end",
+                  icon: "success",
+                  title: data.message,
+                  showConfirmButton: false,
+                  timer: 2500
+                }).then(() => {
+                  window.location.reload()
+                });
 
-              }else{
+              } else {
                 Swal.fire({
-                    title: "You are Not Loged in",
-                    text: "Do you want go Login. Press Login!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Login!"
-                }).then((result) => 
-              {
-                
-              if (result.isConfirmed) {
-                  window.location.href = '/login';
-                }
-              });
-            }
-          })
-          .catch(error => {
+                  title: "You are Not Loged in",
+                  text: "Do you want go Login. Press Login!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Login!"
+                }).then((result) => {
+
+                  if (result.isConfirmed) {
+                    window.location.href = '/login';
+                  }
+                });
+              }
+            })
+            .catch(error => {
               // Handle any errors
               console.error('Error occurred:', error);
-          });
-  }
+            });
+        }
 
 
-  </script>
+      </script>
 
 
 
- 
-    <%- include('../partials/footer')  %>
+
+      <%- include('../partials/footer') %>
 
 
   </body>
