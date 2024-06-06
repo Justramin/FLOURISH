@@ -28,6 +28,7 @@ const userWalletPost = async (req, res) => {
 
             const amount =  finalPrice
             const walletTransactions = {
+                remarks:'User purchased a Product',
                 date:new Date(),
                 type:'Debit',
                 amount:amount,

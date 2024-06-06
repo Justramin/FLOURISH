@@ -339,8 +339,9 @@
                           <th class="text-uppercase">Wallet Balance </th>
                           <% if (wallet) { %>
                             <th id="wallet" class="text-uppercase"> <%= wallet.wallet %> </th>
+                            <% } else { %>
+                              <th id="wallet" class="text-uppercase"> 0</th>
                           <% } %>
-                          <th id="wallet" class="text-uppercase"> 0</th>
                         </tr>
                       </thead>
                     </table>

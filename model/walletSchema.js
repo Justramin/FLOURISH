@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+  const mongoose=require('mongoose')
 
 const walletSchema = new mongoose.Schema({
     userId: {
@@ -12,7 +12,7 @@ const walletSchema = new mongoose.Schema({
     },
     walletTransactions: [
       {
-        reason:{type:String},
+        remarks:{type:String},
         date: { type: Date },
         type: { type: String },
         amount: { type: Number },

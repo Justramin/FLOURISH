@@ -134,7 +134,7 @@
                             <h5 class="card-title wallet-card-title <%= wallet.type === 'Credit'  ? 'text-success' : 'text-danger' %>">
                                 <%= wallet.type %>
                             </h5>
-                            <!-- <p class="card-text text-black">Reason: <%#= wallet.reason %></p> -->
+                            <p class="card-text text-black">Remarks: <%= wallet.remarks %></p>
                             <p class="card-text text-black">Amount: ₹<%= wallet.amount %></p>
                             <p class="card-text text-black">Date: <%= new Date(wallet.date).toLocaleString() %></p>
                         </div>

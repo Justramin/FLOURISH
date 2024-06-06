@@ -10,6 +10,7 @@ const walletCollection = require("../../../model/walletSchema");
 const orderConfirmation =async (req,res)=>{
     try{
         const orderData = await orderCollection.findOne({orderID:req.query.id});
+        console.log(orderData);
         res.render('orderConfirmation',{isUser:req.session.isUser,data:orderData});
     }catch(error){
         console.error('Error in orderConfirmation :',error);
@@ -68,6 +69,7 @@ const cancelProducts = async (req, res) => {
         if(data.paymentMethod !=='COD'){
                 const amount = updateData?.Product_total 
             const walletTransactions = {
+                remarks: 'User cancel a product',
                 date:new Date(),
                 type:'Credit',
                 amount:amount,
