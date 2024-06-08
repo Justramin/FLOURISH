@@ -3,19 +3,35 @@ const { ObjectId } = require('mongodb')
 
 
 
-const admin_adminManage = async (req,res)=>{
+const admin_adminManage = async (req, res) => {
     try {
-        if(!req.session.isAdminAuth){
-            res.redirect('/admin/admin-login')
-        }else{
-            const adminData =await admincollection.find({superAdmin:false})
-            res.render('admin-adminManage',{admin:adminData})
+        if (!req.session.isAdminAuth) {
+            res.redirect('/admin/admin-login');
+        } else {
+            const perPage = 10; 
+            const page = parseInt(req.query.page) || 1; 
+
+            // Fetch admin data with pagination
+            const adminData = await admincollection.find({ superAdmin: false })
+                .sort({ _id: -1 })
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
+
+            
+            const count = await admincollection.countDocuments({ superAdmin: false });
+
+            res.render('admin-adminManage', {
+                admin: adminData,
+                currentPage: page,
+                totalPages: Math.ceil(count / perPage)
+            });
         }
     } catch (error) {
         console.error('Error in admin_adminManage:', error);
-        res.redirect('/admin/errorPage')
+        res.redirect('/admin/errorPage');
     }
-}
+};
+
 
 
 

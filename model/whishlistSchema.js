@@ -8,7 +8,8 @@ const whishlistSchema = new mongoose.Schema({
     items:[
         {
         proId:{
-            type:String,
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'product',
             required:true,
         },
         product: {

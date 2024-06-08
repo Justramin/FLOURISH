@@ -41,7 +41,11 @@ const addWhishlist = async(req,res)=>{
                     })
                 message = "Added to your Wishlist"   
                 }else{
-                    message = "This product is already in your wishlist"
+                    const index = whishlistData.items.findIndex(item => item.proId.toString() === req.body.id);
+
+                    whishlistData.items.splice(index,1)
+                    await whishlistData.save()
+                    message = "Removed from your Wishlist"
                 }
             }else{
                 const newWhishlist = new whishlistCollection({

@@ -26,6 +26,13 @@
       flex-grow: 1;
       margin-right: 5px;
     }
+    .bg-heart{
+      background: rgb(52, 255, 1) !important;
+
+    }
+    .noHover{
+      pointer-events: none !important;
+    }
   </style>
 
   <body>
@@ -168,8 +175,26 @@
                 <div class="ps-product">
                   <div class="ps-product__thumbnail">
                     <!-- <div class="ps-badge"><span>New</span></div> -->
-                    <a class="ps-product__favorite" onclick="whishlist('<%= data[i]._id %>')"><i
-                        class="furniture-heart"></i></a>
+                    <a class="ps-product__favorite <% if ((data[i].inWishlist)) { %>
+                     active
+                    <% } %>"
+                    onclick="whishlist('<%= data[i]._id %>')">
+                     <% if (data[i].inWishlist) { %> <i class="bi bi-heart-fill"></i>
+                     <style>
+                      .ps-product .active {
+                          background-color: transparent;
+                        }
+                        .ps-product .active i {
+                          background-color: transparent;
+                          color: red;
+                        }
+                        .ps-product .active:hover {
+                          background-color: transparent;
+                        }
+                     </style>
+                     <% } else { %>
+                      <i class="furniture-heart"></i>
+                     <% } %></a>
                     <img style="aspect-ratio: 1/1; border-radius: 5px;" src="/uploads/<%= data[i].image[0] %>"
                       alt="Product Image">
                     <a class="ps-product__overlay" href="/productDetail?id=<%= data[i]._id %>"></a>
@@ -226,23 +251,34 @@
 
           <div class="ps-pagination">
             <ul class="pagination">
-                <% if (page > 1) { %>
-                    <li><a href="/product?page=<%= page - 1 %>"><i class="fa fa-angle-left"></i></a></li>
-                <% } else { %>
-                    <li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                <% } %>
-        
-                <% for (let i = 1; i <= totalPages; i++) { %>
-                    <li class="<%= page === i ? 'active' : '' %>">
-                        <a href="/product?page=<%= i %>"><%= i %></a>
-                    </li>
-                <% } %>
-        
-                <% if (page < totalPages) { %>
-                    <li><a href="/product?page=<%= page + 1 %>"><i class="fa fa-angle-right"></i></a></li>
-                <% } else { %>
-                    <li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                <% } %>
+              <% if (page > 1) { %>
+                <li>
+                    <a href="/product?page=<%= page - 1 %>&filter=<%= filter %>&sort=<%= sort %>&category=<%= category %>&stock=<%= stock %>&search=<%= search %>">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+            <% } else { %>
+                <li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+            <% } %>
+            
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="<%= page === i ? 'active' : '' %>">
+                    <a href="/product?page=<%= i %>&filter=<%= filter %>&sort=<%= sort %>&category=<%= category %>&stock=<%= stock %>&search=<%= search %>">
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+            
+            <% if (page < totalPages) { %>
+                <li>
+                    <a href="/product?page=<%= page + 1 %>&filter=<%= filter %>&sort=<%= sort %>&category=<%= category %>&stock=<%= stock %>&search=<%= search %>">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            <% } else { %>
+                <li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            <% } %>
+            
             </ul>
         </div>
         
@@ -283,6 +319,17 @@
       </div>
 
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+   
+
+
+
+
+
+
+
+
 
       <script>//ADD TO CART
         function addToCart(id) {

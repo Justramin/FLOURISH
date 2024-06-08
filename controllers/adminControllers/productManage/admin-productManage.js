@@ -6,20 +6,37 @@ const categoryCollection = require('../../../model/categorySchema')
 
 
 
-const admin_productManage = async (req,res)=>{
+const admin_productManage = async (req, res) => {
     try {
-        if(req.session.isAdminAuth){
-            const productData = await productCollection.find({}).populate('category')
-            res.render('admin-productManage',{product:productData,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
+        if (req.session.isAdminAuth) {
+            const perPage = 10; 
+            const page = parseInt(req.query.page) || 1; 
+
+            
+            const productData = await productCollection.find({})
+                .populate('category')
+                .sort({ _id: -1 })
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
+
+           
+            const count = await productCollection.countDocuments();
+
+            res.render('admin-productManage', {
+                product: productData,
+                isSuperAdmin: req.session.isSuperAdmin,
+                currentPage: page,
+                totalPages: Math.ceil(count / perPage)
+            });
+        } else {
+            res.redirect('/admin/admin-login');
         }
     } catch (error) {
         console.error('Error in admin_productManage:', error);
-        res.redirect('/admin/errorPage')
+        res.redirect('/admin/errorPage');
     }
-    
-}
+};
+
 
 
 const admin_productStatus = async(req,res)=>{

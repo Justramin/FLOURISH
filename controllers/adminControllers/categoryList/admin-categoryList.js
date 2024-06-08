@@ -4,19 +4,36 @@ const { ObjectId } = require('mongodb');
 
 
 
-const admin_categoryList = async(req,res)=>{
+const admin_categoryList = async (req, res) => {
     try {
-        if(req.session.isAdminAuth){
-            const category = await categoryCollection.find()
-            res.render('admin-categoryList',{category:category,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
+        if (req.session.isAdminAuth) {
+            const perPage = 10; 
+            const page = parseInt(req.query.page) || 1; 
+
+           
+            const categories = await categoryCollection.find({})
+                .sort({ _id: -1 })
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
+
+            
+            const count = await categoryCollection.countDocuments();
+
+            res.render('admin-categoryList', {
+                category: categories,
+                isSuperAdmin: req.session.isSuperAdmin,
+                currentPage: page,
+                totalPages: Math.ceil(count / perPage)
+            });
+        } else {
+            res.redirect('/admin/admin-login');
         }
     } catch (error) {
         console.error('Error in admin_categoryList:', error);
-        res.redirect('/admin/errorPage')
-    } 
-}
+        res.redirect('/admin/errorPage');
+    }
+};
+
 
 
 

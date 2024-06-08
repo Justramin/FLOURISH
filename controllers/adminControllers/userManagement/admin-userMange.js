@@ -2,19 +2,36 @@ const collection = require("../../../model/userSchema")
 const { ObjectId } = require('mongodb')
 
 
-const admin_userManage = async(req,res)=>{
+const admin_userManage = async (req, res) => {
     try {
-        if(req.session.isAdminAuth){
+        if (req.session.isAdminAuth) {
+            const perPage = 10; // Number of users per page
+            const page = req.query.page || 1; // Current page, default to 1 if not provided
+
+            // Fetch the user data with pagination
             const userData = await collection.find()
-            res.render('admin-userManage',{users:userData,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
+                .sort({ _id: -1 })
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
+
+            // Get total count of users for pagination
+            const count = await collection.countDocuments();
+
+            res.render('admin-userManage', {
+                users: userData,
+                isSuperAdmin: req.session.isSuperAdmin,
+                currentPage: page,
+                totalPages: Math.ceil(count / perPage)
+            });
+        } else {
+            res.redirect('/admin/admin-login');
         }
     } catch (error) {
         console.error('Error in admin_userManage:', error);
-        res.redirect('/admin/errorPage')
+        res.redirect('/admin/errorPage');
     }
-}
+};
+
 
 
 
