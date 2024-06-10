@@ -7,6 +7,10 @@ const walletCollection = require("../../../model/walletSchema");
 const userWallet = async (req, res) => {
     try {
         const wallet = await walletCollection.findOne({userId:req.session.isUser._id})
+
+        if (wallet) {
+            wallet.walletTransactions.reverse();
+        }
    
         res.render('userwallet2',{isUser:req.session.isUser,data:wallet})
 

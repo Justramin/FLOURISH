@@ -35,6 +35,9 @@ const checkOut = async(req,res)=>{
         if(outOfStock){
             res.json({ outOfStock: outOfStock });
         }else{
+            if (addressData && addressData.address) {
+                addressData.address.reverse();
+            }
             res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData,wallet:wallet})
         }
         

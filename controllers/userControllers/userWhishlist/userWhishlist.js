@@ -7,6 +7,9 @@ const userWhishlist = async(req,res)=>{
     try {
         const isUser = req.session.isUser
         const whishlist = await whishlistCollection.findOne({userId:isUser._id})
+        if (whishlist && whishlist.items) {
+            whishlist.items.reverse();
+        }
         res.render('whishlistManage',{isUser:isUser,whishlislData:whishlist})
     } catch (error) {
         console.error('Error in userWhishlist:', error);
