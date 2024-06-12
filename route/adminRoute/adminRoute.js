@@ -19,6 +19,7 @@ const admin_addBanner = require('../../controllers/adminControllers/banner/admin
 const admin_orders = require('../../controllers/adminControllers/orders/admin-orders')
 const admin_adminMnage = require('../../controllers/adminControllers/adminManage/admin-adminManage')
 const admin_addAdmin = require('../../controllers/adminControllers/adminManage/admin-addAdmin')
+const admin_editCoupens = require('../../controllers/adminControllers/coupens/admin-editCoupons')
 const upload = require('../../config/multer')
 const errorPage = require('../../controllers/adminControllers/404/errorPage')
 
@@ -70,6 +71,10 @@ router.get('/errorPage',errorPage.errorPage)
 
 
 router.post('/adminAddCouponsPost',admin_addCoupens.adminAddCouponsPost)
+router.get('/couponStatus/:id',admin_addCoupens.adminCouponStatus)
+router.get('/admin_editCoupens/:id',admin_editCoupens.adminEditcoupen)
+router.post('/adminEditCouponsPost/:id',admin_editCoupens.adminEditCouponsPost)
+
 
 
 module.exports = router

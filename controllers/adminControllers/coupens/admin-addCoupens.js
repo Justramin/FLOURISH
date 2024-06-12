@@ -1,4 +1,5 @@
 const couponCollection = require('../../../model/CouponSchema');
+const { ObjectId } = require('mongodb');
 const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');  // Ensure this line is correct
 
 const admin_addCoupens = async (req, res) => {
@@ -89,7 +90,31 @@ const adminAddCouponsPost = async (req, res) => {
     }
 };
 
+
+const adminCouponStatus = async(req,res)=>{
+    try {
+        const coupensId = req.params.id
+        const coupensStatus = req.query.status
+        if(req.session.isAdminAuth){
+            let coupens;
+        if(coupensStatus=="true"){
+            coupens = await couponCollection.updateOne({_id:new ObjectId(coupensId)},{$set:{status:false}})
+        }else{
+            coupens = await couponCollection.updateOne({_id:new ObjectId(coupensId)},{$set:{status:true}})
+        }
+        res.redirect('/admin/admin_coupensManage')
+    }else{
+        res.redirect('/admin/admin-login')
+    }
+    } catch (error) {
+        console.error('Error in adminCouponStatus:', error);
+        res.redirect('/admin/errorPage')
+    }
+}
+
+
 module.exports = {
     admin_addCoupens,
-    adminAddCouponsPost
+    adminAddCouponsPost,
+    adminCouponStatus
 }

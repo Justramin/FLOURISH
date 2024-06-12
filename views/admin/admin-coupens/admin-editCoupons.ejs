@@ -1,0 +1,254 @@
+
+
+
+
+<%- include('../admin-partials/adminHedder') %>
+
+
+
+
+        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        <ul class="list-unstyled">
+                <li><a href="/admin"> <i class="icon-home"></i>Home </a></li>
+                <li><a href="/admin/admin-userManage""> <i class="icon-grid"></i>User Manage </a></li>
+                <li><a href="/admin/admin-productManage"> <i class="icon-grid"></i>Product Manage </a></li>
+                <li class="active"><a href="/admin/admin_coupensManage"> <i class="icon-grid"></i>Coupons Manage</a></li>
+                <li><a href="/admin/admin_categoryList"> <i class="icon-grid"></i> Category Manage </a></li>
+                <li><a href="/admin/admin_banner"> <i class="icon-grid"></i> Banner Manage</a></li>
+                <li><a href="/admin/admin_orders"> <i class="icon-grid"></i> Orders Manage</a></li>
+
+                
+
+                <% if (isSuperAdmin) { %>
+                  <li><a href="/admin/admin_adminMnage"> <i class="icon-grid"></i> Admin Manage</a></li>
+                <% } %>
+                
+
+               
+      </nav>
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <!-- Page Header-->
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Add A New Coupon</h2>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item active">Add Coupon</li>
+          </ul>
+        </div>
+        <section class="no-padding-top">
+          <div class="container-fluid">
+            <div class="row">
+             
+              <div class="col-lg-4">
+                <!-- <div class="block">
+                  <div class="title"><strong>Modal Form</strong></div>
+                  <div class="block-body text-center"> -->
+                    <!-- <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Form in simple modal </button> -->
+                    <!-- Modal-->
+                    <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                      <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header"><strong id="exampleModalLabel" class="modal-title">Signin Modal</strong>
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Lorem ipsum dolor sit amet consectetur.</p>
+                            <form>
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" placeholder="Email Address" class="form-control">
+                              </div>
+                              <div class="form-group">       
+                                <label>Password</label>
+                                <input type="password" placeholder="Password" class="form-control">
+                              </div>
+                              <div class="form-group">       
+                                <input type="submit" value="Signin" class="btn btn-primary">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Form Elements -->
+              <div class="col-lg-12">
+                <div class="block">
+                  <div class="title"><strong>Edit Coupon</strong></div>
+                  <div class="block-body">
+                    <form method="post" action="/admin/adminEditCouponsPost/<%= coupen._id %>"> 
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Coupon Code</label>
+                        <span id="couponCodeError" style="font-weight: bold; font-size: 18px;">
+                         
+                          <div class="col-sm-12">
+                          <input type="text" name="couponCode" class="form-control" value="<%= coupen.couponCode %>" required>
+                        </div>
+
+                        <% if(messages.couponCodeError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.couponCodeError %>
+                          </div>
+                        <%}%>
+
+                      </span>
+
+                      </div>
+                      
+
+
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Discription</label>
+                        <span id="discriptionError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
+                          <input type="text" name="discription" class="form-control" value="<%= coupen.discription %>" required>
+                        </div>
+                      </span>
+
+                      </div>
+                     
+                     
+
+
+                      
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">minimum Price</label>
+                        <span id="minimumPriceError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
+                          <input type="number" name="minimumPrice" class="form-control" value="<%= coupen.minimumPrice %>" required>
+                        </div>
+
+                        <% if(messages.minimumPriceError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.minimumPriceError %>
+                        </div>
+                        <%}%>
+
+                      </span>
+
+                      </div>
+                      
+
+
+
+
+                     
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Discount</label>
+                        <span id="discountError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
+                          <input type="number" name="discount" class="form-control" value="<%= coupen.discount %>" required> 
+                        </div>
+
+                        <% if(messages.discountError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.discountError %>
+                        </div>
+                        <%}%>
+                      </span>
+                      </div>
+                     
+
+
+
+
+
+
+                   
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Maximum Radeem</label>
+                        <span id="maxRedeemError" style="font-weight: bold; font-size: 18px;">
+                          <div class="col-sm-12">
+                          <input type="number" name="maxRedeem" class="form-control" value="<%= coupen.maxRedeem %>" required>
+                        </div>
+
+                        <% if(messages.maxRedeemError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.maxRedeemError %>
+                        </div>
+                        <%}%>
+                      </span>
+
+                      </div>
+                     
+
+
+                      
+
+
+
+                      
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Expiry Date</label>
+                        <span id="expiryError" style="font-weight: bold; font-size: 18px;">
+                        <div class="col-sm-12">
+                          <input type="date" name="expiry" class="form-control" value="<%= coupen.expiry.toISOString().substring(0, 10) %>" required>
+                        </div>
+
+                        <% if(messages.expiryError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.expiryError %>
+                        </div>
+                        <%}%>
+                      </span>
+                      
+                      </div>
+                    
+
+
+
+
+                    
+
+
+
+
+
+
+                      <div class="form-group row">
+                        <div class="col-sm-9 ml-auto">
+                          <button type="submit" class="btn btn-secondary">Submit</button>
+                          <!-- <button type="submit" class="btn btn-primary">Add Product</button> -->
+                        </div>
+                      </div>
+
+
+
+
+                     
+                    </form> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <script> 
+          reload()
+          const error = document.getElementById('error')
+          function reload(){
+      
+              setTimeout(()=>{
+                  error.innerHTML=''
+              },3500)
+          }
+          </script>
+     
+
+
+        <%- include('../admin-partials/adminFooter') %>
