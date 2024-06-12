@@ -126,7 +126,7 @@
                                                 <h5 class="text-truncate font-size-14 mb-1"><%= data.products[i].productName %></h5>
                                             </div>
                                         </td>
-                                        <td>$ <%= data.products[i].price %></td>
+                                        <td>₹<%= data.products[i].price %></td>
                                         <td><%= data.products[i].quantity %></td>
                                         <td class="text-end">₹ <%= data.products[i].price %></td>
                                     </tr>
@@ -168,7 +168,7 @@
                                     
                                     <tr>
                                         <th scope="row" colspan="4" class="border-0 text-end">Total</th>
-                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold">$ <%= data.totalOrderValue %></h4></td>
+                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold">₹                            <%= data.totalOrderValue %></h4></td>
                                     </tr>
                                     <!-- end tr -->
                                 </tbody><!-- end tbody -->

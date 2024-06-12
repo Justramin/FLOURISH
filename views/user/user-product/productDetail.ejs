@@ -106,7 +106,26 @@
                       </div>
                     </div>
                     <div class="ps-product__shopping" style="margin-top: 50px;"><a class="ps-btn" onclick="addToCart('<%= data._id %>')">Add To Cart</a>
-                      <div class="ps-product__actions"><a class="mr-10" onclick="whishlist('<%= data._id %>')"><i class="furniture-heart"></i></a></i></a></div>
+                      <div class="ps-product__actions"><a class="ps-product__favorite <% if ((data.inWishlist)) { %>
+                        active
+                       <% } %>"
+                       onclick="whishlist('<%= data._id %>')">
+                        <% if (data.inWishlist) { %> <i class="bi bi-heart-fill"></i>
+                        <style>
+                         .ps-product .active {
+                             background-color: transparent;
+                           }
+                           .ps-product .active i {
+                             background-color: transparent;
+                             color: red;
+                           }
+                           .ps-product .active:hover {
+                             background-color: transparent;
+                           }
+                        </style>
+                        <% } else { %>
+                         <i class="furniture-heart"></i>
+                        <% } %></a></i></a></div>
                     </div>
                     <div class="ps-product__sharing">
                       <!-- <p>Share this:<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a></p> -->

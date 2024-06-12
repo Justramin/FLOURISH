@@ -63,7 +63,7 @@
         }
 
         /* History style  */
-        h3, h4 {
+         .a1 {
             background: #ffffff;
             padding: 15px;
             border-radius: 8px;
@@ -115,8 +115,9 @@
      
 
   <div class="container mt-5">
-    <h3 class="mb-4 text-center">Wallet History</h3>
-    <h4 class="mb-4 text-center">Balance: ₹<%= data.wallet %></h4>
+    <h3 class="mb-4 text-center a1">Wallet History</h3>
+    <div style="margin-bottom: 30px;margin-top: 30px;"><h4 class="mb-4 text-center">Balance: ₹<%= data.wallet %></h4></div>
+    
 
     <!-- <form id="Form" class="mb-4">
         <div class="input-group">
@@ -128,9 +129,9 @@
     <% if(data) { %>
         <div class="row">
             <% data.walletTransactions.forEach((wallet, index) => { %>
-                <div class="col-md-6 mb-4">
-                    <div class="card wallet-card <%= wallet.type === 'Credit' ? 'wallet-card-credited' : 'wallet-card-debited' %>">
-                        <div class="card-body wallet-card-body">
+                <div class="col-md-6 mb-4 ">
+                    <div class="card wallet-card <%= wallet.type === 'Credit' ? 'wallet-card-credited' : 'wallet-card-debited' %> p-5">
+                        <div class="card-body wallet-card-body p-5">
                             <h5 class="card-title wallet-card-title <%= wallet.type === 'Credit'  ? 'text-success' : 'text-danger' %>">
                                 <%= wallet.type %>
                             </h5>

@@ -121,7 +121,26 @@
                     <div class="ps-product__thumbnail">
                       <!-- <div class="ps-badge"><span>New</span></div> -->
                       <!-- <div class="ps-badge ps-badge--sale"><span>-35%</span></div> -->
-                      <a class="ps-product__favorite" onclick="whishlist('<%= productData[i]._id %>')"><i class="furniture-heart"></i></a>
+                      <a class="ps-product__favorite <% if ((productData[i].inWishlist)) { %>
+                        active
+                       <% } %>"
+                       onclick="whishlist('<%= productData[i]._id %>')">
+                        <% if (productData[i].inWishlist) { %> <i class="bi bi-heart-fill"></i>
+                        <style>
+                         .ps-product .active {
+                             background-color: transparent;
+                           }
+                           .ps-product .active i {
+                             background-color: transparent;
+                             color: red;
+                           }
+                           .ps-product .active:hover {
+                             background-color: transparent;
+                           }
+                        </style>
+                        <% } else { %>
+                         <i class="furniture-heart"></i>
+                        <% } %></a>
                       <img style="aspect-ratio: 1/1; border-radius: 5px;" src="/uploads/<%= productData[i].image[0] %>" alt="Product Image">
                       <a class="ps-product__overlay" href="/productDetail?id=<%= productData[i]._id %>"></a>
                       <div class="ps-product__content full">

@@ -63,7 +63,7 @@ app.use(express.static('public'))
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false 
 }))
 
 app.use(flash());

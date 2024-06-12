@@ -63,22 +63,26 @@ const product = async (req, res) => {
             filtering.productName = { $regex: search, $options: 'i' };
         }
 
+
+        // Fetch filtered and sorted products without pagination
+        const products = await productCollection.find(filtering)
+            .sort(sortOption)
+            .populate('category');
+
+        // Filter products by active category status
+        const activeProducts = products.filter(product => product.category.status === true);
+
+
+
          // Fetch filtered and sorted products with pagination
-         const totalProducts = await productCollection.countDocuments(filtering);
+         const totalProducts = activeProducts.length ;
          const totalPages = Math.ceil(totalProducts / limit);
          page = Math.max(1, Math.min(page, totalPages));
          const skip = (page - 1) * limit;
+         const paginatedProducts = activeProducts.slice(skip, skip + limit);
 
 
-        const products = await productCollection.find(filtering)
-            .sort(sortOption)
-            .populate('category')
-            .skip(skip)
-            .limit(limit);
        
-
-         // Filter products by active category status
-         const activeProducts = products.filter(product => product.category.status === true);
 
 
          if (req.session.isUser) {
@@ -112,7 +116,7 @@ const product = async (req, res) => {
   
 
         res.render('product', {
-            data: activeProducts,
+            data: paginatedProducts,
             isUser: req.session.isUser,
             catData: catData,
             page: page,

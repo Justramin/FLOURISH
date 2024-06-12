@@ -19,7 +19,7 @@ const orderConfirmation =async (req,res)=>{
 
 const orderHistory =async (req,res)=>{
     try{
-        const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products').sort({_id:-1})
+        const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products.product').sort({_id:-1})
 
         res.render('orderHistory',{isUser:req.session.isUser,data:orderData});
     }catch(error){
@@ -30,13 +30,15 @@ const orderHistory =async (req,res)=>{
 
 
 
-const orderDetail =async (req,res)=>{
+const orderTracking =async (req,res)=>{
     try{
         const orderData = await orderCollection.findOne({orderID:req.params.id});
+        console.log(orderData,'-------------------kttiyaaaa mathi enu');
         if (!orderData) {
             console.error('Order not found');
             return res.render('orderDetails', { isUser: req.session.isUser, data: null, error: 'Order not found' });
         }
+        console.log('alan paranjitt pinna kelkkathirikkaan pattuvoo...');
         
         res.render('orderDetails',{isUser:req.session.isUser,data:orderData, error: null });
     }catch(error){
@@ -80,9 +82,6 @@ const cancelProducts = async (req, res) => {
         }
         
 
-  
-
-
         // Redirect or render response
         res.redirect('/orderHistory');
     } catch (error) {
@@ -92,14 +91,15 @@ const cancelProducts = async (req, res) => {
 }
 
 
-const invoice =async (req,res)=>{
-    try{
-        const orderId = req.params.id
-        const orderData = await orderCollection.findOne({orderID:orderId})
+const invoice = async (req, res) => {
+    try {
+        const orderId = req.params.id;
 
-        res.render('orderInvoice',{isUser:req.session.isUser,data:orderData});
-    }catch(error){
-        console.error('Error in invoice :',error);
+        const orderData = await orderCollection.findOne({ orderID: orderId }).populate('user');
+
+        res.render('orderInvoice', { isUser: req.session.isUser, data: orderData });
+    } catch (error) {
+        console.error('Error in invoice:', error);
         res.redirect('/userError');
     }
 }
@@ -109,7 +109,7 @@ const invoice =async (req,res)=>{
 module.exports = {
     orderConfirmation,
     orderHistory,
-    orderDetail,
+    orderTracking,
     cancelProducts,
     invoice
 }

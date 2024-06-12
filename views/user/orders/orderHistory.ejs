@@ -61,17 +61,17 @@
   
   <%- include('../partials/navbar') %>
 
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-blog set-bg mb-5" data-setbg="img/breadcrumb-bg.jpg">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>Your Orders History ></h2>
+  <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg"><img src="images/hero/contact-us.html" alt="">
+    <div class="ps-container">
+      <h3>my orders</h3>
+      <div class="ps-breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li class="active">my orders</li>
+        </ol>
       </div>
     </div>
   </div>
-</section>
-<!-- Breadcrumb Section End -->
 
 <div class="container">
 
@@ -146,7 +146,7 @@
         <!-- End of Order Item -->
 
         <!-- Buttons -->
-        <button class="order-details-button" onclick="location.href='/order-tracking/<%= data._id %>'">
+        <button class="order-details-button" onclick="location.href='/orderTracking/<%= data[i].orderID %>'">
           Order Details
         </button>
 

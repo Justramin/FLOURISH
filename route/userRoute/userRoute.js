@@ -104,7 +104,7 @@ router.post('/razorPay',isUser.isUser,razorPay.razorPay)
 //orders
 router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)
 router.get('/orderHistory',isUser.isUser,orders.orderHistory)
-router.get('/orderDetail/:id',isUser.isUser,orders.orderDetail)
+router.get('/orderTracking/:id',isUser.isUser,orders.orderTracking)
 router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
 router.get('/invoice/:id',isUser.isUser,orders.invoice)
 
