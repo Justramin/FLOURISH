@@ -60,15 +60,7 @@ const orderSchema = new mongoose.Schema({
     // required: true,
     trim: true,
   },
-  return_Reason: {
-    type: String,
-    trim: true,
-  },
 
-    cancel: {
-        type: String,
-        trim: true
-    },
 });
 
 const orderCollection =new mongoose.model("order", orderSchema);

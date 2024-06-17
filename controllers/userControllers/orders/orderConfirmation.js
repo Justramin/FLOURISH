@@ -2,6 +2,7 @@ const { session } = require("passport");
 const orderCollection = require("../../../model/orderSchema");
 const productCollection = require("../../../model/productSchema");
 const walletCollection = require("../../../model/walletSchema");
+const { Long } = require("mongodb");
 
 
 
@@ -32,15 +33,15 @@ const orderHistory =async (req,res)=>{
 
 const orderTracking =async (req,res)=>{
     try{
-        const orderData = await orderCollection.findOne({orderID:req.params.id});
-        console.log(orderData,'-------------------kttiyaaaa mathi enu');
+        const {id,index} = req.params
+        const orderData = await orderCollection.findOne({orderID:id});
+        
         if (!orderData) {
             console.error('Order not found');
             return res.render('orderDetails', { isUser: req.session.isUser, data: null, error: 'Order not found' });
         }
-        console.log('alan paranjitt pinna kelkkathirikkaan pattuvoo...');
         
-        res.render('orderDetails',{isUser:req.session.isUser,data:orderData, error: null });
+        res.render('orderDetails',{isUser:req.session.isUser,data:orderData,index:index, error: null });
     }catch(error){
         console.error('Error in orderDetail :',error);
         res.redirect('/userError');
@@ -50,14 +51,17 @@ const orderTracking =async (req,res)=>{
 
 const cancelProducts = async (req, res) => {
     try {    
-        const data = await orderCollection.findOne({orderID: req.query.id})
-        const updateData = data.products[req.query.i]
+      
+        const {id,i} = req.query
+        const data = await orderCollection.findOne({orderID:id})
+        const updateData = data.products[i]
 
                
         const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
             {
             $set: {
-                [`products.${req.query.i}.status`]: 'Cancelled' 
+                [`products.${req.query.i}.status`]: 'Cancelled',
+                [`products.${req.query.i}.cancel`]: true
             }
         });
         
@@ -83,7 +87,7 @@ const cancelProducts = async (req, res) => {
         
 
         // Redirect or render response
-        res.redirect('/orderHistory');
+        res.redirect(`/orderTracking/${id}/${i}`);
     } catch (error) {
         console.error('Error in cancelProducts:', error);
         res.redirect('/userError');
@@ -106,11 +110,70 @@ const invoice = async (req, res) => {
 
 
 
+
+const ReturnReason = async (req, res) => {
+    try {
+        console.log(req.body);
+        res.status(200).json({ message: 'Order return request processed successfully' })
+    } catch (error) {
+        console.error('Error in ReturnReason:', error);
+        res.redirect('/userError');
+    }
+}
+
+
+
+const reviewRating = async (req, res) => {
+    try {
+
+        const { id} = req.query;
+        const { rating, review } = req.body;
+        const userId = req.session.isUser._id;
+    
+        const productId = id;
+    
+        const product = await productCollection.findById(productId);
+    
+        if (!product) {
+          res.render("/userError")
+        }
+    
+        const existingUserRating = product.userRatings.find(
+          (userRating) => userRating.userId.toString() === userId
+        );
+    
+        if (existingUserRating) {
+          existingUserRating.rating = rating;
+          existingUserRating.review = review;
+        } else {
+          product.userRatings.push({ userId, rating, review });
+        }
+
+        const totalRatings = product.userRatings.reduce((acc, cur) => acc + cur.rating, 0);
+        const averageRating = totalRatings / product.userRatings.length;
+        console.log(totalRatings,'---------total ahanneee...');
+        console.log(averageRating,'---------------avarage  ahanneee..');
+
+     
+        product.ratingNumber = averageRating;
+    
+        await product.save();
+   
+        res.redirect("/orderHistory");
+    } catch (error) {
+        console.error('Error in reviewRating:', error);
+        res.redirect('/userError');
+    }
+}
+
+
 module.exports = {
     orderConfirmation,
     orderHistory,
     orderTracking,
     cancelProducts,
-    invoice
+    invoice,
+    ReturnReason,
+    reviewRating
 }
 

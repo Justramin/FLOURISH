@@ -111,8 +111,7 @@ const product = async (req, res) => {
 
 
 
-        // Get the products for the current page
-        // const paginatedProducts = activeProducts.slice(skip, skip + limit);
+   
   
 
         res.render('product', {

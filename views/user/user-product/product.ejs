@@ -201,13 +201,23 @@
                         <div class="item"><img src="/uploads/<%= data[i].image[3] %>" alt=""></div>
                         <div class="item"><img src="/uploads/<%= data[i].image[4] %>" alt=""></div>
                       </div>
+
+
+
                       <select class="ps-rating">
-                        <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                        <option value="1">4</option>
-                        <option value="2">5</option>
-                      </select><a class="ps-product__title" href="product-detail-2.html">
+                        <% 
+                          function getOptionValue(rating, optionNumber) {
+                            return optionNumber <= rating ? 1 : 2;
+                          }
+                      
+                          for (let optionNumber = 1; optionNumber <= 5; optionNumber++) {
+                        %>
+                          <option value="<%= getOptionValue(data[i].ratingNumber, optionNumber) %>"><%= optionNumber %></option>
+                        <% } %>
+                      </select>
+
+
+                      <a class="ps-product__title" href="product-detail-2.html">
                         <%= data[i].productName %>
                       </a>
                       <div class="ps-product__categories"><a href="product-listing.html">
@@ -221,13 +231,24 @@
                     </div>
                   </div>
                   <div class="ps-product__content">
+
+
+
                     <select class="ps-rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="2">5</option>
-                    </select><a class="ps-product__title" href="product-detail-2.html">
+                      <% 
+                        function getOptionValue(rating, optionNumber) {
+                          return optionNumber <= rating ? 1 : 2;
+                        }
+                    
+                        for (let optionNumber = 1; optionNumber <= 5; optionNumber++) {
+                      %>
+                        <option value="<%= getOptionValue(data[i].ratingNumber, optionNumber) %>"><%= optionNumber %></option>
+                      <% } %>
+                    </select>
+
+
+                    
+                    <a class="ps-product__title" href="product-detail-2.html">
                       <%=data[i].productName %>
                     </a>
                     <div class="ps-product__categories"><a href="product-listing.html">

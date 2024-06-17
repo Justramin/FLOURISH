@@ -35,6 +35,10 @@ const schema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
+    ratingNumber:{
+        type:Number,
+        default:0
+    },
     userRatings: [
         {
             userId: { type: mongoose.Schema.Types.ObjectId, ref: 'userdetails', required: true },

@@ -11,8 +11,14 @@ const userWallet = async (req, res) => {
         if (wallet) {
             wallet.walletTransactions.reverse();
         }
+
+            const currentDate = new Date();
+            const year = currentDate.getFullYear().toString().slice(-2);
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const formattedDate = `${month}/${year}`;
    
-        res.render('userwallet2',{isUser:req.session.isUser,data:wallet})
+            console.log(wallet);
+        res.render('userwallet2',{isUser:req.session.isUser,data:wallet,date:formattedDate})
 
     } catch (error) {
         console.error('Error in userWallet:', error);

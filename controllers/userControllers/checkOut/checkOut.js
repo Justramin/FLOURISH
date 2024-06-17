@@ -111,12 +111,15 @@ const placeOrder = async (req,res)=>{
                 
 
                 let obj={
+                    id:cartData.items[i].productId._id,
                     productName:cartData.items[i].productId.productName,
                     Image:cartData.items[i].Image,
                     quantity:cartData.items[i].quantity,
                     price:cartData.items[i].price,
                     Product_total:cartData.items[i].Product_total,
-                    status:"Pending"
+                    status:"Pending",
+                    cancel:false,
+                    returnReason:null
                 }
                 productData.push(obj);
             }

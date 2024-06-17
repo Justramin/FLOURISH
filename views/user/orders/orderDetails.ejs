@@ -3,237 +3,518 @@
 
 <%- include('../partials/head') %>
 
-<body>
-  <div class="header--sidebar"></div>
+  <body>
+    <div class="header--sidebar"></div>
 
-  <%- include('../partials/navbar') %>
+    <%- include('../partials/navbar') %>
 
-  <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
-    <img src="images/hero/contact-us.html" alt="">
-    <div class="ps-container">
-      <h3>my orders</h3>
-      <div class="ps-breadcrumb">
-        <ol class="breadcrumb">
-          <li><a href="/">Home</a></li>
-          <li class="active">my orders</li>
-        </ol>
+      <div class="ps-hero bg--cover" data-background="/user/images/hero/bread-1.jpg">
+        <img src="/user/images/hero/contact-us.html" alt="">
+        <div class="ps-container">
+          <h3>my orders</h3>
+          <div class="ps-breadcrumb">
+            <ol class="breadcrumb">
+              <li><a href="/">Home</a></li>
+              <li><a href="/">ACCOUNT PAGE</a></li>
+              <li class="active">my orders</li>
+              <li class="active">Product Order Detail</li>
+            </ol>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+
+      <style>
+        #progressbarStatus {
+          margin-bottom: 3vh;
+          overflow: hidden;
+          color: #26A541;
+          padding-left: 0px;
+          margin-top: 3vh
+        }
+
+        #progressbarStatus li {
+          list-style-type: none;
+          font-size: x-small;
+          width: 25%;
+          float: left;
+          position: relative;
+          font-weight: 400;
+          padding-top: 1rem;
+          color: rgb(160, 159, 159);
+        }
+
+        #progressbarStatus li:before {
+          line-height: 29px;
+          display: block;
+          font-size: 16px;
+          background: #ddd;
+          border-radius: 50%;
+          margin: auto;
+          z-index: 100;
+          margin-bottom: 1vh;
+        }
+
+        #progressbarStatus li:after {
+          content: '';
+          height: 2px;
+          background: #ddd;
+          position: absolute;
+          left: 0%;
+          right: 0%;
+          margin-bottom: 2vh;
+          top: 1px;
+          z-index: 100;
+        }
+
+        #progressbarStatus li.active {
+          color: black;
+        }
+
+        #progressbarStatus li.active:before,
+        #progressbarStatus li.active:after {
+          background: #26A541;
+        }
+
+        #progressbarStatus li.cancel:before,
+        #progressbarStatus li.cancel:after {
+          background-color: #D95ABE;
+        }
+
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f3f3f3;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          z-index: 2;
+          border-radius: 1rem;
+        }
+
+        .dropdown-content .arrow-up {
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #f3f3f3;
+          margin: 0 auto;
+          margin-top: -10px;
+        }
+
+        .dropdown-content p {
+          padding: 0px 12px;
+          text-align: left;
+          text-decoration: none;
+          display: block;
+          font-size: small;
+        }
+
+        .dropdown-content h6 {
+          padding: 10px 12px;
+          text-align: left;
+          text-decoration: none;
+          display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+
+        .shoping-cart-table thead td {
+          padding: 0px 25px;
+        }
+
+        .shoping-cart-table thead .head-td {
+          padding: 0px 25px 20px;
+        }
+
+        .fa-star {
+          font-size: 1.5rem;
+        }
+      </style>
 
 
 
-  <style>
-    #progressbar {
-      margin-bottom: 3vh;
-      overflow: hidden;
-      color: #26A541;
-      padding-left: 0px;
-      margin-top: 3vh
-    }
 
-    #progressbar li {
-      list-style-type: none;
-      font-size: x-small;
-      width: 25%;
-      float: left;
-      position: relative;
-      font-weight: 400;
-      color: rgb(160, 159, 159);
-    }
+      <div class="liton__wishlist-area mb-105">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="shoping-cart-inner">
+                <div class="shoping-cart-table table-responsive">
 
-    #progressbar li:before {
-      line-height: 29px;
-      display: block;
-      font-size: 12px;
-      background: #ddd;
-      border-radius: 50%;
-      margin: auto;
-      z-index: -1;
-      margin-bottom: 1vh;
-    }
+                  <table style="width: 100%; margin-top: 10rem">
+                    <thead style="background-color:#f7f8fa; ">
+                      <tr>
+                        <td colspan="5">
+                          <div class="progress-track" style="width: 100%; margin-bottom: 4rem;">
+                            <ul id="progressbarStatus">
+                              <% switch(data.products[index].status) { case 'Pending' : %>
+                                <div
+                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
+                                </div>
+                                <li class="step1 active" id="step1">Processing</li>
+                                <div
+                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
+                                </div>
+                                <li style="text-align: center;" class="step2 " id="step2">Shipped</li>
+                                <div
+                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
+                                </div>
+                                <li style="text-align: center;" class="step3 " id="step3">Out for delivery</li>
+                                <div
+                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
+                                </div>
+                                <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
+                                <% break; %>
+                                  <% case 'Shipped' : %>
+                                    <div
+                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
+                                    </div>
+                                    <li class="step1 active" id="step1">Processing</li>
+                                    <div
+                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
+                                    </div>
+                                    <li style="text-align: center;" class="step2 " id="step2">Shipped</li>
+                                    <div
+                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
+                                    </div>
+                                    <li style="text-align: center;" class="step3 " id="step3">Out for delivery</li>
+                                    <div
+                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
+                                    </div>
+                                    <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
+                                    <% break; %>
+                                      <% case 'Out for delivery' : %>
+                                        <div
+                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
+                                        </div>
+                                        <li class="step1 active" id="step1">Processing</li>
+                                        <div
+                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
+                                        </div>
+                                        <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
+                                        <div
+                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
+                                        </div>
+                                        <li style="text-align: center;" class="step3 active" id="step3">Out for delivery
+                                        </li>
+                                        <div
+                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
+                                        </div>
+                                        <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
+                                        <% break; %>
+                                          <% case 'Delivered' : %>
+                                            <div
+                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
+                                            </div>
+                                            <li class="step1 active" id="step1">Processing</li>
+                                            <div
+                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
+                                            </div>
+                                            <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
+                                            <div
+                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
+                                            </div>
+                                            <li style="text-align: center;" class="step3 active" id="step3">Out for
+                                              delivery</li>
+                                            <div
+                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
+                                            </div>
+                                            <li style="text-align: end;" class="step4 active" id="step4">Delivered</li>
+                                            <% break; %>
+                                              <% case 'Cancelled' : %>
+                                                <li class="step1 cancel" id="step1">Cancelled</li>
+                                                <li class="step1 cancel" id="step1"></li>
+                                                <li class="step1 cancel" id="step1"></li>
+                                                <li class="step1 cancel" id="step1"></li>
+                                                <% break; %>
+                                                  <% default: %>
+                                                    <li class="step1 " id="step1">Unknown</li>
+                                                    <% } %>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
 
-    #progressbar li:after {
-      content: '';
-      height: 2px;
-      background: #ddd;
-      position: absolute;
-      left: 0%;
-      right: 0%;
-      margin-bottom: 2vh;
-      top: 1px;
-      z-index: 1;
-    }
+                      <tr>
+                        <td>Total</td>
+                        <td>Ship To</td>
+                        <td>Order <span style="font-size: small; font-weight: lighter;">#<%= data.orderID %></span></td>
+                      </tr>
+                      <tr style="padding-bottom: 20px;">
 
-    #progressbar li.active {
-      color: black;
-    }
+                        <td class="head-td"><span class="math-inline">$<%= data.totalOrderValue %></span></td>
+                        <td class="head-td">
+                          <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <%= data.address.name%>
+                            </a>
+                            <div class="dropdown-content">
+                              <div class="arrow-up"></div>
+                              <h6>
+                                <%= data.address.save_as %>
+                              </h6>
+                              <p>
+                                <%= data.address.housename %>,
+                                  <%= data.address.street %>, <br>
+                                    <%= data.address.city %>, <%= data.address.state %>
+                                        <%= data.address.pincode %>, <br>
+                                          <%= data.address.country %><br>
+                                            Phone number: <%= data.address.mobile %><br>
+                                              Email: <%= data.address.email %><br>
+                                                <%= data.address.data_instruction %>
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="head-td">
+                          <%= data.status %>
+                        </td>
+                      </tr>
 
-    #progressbar li.active:before,
-    #progressbar li.active:after {
-      background: #26A541;
-    }
+                    </thead>
 
-    #progressbar li.cancel:before,
-    #progressbar li.cancel:after {
-      background-color: #D95ABE;
-    }
+                    <tbody>
+                      <tr>
+                        <td colspan="4">
+                          <div class="progress-track" style="width: 100%;">
+                            <ul id="progressbarStatus">
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f3f3f3;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 2;
-      border-radius: 1rem;
-    }
-
-    .dropdown-content .arrow-up {
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 10px solid #f3f3f3;
-      margin: 0 auto;
-      margin-top: -10px;
-    }
-
-    .dropdown-content p {
-      padding: 10px 12px;
-      text-align: left;
-      text-decoration: none;
-      display: block;
-      font-size: small;
-    }
-
-    .dropdown-content h6 {
-      padding: 10px 12px;
-      text-align: left;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .shoping-cart-table thead td {
-      padding: 0px 25px;
-    }
-
-    .shoping-cart-table thead .head-td {
-      padding: 0px 25px 20px;
-    }
-
-    .fa-star {
-      font-size: 1.5rem;
-    }
-  </style>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cart-product-image" style="border: none;">
+                          <a href="product-details.html">
+                            <img style="width: 120px;height: 120px; border-radius: 10px;" src="/uploads/<%= data.products[index].Image %>"
+                              alt="">
+                          </a>
+                        </td>
+                        <td class="cart-product-info" style="border: none;">
+                          <h4><a href="/productDetail?id=<%= data.products[index].id %>">
+                              <%= data.products[index].productName %>
+                            </a></h4>
+                          <h6 class="cart-product-price">
+                            Quantity: <span style="font-weight: normal; float: right;">
+                              <%= data.products[index].quantity %>
+                            </span>
+                          </h6>
+                          <h6 class="cart-product-price">
+                            Price: <span style="font-weight: normal; float: right;">₹<%= data.products[index].price %>
+                                </span>
+                          </h6>
+                          <h6 class="cart-product-price">
+                            Subtotal: <span style="font-weight: normal; float: right;">₹<%=
+                                data.products[index].Product_total %></span>
+                          </h6>
+                        </td>
+                        <td class="cart-product-info" style="border: none;"></td>
+                        <td class="cart-product-info" style="border: none;"></td>
+                      </tr>
 
 
 
 
-  <div class="liton__wishlist-area mb-105">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="shoping-cart-inner">
-            <div class="shoping-cart-table table-responsive">
+                    </tbody>
 
-              <table style="width: 100%;">
-                <thead style="background-color:#f7f8fa;">
-                    <% const statuses = ["Order Placed", "Shipped", "Out for delivery", "Delivered"]; %>
-                  <tr>
-                    <td>Order Placed</td>
-                    <td>Total</td>
-                    <td>Ship To</td>
-                    <td>Order <span style="font-size: small; font-weight: lighter;">#<%= data.orderID %></span></td>
-                  </tr>
-                  <tr style="padding-bottom: 20px;">
-                    <td class="head-td"><%= data.status %></td>
-                    <td class="head-td"><span class="math-inline">$<%= data.totalOrderValue %></span></td>
-                    <td class="head-td">
-                      <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          <%= data.address%> <%= data.address%>
-                        </a>
-                        <div class="dropdown-content">
-                          <div class="arrow-up"></div>
-                          <h6><%= data.address %></h6>
-                          <p>
-                            <%= data.address.address %>,
-                            <%= data.address.additional %>, <br>
-                            <%= data.address.city %>, <%= data.address.state %>
-                            <%= data.address.zip_code %>, <br>
-                            <%= data.address.country %><br>
-                            Phone number: <%= data.address.phone_number %><br>
-                            Email: <%= data.address.email %><br>
-                            <%= data.address.data_instruction %>
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                </thead>
-                <% data.products.forEach((product) => { %>
-                <tbody>
-                  <tr>
-                    <td colspan="4">
-                      <div class="progress-track" style="width: 100%;">
-                        <ul id="progressbar">
-                          <% statuses.forEach((status, index) => { %>
-                          <li class="step<%= index + 1 %> 
-                            <%= (index < product.status.length) ? 'active' : '' %> 
-                            <%= (product.status.includes('Cancelled') && index < product.status.length) ? 'cancel' : '' %>"
-                            id="step<%= index + 1 %>">
-                            <%= status %>
-                          </li>
-                          <% }); %>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="cart-product-image" style="border: none;">
-                      <a href="product-details.html">
-                        <img style="width: 120px;height: 120px;" src="/uploads/<%= product.Image %>" alt="">
+
+                  </table>
+
+                  <div style="margin-top: 3rem; margin-bottom: 3rem; float: right;">
+                    <% if (data.products[index].status !=='Cancelled' && data.products[index].status !=='Delivered' && data.products[index].status !=='returned' ) { %>
+                      <a onclick="cancelProduct('<%= data.orderID %>','<%= index %>')" class="btn btn-danger">
+                        Cancel Product
                       </a>
-                    </td>
-                    <td class="cart-product-info" style="border: none;">
-                      <h4><a href="product/details"><%= product.productName %></a></h4>
-                      <h6 class="cart-product-price">
-                        Quantity: <span style="font-weight: normal; float: right;"><%= product.quantity %></span>
-                      </h6>
-                      <h6 class="cart-product-price">
-                        Price: <span style="font-weight: normal; float: right;">₹<%= product.price %></span>
-                      </h6>
-                      <h6 class="cart-product-price">
-                        Subtotal: <span style="font-weight: normal; float: right;">₹<%= product.productTotal %></span>
-                      </h6>
-                    </td>
-                    <td class="cart-product-info" style="border: none;"></td>
-                    <td class="cart-product-info" style="border: none;"></td>
-                  </tr>
-                </tbody>
-                <% }); %>
-              </table>
+
+                      <%} else if (data.products[index].status === 'Delivered' && new Date(data.date.getTime() + 5 * 24 * 60 * 60 * 1000)>= new Date()) { %>
+                        <a class="btn btn-danger" onclick="confirmReturnOrder('<%= data._id %>','<%= index %>')">
+                          Return Order
+                        </a>  
+                        
+                      <% } %>
+                  </div>
+
+
+
+
+
+
+
+                  
+                    <% if (data.products[index].status === 'Delivered') { %>
+                      <div style="margin-top: 5rem; margin-bottom: 3rem;">
+                        <div>
+                          <a>
+                            <form class="ps-form--product-review" action="/reviewRating?id=<%= data.products[index].id %>" method="post">
+                          <h4>ADD YOUR REVIEW</h4>
+                          <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                                  <div class="form-group">
+                                  </div>
+                                  <div class="form-group">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Your rating</label>
+                                    <select class="ps-rating" name="rating">
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
+                                  <div class="form-group">
+                                    <label>Your Review:</label>
+                                    <textarea class="form-control" name="review" rows="6"></textarea>
+                                  </div>
+                                  <div class="form-group">
+                                    <button type="submit" class="ps-btn">Submit Reviews </button>
+                                  </div>
+                                </div>
+                          </div>
+                        </form>
+                          </a>
+                        </div>
+                  </div>
+                    <% } %>
+                 
+  
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
 
-  <%- include('../partials/footer') %>
 
-</body>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+      <script>
+        function confirmCancelProduct(orderId, productId) {
+          if (confirm("Are you sure you want to cancel this product?")) {
+            window.location.href = `/itemCancel/${orderId}/${productId}`;
+          } else {
+            console.log("User canceled");
+          }
+        }
+      </script>
+
+      <script>
+        function confirmCancelOrder(itemId) {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to proceed?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = itemId;
+            } else {
+              console.log("User canceled");
+            }
+          });
+        }
+      </script>
+
+      <script>
+        function confirmReturnOrder(itemId,index) {
+          Swal.fire({
+            title: 'Order Return',
+            input: 'text',
+            inputPlaceholder: 'Enter your Reason',
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            cancelButtonText: 'Cancel',
+            inputValidator: (value) => {
+              if (!value) {
+                return 'You need to enter something!';
+              }
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const inputValue = result.value;
+              $.ajax({
+                url: '/ReturnReason',
+                method: 'POST',
+                data: { itemId: itemId,index: index, reason: inputValue },
+                success: function (response) {
+                  Swal.fire('Submitted!', `Your reason has been submitted.`, 'success');
+                  setTimeout(function () {
+                    location.reload();
+                  }, 1000);
+                },
+                error: function (xhr, status, error) {
+                  Swal.fire('Error!', `Failed to send data: ${error}`, 'error');
+                }
+              });
+            }
+          });
+        }
+      </script>
+
+
+
+
+    <!-- CANCEl A SINGLE PRODUCT -->
+
+      <script>
+        function confirmCancelProduct(orderId, productId) {
+          if (confirm("Are you sure you want to cancel this product?")) {
+            window.location.href = `/itemCancel/${orderId}/${productId}`;
+          } else {
+            console.log("User canceled");
+          }
+        }
+      </script>
+
+      <script>
+        function cancelProduct(orderID, index) {
+          console.log(orderID);
+          console.log(index);
+
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You want to cancel the product",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Cancel it!"
+          }).then((result) => {
+            window.location.href = `/cancelProducts?id=${orderID}&&i=${index}`
+          });
+
+        }
+      </script>
+
+
+
+
+
+
+
+
+      <%- include('../partials/footer') %>
+
+  </body>
 
 </html>

@@ -104,15 +104,19 @@ router.post('/razorPay',isUser.isUser,razorPay.razorPay)
 //orders
 router.get('/orderConfirmation',isUser.isUser,orders.orderConfirmation)
 router.get('/orderHistory',isUser.isUser,orders.orderHistory)
-router.get('/orderTracking/:id',isUser.isUser,orders.orderTracking)
+router.get('/orderTracking/:id/:index',isUser.isUser,orders.orderTracking)
 router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
 router.get('/invoice/:id',isUser.isUser,orders.invoice)
+router.post('/ReturnReason',isUser.isUser,orders.ReturnReason)
+router.post('/reviewRating',isUser.isUser,orders.reviewRating)
 
-router.post('/applyCoupon',isUser.isUser,coupon.applyCoupon)
+router.post('/applyCoupon/:id',isUser.isUser,coupon.applyCoupon)
 
 //  WALLET
 router.get('/userWallet',isUser.isUser,wallet.userWallet)
 router.post('/userWalletPost',isUser.isUser,wallet.userWalletPost)
+
+
 
 
 

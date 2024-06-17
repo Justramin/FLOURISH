@@ -144,7 +144,7 @@
       <section class="user-details-section mt-4 section-container">
         <div style="display: inline-block; text-align: center; margin-left: 32%;">
           <h1>Wallet&nbsp;:&nbsp;</h4>
-            <h1 style="display: inline-block; font-size: 50px;text-align: center;"><span>Rs.&nbsp;</span><span style="font-weight: bolder;"><%= data %></span></h1>
+            <h1 style="display: inline-block; font-size: 50px;text-align: center;"><span>Rs.&nbsp;</span><span style="font-weight: bolder;"><%= data.wallet %></span></h1>
         </div>
         
  
@@ -163,12 +163,12 @@
                 </tr>
               </thead>
               <tbody>
-                <% data.forEach(function(transaction) { %>
+                <% data.walletTransactions.forEach(function(transaction) { %>
                   <tr>
                     <td style="text-align: center;"><%= transaction.date.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }) %></td>
-                    <td class="<%= transaction.type === 'Credited' ? 'credited' : 'debited' %>"><%= transaction.reason %></td>
-                    <td class="<%= transaction.type === 'Credited' ? 'credited' : 'debited' %>"><%= transaction.type %></td>
-                    <td class="<%= transaction.type === 'Credited' ? 'credited' : 'debited' %>"><%= transaction.type === 'Credited' ? '+' : '-' %><%= transaction.amount %></td>
+                    <td class="<%= transaction.type === 'Credit' ? 'credited' : 'debited' %>"><%= transaction.remarks %></td>
+                    <td class="<%= transaction.type === 'Credit' ? 'credited' : 'debited' %>"><%= transaction.type %></td>
+                    <td class="<%= transaction.type === 'Credit' ? 'credited' : 'debited' %>"><%= transaction.type === 'Credit' ? '+' : '-' %><%= transaction.amount %></td>
                   </tr>
                 <% }); %>
               </tbody>
@@ -178,7 +178,7 @@
     
   
 
-  <%-include('userpartials/footer')%>
+  <%#-include('userpartials/footer')%>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -287,3 +287,47 @@ $.ajax(settings).done(function (response) {
 
     </body>
     </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5">
+      <h3 class="mb-4 text-center a1">Wallet History</h3>
+      <div style="margin-bottom: 30px;margin-top: 30px;">
+          <h4 class="mb-4 text-center">Balance: ₹<%= data.wallet %>
+          </h4>
+      </div>
