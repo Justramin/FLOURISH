@@ -21,7 +21,6 @@ const orderConfirmation =async (req,res)=>{
 const orderHistory =async (req,res)=>{
     try{
         const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products.product').sort({_id:-1})
-        console.log(orderData);
 
         res.render('orderHistory',{isUser:req.session.isUser,data:orderData});
     }catch(error){

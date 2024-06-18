@@ -33,7 +33,6 @@ const productDetail = async(req,res)=>{
             rating.formattedDate = new Date(rating.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         });
         
-        console.log(productData);
         res.render('productDetail',{data:productData,isUser:req.session.isUser,fewPro:limitedProducts})
     } catch (error) {
         console.error('Error in productDetail:', error);

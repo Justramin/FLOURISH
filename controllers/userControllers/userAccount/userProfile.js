@@ -8,7 +8,7 @@ const upload = multer({ dest: 'uploads/' });
 
 const userProfile = async(req,res)=>{
     try {
-        console.log(req.session.isUser);
+        
         res.render('userProfile',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in userProfile:', error);

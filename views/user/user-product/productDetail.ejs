@@ -159,7 +159,12 @@
             
               <p><%= i+1 %> review for <strong><%= data.userRatings[i].userId.name %></strong></p>
               <div class="ps-review">
-                <div class="ps-review__thumbnail"><img src="user/images/user/1.jpg" alt=""></div>
+                <% if (data.userRatings[i].userId.image) { %>
+                  <div class="ps-review__thumbnail"><img src="<%= data.userRatings[i].userId.image %>" alt=""></div>
+                  <% } else { %>
+                    <div class="ps-review__thumbnail"><img src="user/images/user/1.jpg" alt=""></div>
+                <% } %>
+                
                 <div class="ps-review__content">
                   <header>
                     <select class="ps-rating" id="product-rating" disabled>
