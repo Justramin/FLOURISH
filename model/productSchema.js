@@ -41,9 +41,10 @@ const schema = new mongoose.Schema({
     },
     userRatings: [
         {
-            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'userdetails', required: true },
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
             rating: { type: Number },
             review: { type: String },
+              date: { type: Date },
         },
     ]
     

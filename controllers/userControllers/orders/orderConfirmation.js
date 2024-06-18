@@ -21,6 +21,7 @@ const orderConfirmation =async (req,res)=>{
 const orderHistory =async (req,res)=>{
     try{
         const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products.product').sort({_id:-1})
+        console.log(orderData);
 
         res.render('orderHistory',{isUser:req.session.isUser,data:orderData});
     }catch(error){
@@ -128,6 +129,7 @@ const reviewRating = async (req, res) => {
 
         const { id} = req.query;
         const { rating, review } = req.body;
+        const date = new Date
         const userId = req.session.isUser._id;
     
         const productId = id;
@@ -145,14 +147,15 @@ const reviewRating = async (req, res) => {
         if (existingUserRating) {
           existingUserRating.rating = rating;
           existingUserRating.review = review;
+          existingUserRating.date = date;
+          
         } else {
-          product.userRatings.push({ userId, rating, review });
+          product.userRatings.push({ userId, rating, review, date });
         }
 
         const totalRatings = product.userRatings.reduce((acc, cur) => acc + cur.rating, 0);
         const averageRating = totalRatings / product.userRatings.length;
-        console.log(totalRatings,'---------total ahanneee...');
-        console.log(averageRating,'---------------avarage  ahanneee..');
+
 
      
         product.ratingNumber = averageRating;

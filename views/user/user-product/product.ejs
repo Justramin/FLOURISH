@@ -205,14 +205,8 @@
 
 
                       <select class="ps-rating">
-                        <% 
-                          function getOptionValue(rating, optionNumber) {
-                            return optionNumber <= rating ? 1 : 2;
-                          }
-                      
-                          for (let optionNumber = 1; optionNumber <= 5; optionNumber++) {
-                        %>
-                          <option value="<%= getOptionValue(data[i].ratingNumber, optionNumber) %>"><%= optionNumber %></option>
+                        <% for(let optionNumber = 1; optionNumber <= 5; optionNumber++) { %>
+                          <option value="<%= optionNumber <= data[i].ratingNumber ? 1 : 2 %>"><%= optionNumber %></option>
                         <% } %>
                       </select>
 

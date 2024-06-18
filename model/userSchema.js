@@ -18,6 +18,10 @@ const schema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
+    image:{
+        type:String,
+        required:false
+    }, 
     usedCoupons:[{
         type: String 
     }],

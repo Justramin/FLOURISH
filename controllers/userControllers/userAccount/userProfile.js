@@ -1,11 +1,14 @@
 const userCollection = require("../../../model/userSchema");
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
 
 
 
 
 const userProfile = async(req,res)=>{
     try {
-        
+        console.log(req.session.isUser);
         res.render('userProfile',{isUser:req.session.isUser})
     } catch (error) {
         console.error('Error in userProfile:', error);
@@ -15,8 +18,21 @@ const userProfile = async(req,res)=>{
 
 const userProfilePost = async(req,res)=>{
     try {
-        await userCollection.updateOne({_id:req.session.isUser._id},{$set:{name:req.body.username,phone:req.body.phone}},{ upsert: true })
-        const newUserData = await userCollection.findOne({_id:req.session.isUser._id})
+
+
+        const userId = req.session.isUser._id;
+
+        let user = await userCollection.findById(userId);
+        user.name = req.body.username;
+        user.email = req.body.email;
+        user.phone = req.body.phone;
+
+        if (req.file) {
+            user.image = '/uploads/' + req.file.filename;
+            await user.save();
+        }
+        const newUserData = await user.save();
+      
         req.session.isUser = newUserData
         res.redirect('/profilePage')
     } catch (error) {

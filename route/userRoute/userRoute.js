@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const isUser = require('../../utils/isUserMiddleware')
 const {whishlistcart }= require('../../utils/navbarMiddleware')
+const upload = require('../../config/multer')
 
 
 
@@ -68,7 +69,7 @@ router.get('/deleteAddress/:id',isUser.isUser,editAddress.deleteAddress)
 router.get('/resetPassword',isUser.isUser,resetPassword.resetPassword)
 router.post('/resetPasswordPost',isUser.isUser,resetPassword.resetPasswordPost)
 router.get('/userProfile',isUser.isUser,userProfile.userProfile)
-router.post('/userProfilePost',isUser.isUser,userProfile.userProfilePost)
+router.post('/userProfilePost',isUser.isUser,upload.single('profileImage'),userProfile.userProfilePost)
 
 
 

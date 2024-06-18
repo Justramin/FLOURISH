@@ -59,13 +59,14 @@
                 <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
                   <div class="ps-product__info" style="margin-top: 25px;">
                     <div class="ps-product__rating">
-                      <select class="ps-rating">
-                        <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                        <option value="1">4</option>
-                        <option value="2">5</option>
-                      </select><a href="#"></a>
+                      <select class="ps-rating" id="product-rating" disabled>
+                        <option value="1" <% if (data.ratingNumber >= 1) { %> selected <% } %> >1</option>
+                        <option value="2" <% if (data.ratingNumber >= 2) { %> selected <% } %> >2</option>
+                        <option value="3" <% if (data.ratingNumber >= 3) { %> selected <% } %> >3</option>
+                        <option value="4" <% if (data.ratingNumber >= 4) { %> selected <% } %> >4</option>
+                        <option value="5" <% if (data.ratingNumber >= 5) { %> selected <% } %> >5</option>
+                      </select>
+                      <a href="#"></a>
                     </div>
                     <h1><%= data.productName  %></h1>
                     <p class="ps-product__category"><a href="#"> <a href="#"></a><a href="#"> <%= data.category.categoryName %></a></p>
@@ -139,8 +140,6 @@
             <ul class="tab-list" role="tablist">
               <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Overview</a></li>
               <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Review</a></li>
-              <li><a href="#tab_03" aria-controls="tab_03" role="tab" data-toggle="tab">PRODUCT TAGs</a></li>
-              <li><a href="#tab_04" aria-controls="tab_04" role="tab" data-toggle="tab">ADDITIONAL</a></li>
             </ul>
           </div>
           <div class="tab-content">
@@ -148,79 +147,44 @@
               <p>Caramels tootsie roll carrot cake sugar plum. Sweet roll jelly bear claw liquorice. Gingerbread lollipop dragée cake. Pie topping jelly-o. Fruitcake dragée candy canes tootsie roll. Pastry jelly-o cupcake. Bonbon brownie soufflé muffin.</p>
               <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
             </div>
+
+
             <div class="tab-pane" role="tabpanel" id="tab_02">
-              <p>1 review for <strong>Shoes Air Jordan</strong></p>
+
+
+            <% for( let i = 0; i < data.userRatings.length; i++ ) { %>
+            
+           
+
+            
+              <p><%= i+1 %> review for <strong><%= data.userRatings[i].userId.name %></strong></p>
               <div class="ps-review">
                 <div class="ps-review__thumbnail"><img src="user/images/user/1.jpg" alt=""></div>
                 <div class="ps-review__content">
                   <header>
-                    <select class="ps-rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="5">5</option>
+                    <select class="ps-rating" id="product-rating" disabled>
+                      <option value="1" <% if (data.userRatings[i].rating >= 1) { %> selected <% } %> >1</option>
+                      <option value="2" <% if (data.userRatings[i].rating >= 2) { %> selected <% } %> >2</option>
+                      <option value="3" <% if (data.userRatings[i].rating >= 3) { %> selected <% } %> >3</option>
+                      <option value="4" <% if (data.userRatings[i].rating >= 4) { %> selected <% } %> >4</option>
+                      <option value="5" <% if (data.userRatings[i].rating >= 5) { %> selected <% } %> >5</option>
                     </select>
-                    <p>By<a href="#"> Alena Studio</a> - November 25, 2017</p>
+                    <p>By<a href="#"> <%= data.userRatings[i].userId.name %>
+                      <% if (data.userRatings[i].date) { %>
+                      </a> - <%= data.userRatings[i].formattedDate %></p>
+                      <% } else { %>
+                      </a> - June 16, 2024</p>
+                      <% } %>
                   </header>
-                  <p>Soufflé danish gummi bears tart. Pie wafer icing. Gummies jelly beans powder. Chocolate bar pudding macaroon candy canes chocolate apple pie chocolate cake. Sweet caramels sesame snaps halvah bear claw wafer. Sweet roll soufflé muffin topping muffin brownie. Tart bear claw cake tiramisu chocolate bar gummies dragée lemon drops brownie.</p>
+                  <p><%= data.userRatings[i].review %></p>
                 </div>
               </div>
-              <form class="ps-form--product-review" action="http://warethemes.com/html/flourish/do_action" method="post">
-                <h4>ADD YOUR REVIEW</h4>
-                <div class="row">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                        <div class="form-group">
-                          <label>Name:<sup>*</sup></label>
-                          <input class="form-control" type="text" placeholder="">
-                        </div>
-                        <div class="form-group">
-                          <label>Email:<sup>*</sup></label>
-                          <input class="form-control" type="email" placeholder="">
-                        </div>
-                        <div class="form-group">
-                          <label>Your rating</label>
-                          <select class="ps-rating">
-                            <option value="1">1</option>
-                            <option value="1">2</option>
-                            <option value="1">3</option>
-                            <option value="1">4</option>
-                            <option value="5">5</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
-                        <div class="form-group">
-                          <label>Your Review:</label>
-                          <textarea class="form-control" rows="6"></textarea>
-                        </div>
-                        <div class="form-group">
-                          <button class="ps-btn">Submit Reviews</button>
-                        </div>
-                      </div>
-                </div>
-              </form>
-            </div>
-            <div class="tab-pane" role="tabpanel" id="tab_03">
-              <p>Add your tag <span> *</span></p>
-              <form class="ps-form--create-tags" action="http://warethemes.com/html/flourish/_action" method="post">
-                <div class="form-group">
-                  <input class="form-control" type="text" placeholder="">
-                  <button class="ps-btn">Add Tags</button>
-                </div>
-              </form>
-              <p>Use spaces to separate tags. Use single quotes ( * ) for phrases.</p>
-            </div>
-            <div class="tab-pane" role="tabpanel" id="tab_04">
-              <form class="ps-form--addition" action="http://warethemes.com/html/flourish/do_action" method="post">
-                <div class="form-group">
-                  <textarea class="form-control" rows="6" placeholder="Enter your addition here..."></textarea>
-                </div>
-                <div class="form-group">
-                  <button class="ps-btn">Submit</button>
-                </div>
-              </form>
-            </div>
+           
+            
+
+            <% } %>
+
+          </div>
           </div>
         </div>
       </div>

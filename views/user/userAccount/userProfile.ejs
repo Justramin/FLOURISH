@@ -21,6 +21,13 @@
 	.form-control{
 		color: rgb(0, 0, 0);
 	}
+	.profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+	  margin-left: 195px;
+    }
 
     </style>
 <body>
@@ -57,9 +64,17 @@
 						<p style="color: red;">
 					
 						</p>
-						<h1 style="margin-top:-10%;" >User Profile </h1>
+						<h3 style="margin-top:-20%;margin-left: 180px;" >USER PROFILE</h3>
                        
-						<form class="row login_form" action="/userProfilePost" method="post">
+						<form class="row login_form" action="/userProfilePost" method="post" enctype="multipart/form-data">
+
+							<% if (isUser.image) { %>
+								<div class="col-md-12 form-group">
+									<img src="<%= isUser.image %>" class="profile-image" alt="Profile Image">
+
+								  </div>
+							<% } %>
+
 							<div class="col-md-12 form-group">
                                
 								<input type="text" value="<%= isUser.name%>" class="form-control" id="name" name="username" placeholder="Username">
@@ -79,6 +94,12 @@
 									<input type="text" class="form-control" id="number" name="phone" placeholder="Enter your phone number">
 								</div>
 							<% } %>
+
+							
+								<div class="col-md-12 form-group">
+									<input type="file" class="form-control" id="profileImage" name="profileImage">
+								  </div>
+							
 							
 
 

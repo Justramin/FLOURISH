@@ -7,7 +7,7 @@ const whishlistCollection = require("../../../model/whishlistSchema");
 const productDetail = async(req,res)=>{
     try {
       
-        const products = await productCollection.find({}).populate('category').sort({ _id: -1 });  
+        const products = await productCollection.find({}).populate('category').sort({ _id: -1 }) 
         const filteredProducts = products.filter(product => product.status === true && product.category.status === true);
         const limitedProducts = filteredProducts.slice(0, 4);
 
@@ -15,18 +15,24 @@ const productDetail = async(req,res)=>{
         
             const productID = req.query.id 
    
-            const productData =await productCollection.findOne({_id:productID}).populate('category') 
+            const productData = await productCollection.findOne({ _id: productID })
+            .populate({ path: 'userRatings.userId', model: 'user' });
 
         if (req.session.isUser) {
             const wishlist = await whishlistCollection.findOne({ userId: req.session.isUser._id });
             const wishlistProductIds = wishlist ? wishlist.items.map(item => item.proId.toString()) : [];
-
-            
+          
             productData.inWishlist = wishlistProductIds.includes(productData._id.toString());
         } else {
         
             productData.inWishlist = false;
         }
+
+          // Format the dates for userRatings
+          productData.userRatings.forEach(rating => {
+            rating.formattedDate = new Date(rating.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        });
+        
         console.log(productData);
         res.render('productDetail',{data:productData,isUser:req.session.isUser,fewPro:limitedProducts})
     } catch (error) {
