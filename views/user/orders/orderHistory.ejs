@@ -142,8 +142,17 @@
 
                         <p>Quantity: <%= data[i].products[j].quantity ? data[i].products[j].quantity : 'N/A' %>
                         </p>
-                        <% if (data[i].products[j].status=='Cancelled' ) { %>
-                          <p style="color: red; font-weight: bold;">product cancelld</p>
+                        <% if (data[i].products[j].status=='Cancelled') { %>
+                          <p style="color: red; font-weight: bold;">product cancelld!</p>
+
+                        <% } else if (data[i].products[j].status=='ReturnConform') { %>
+                            <p style="color: red; font-weight: bold;">Product Return Complete!</p>
+
+                        <% } else if (data[i].products[j].status=='ReturnNotConform') { %>
+                          <p style="color: red; font-weight: bold;">product cannot be returned!</p>
+
+                        <% } else if (data[i].products[j].status=='Delivered') { %> 
+                          <p style="color: rgb(7, 148, 43); font-weight: bold;">product Delivered!</p> 
                           <% } %>
 
 
@@ -309,3 +318,8 @@
   </body>
 
 </html> -->
+
+
+
+
+ 

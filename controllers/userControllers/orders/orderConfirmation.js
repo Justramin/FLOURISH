@@ -37,10 +37,8 @@ const orderTracking =async (req,res)=>{
         const orderData = await orderCollection.findOne({orderID:id});
         
         if (!orderData) {
-            console.error('Order not found');
             return res.render('orderDetails', { isUser: req.session.isUser, data: null, error: 'Order not found' });
         }
-        
         res.render('orderDetails',{isUser:req.session.isUser,data:orderData,index:index, error: null });
     }catch(error){
         console.error('Error in orderDetail :',error);
@@ -113,7 +111,28 @@ const invoice = async (req, res) => {
 
 const ReturnReason = async (req, res) => {
     try {
-        console.log(req.body);
+  
+        const { orderID, index, reason } = req.body;
+        const order = await orderCollection.findOne({orderID:orderID})
+      
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        if (index < 0 || index >= order.products.length) {
+            return res.status(400).json({ message: 'Invalid product index' });
+        }
+
+
+         await orderCollection.updateOne({ orderID: orderID }, 
+            {
+            $set: {
+                [`products.${index}.status`]: `${'Return'}` ,
+                [`products.${index}.returnReason`]: reason
+            }
+        });
+
+
         res.status(200).json({ message: 'Order return request processed successfully' })
     } catch (error) {
         console.error('Error in ReturnReason:', error);

@@ -51,6 +51,7 @@ router.get('/admin_addBanner',admin_addBanner.admin_addBanner)
 router.get('/admin_orders',admin_orders.admin_orders)
 router.get('/adminOrderDetail/:id',admin_orders.adminOrderDetail)
 router.post('/updateStatus',admin_orders.updateStatus)
+router.get('/adminReturnConform',admin_orders.adminReturnConform)
 
 
 router.get('/admin_adminMnage',admin_adminMnage.admin_adminManage)
@@ -74,6 +75,8 @@ router.post('/adminAddCouponsPost',admin_addCoupens.adminAddCouponsPost)
 router.get('/couponStatus/:id',admin_addCoupens.adminCouponStatus)
 router.get('/admin_editCoupens/:id',admin_editCoupens.adminEditcoupen)
 router.post('/adminEditCouponsPost/:id',admin_editCoupens.adminEditCouponsPost)
+
+
 
 
 

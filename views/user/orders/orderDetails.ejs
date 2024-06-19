@@ -154,95 +154,93 @@
                     <thead style="background-color:#f7f8fa; ">
                       <tr>
                         <td colspan="5">
-                          <div class="progress-track" style="width: 100%; margin-bottom: 4rem;">
-                            <ul id="progressbarStatus">
-                              <% switch(data.products[index].status) { case 'Pending' : %>
-                                <div
-                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
-                                </div>
-                                <li class="step1 active" id="step1">Processing</li>
-                                <div
-                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
-                                </div>
-                                <li style="text-align: center;" class="step2 " id="step2">Shipped</li>
-                                <div
-                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
-                                </div>
-                                <li style="text-align: center;" class="step3 " id="step3">Out for delivery</li>
-                                <div
-                                  style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
-                                </div>
-                                <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
-                                <% break; %>
-                                  <% case 'Shipped' : %>
-                                    <div
-                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
-                                    </div>
-                                    <li class="step1 active" id="step1">Processing</li>
-                                    <div
-                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
-                                    </div>
-                                    <li style="text-align: center;" class="step2 " id="step2">Shipped</li>
-                                    <div
-                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
-                                    </div>
-                                    <li style="text-align: center;" class="step3 " id="step3">Out for delivery</li>
-                                    <div
-                                      style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
-                                    </div>
-                                    <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
-                                    <% break; %>
-                                      <% case 'Out for delivery' : %>
-                                        <div
-                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
-                                        </div>
-                                        <li class="step1 active" id="step1">Processing</li>
-                                        <div
-                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
-                                        </div>
-                                        <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
-                                        <div
-                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
-                                        </div>
-                                        <li style="text-align: center;" class="step3 active" id="step3">Out for delivery
-                                        </li>
-                                        <div
-                                          style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
-                                        </div>
-                                        <li style="text-align: end;" class="step4 " id="step4">Delivered</li>
-                                        <% break; %>
-                                          <% case 'Delivered' : %>
-                                            <div
-                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;">
-                                            </div>
+                            <div class="progress-track" style="width: 100%; margin-bottom: 4rem;">
+                                <ul id="progressbarStatus">
+                                    <% switch(data.products[index].status) { 
+                                        case 'Pending' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
                                             <li class="step1 active" id="step1">Processing</li>
-                                            <div
-                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%; ">
-                                            </div>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%;"></div>
+                                            <li style="text-align: center;" class="step2" id="step2">Shipped</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;"></div>
+                                            <li style="text-align: center;" class="step3" id="step3">Out for delivery</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4" id="step4">Delivered</li>
+                                            <% break; %>
+                                        <% case 'Shipped' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 active" id="step1">Processing</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%;"></div>
                                             <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
-                                            <div
-                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;">
-                                            </div>
-                                            <li style="text-align: center;" class="step3 active" id="step3">Out for
-                                              delivery</li>
-                                            <div
-                                              style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;">
-                                            </div>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;"></div>
+                                            <li style="text-align: center;" class="step3" id="step3">Out for delivery</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4" id="step4">Delivered</li>
+                                            <% break; %>
+                                        <% case 'Out for delivery' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 active" id="step1">Processing</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%;"></div>
+                                            <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;"></div>
+                                            <li style="text-align: center;" class="step3 active" id="step3">Out for delivery</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4" id="step4">Delivered</li>
+                                            <% break; %>
+                                        <% case 'Delivered' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 active" id="step1">Processing</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute; left: 38%;"></div>
+                                            <li style="text-align: center;" class="step2 active" id="step2">Shipped</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 61%;"></div>
+                                            <li style="text-align: center;" class="step3 active" id="step3">Out for delivery</li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
                                             <li style="text-align: end;" class="step4 active" id="step4">Delivered</li>
                                             <% break; %>
-                                              <% case 'Cancelled' : %>
-                                                <li class="step1 cancel" id="step1">Cancelled</li>
-                                                <li class="step1 cancel" id="step1"></li>
-                                                <li class="step1 cancel" id="step1"></li>
-                                                <li class="step1 cancel" id="step1"></li>
-                                                <% break; %>
-                                                  <% default: %>
-                                                    <li class="step1 " id="step1">Unknown</li>
-                                                    <% } %>
-                            </ul>
-                          </div>
+                                        <% case 'Cancelled' : %>
+                                            <li class="step1 cancel" id="step1">Cancelled</li>
+                                            <li class="step1 cancel" id="step1"></li>
+                                            <li class="step1 cancel" id="step1"></li>
+                                            <li class="step1 cancel" id="step1"></li>
+                                            <% break; %>
+                                        <% case 'Return' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 cancel" id="step1">Return Processing</li>
+                                            <div ></div>
+                                            <li style="text-align: center;" class="step2 cancel" id="step2"></li>
+                                            <div ></div>
+                                            <li style="text-align: center;" class="step3 active" id="step3"></li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4 active" id="step4">Return Complete</li>
+                                            <% break; %>
+                                        <% case 'ReturnConform' : %>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 cancel" id="step1">Processing</li>
+                                            <div></div>
+                                            <li style="text-align: center;" class="step2 cancel" id="step2"></li>
+                                            <div></div>
+                                            <li style="text-align: center;" class="step3 cancel" id="step3"></li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4 cancel" id="step4">Return Complete</li>
+                                            <% break; %>
+                                        <% case 'ReturnNotConform' : %>
+                                        <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;"></div>
+                                            <li class="step1 cancel" id="step1">Processing</li>
+                                            <div></div>
+                                            <li style="text-align: center;" class="step2 cancel" id="step2"></li>
+                                            <div></div>
+                                            <li style="text-align: center;" class="step3 cancel" id="step3"></li>
+                                            <div style="width: 5px; height: 5px; border-radius: 50%; background-color: #1b732e; position: absolute;left: 96.5%;"></div>
+                                            <li style="text-align: end;" class="step4 cancel" id="step4">This product cannot be returned</li>
+                                            <% break; %>
+                                        <% default: %>
+                                            <li class="step1" id="step1">Unknown</li>
+                                            <% } %>
+                                </ul>
+                            </div>
                         </td>
-                      </tr>
+                    </tr>
+                    
 
                       <tr>
                         <td>Total</td>
@@ -331,19 +329,27 @@
                   </table>
 
                   <div style="margin-top: 3rem; margin-bottom: 3rem; float: right;">
-                    <% if (data.products[index].status !=='Cancelled' && data.products[index].status !=='Delivered' && data.products[index].status !=='returned' ) { %>
+                    <% if (data.products[index].status !=='Cancelled' && data.products[index].status !=='Delivered' && data.products[index].status !=='Return' && data.products[index].status !== 'ReturnConform' && data.products[index].status !== 'ReturnNotConform') { %>
                       <a onclick="cancelProduct('<%= data.orderID %>','<%= index %>')" class="btn btn-danger">
                         Cancel Product
                       </a>
 
                       <%} else if (data.products[index].status === 'Delivered' && new Date(data.date.getTime() + 5 * 24 * 60 * 60 * 1000)>= new Date()) { %>
-                        <a class="btn btn-danger" onclick="confirmReturnOrder('<%= data._id %>','<%= index %>')">
+                        <a class="btn btn-danger" onclick="confirmReturnOrder('<%= data.orderID %>','<%= index %>')">
                           Return Order
                         </a>  
-                        
+                      
+                        <% } else if (data.products[index].status === 'Return') { %>
+                          <h5 style="color: red;"> Your Return Request Has Been Received ! </h5>
+
+                          <% } else if (data.products[index].status === 'ReturnConform') { %>
+                            <h5 style="color: rgb(13, 137, 57);"> Return procedure completed successfully! </h5>
+
+                            <% } else if (data.products[index].status === 'ReturnNotConform') { %>
+                              <h5 style="color: red;"> This product cannot be returned ! </h5>
+                              
                       <% } %>
                   </div>
-
 
 
 
@@ -436,9 +442,9 @@
       </script>
 
       <script>
-        function confirmReturnOrder(itemId,index) {
+        function confirmReturnOrder(orderID,index) {
           Swal.fire({
-            title: 'Order Return',
+            title: 'Return Reason',
             input: 'text',
             inputPlaceholder: 'Enter your Reason',
             showCancelButton: true,
@@ -455,7 +461,7 @@
               $.ajax({
                 url: '/ReturnReason',
                 method: 'POST',
-                data: { itemId: itemId,index: index, reason: inputValue },
+                data: { orderID: orderID,index: index, reason: inputValue },
                 success: function (response) {
                   Swal.fire('Submitted!', `Your reason has been submitted.`, 'success');
                   setTimeout(function () {
