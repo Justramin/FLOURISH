@@ -4,6 +4,8 @@
 <%- include('../partials/head') %>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-hhJAYVyrVlbRqysQsau+3E35KWx0pWaf27oV34roF03qYpNoAUVh43RJweuW4zYuwCm/6RrXyjeY8GCt6mpLOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
+
 <style>
     .primary-btn{
         color: white;
@@ -28,6 +30,82 @@
       object-fit: cover;
 	  margin-left: 195px;
     }
+
+
+
+	.container {
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .avatar {
+      display: inline-block;
+      width: 10vw;
+      height: 10vw;
+      border-radius: 100%;
+      background: #C68587;
+      border: 6px solid #B3C9CB;
+      background-size: cover;
+      background-position: 50% 25%;
+      transition: border 0.5s linear;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+
+    #fileUpload {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      left: 0;
+      top: 0;
+      cursor: pointer;
+    }
+
+    .clearfix:after {
+      clear: both;
+      content: "";
+      display: block;
+      height: 0;
+      visibility: hidden;
+    }
+
+    .right {
+      margin-left: 12.5vw;
+      bottom: 0;
+      position: absolute;
+      float: right;
+    }
+
+    .right > p {
+      font-size: 2vw;
+      text-align: left;
+      text-transform: none;
+      font-family: Raleway;
+      margin-top: 0.5vw;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .src {
+      font-family: raleway;
+      position: absolute;
+      display: inline-block;
+      right: 0;
+      bottom: 0;
+      padding: 10px;
+    }
+
+
 
     </style>
 <body>
@@ -61,19 +139,24 @@
                 
 				<div class="col-lg-6" style="margin-left: 25%;">
 					<div class="login_form_inner" >
-						<p style="color: red;">
-					
-						</p>
-						<h3 style="margin-top:-20%;margin-left: 180px;" >USER PROFILE</h3>
-                       
+						<p style="color: red;"></p>
+						<h3 style="margin-top:-20%;" ></h3>
+						<br><br><br>
 						<form class="row login_form" action="/userProfilePost" method="post" enctype="multipart/form-data">
 
-							<% if (isUser.image) { %>
-								<div class="col-md-12 form-group">
-									<img src="<%= isUser.image %>" class="profile-image" alt="Profile Image">
+							<div class="col-md-12 form-group">
+								<div class="avatar">
 
-								  </div>
+							<% if (isUser.image) { %>
+						
+									<img id="profileImage" src="<%= isUser.image %>"  alt="Profile Image">
+									<% } else { %>
+									<img id="profileImage" src="/user/images/user.png" alt="Profile Image">
+		
 							<% } %>
+							<input id="fileUpload" type="file" name="profileImage" accept="image/*" />
+						</div>
+					</div>
 
 							<div class="col-md-12 form-group">
                                
@@ -95,20 +178,8 @@
 								</div>
 							<% } %>
 
-							
-								<div class="col-md-12 form-group">
-									<input type="file" class="form-control" id="profileImage" name="profileImage">
-								  </div>
-							
-							
 
-
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<!-- <input type="checkbox" id="f-option2" name="selector"> -->
-									<!-- <label for="f-option2">Keep me logged in</label> -->
-								</div>
-							</div>
+						
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn" >Make Changes</button>
 
@@ -116,8 +187,8 @@
 							</div>
 							<span id="submitError"></span>
                             <!-- Vertically centered modal -->
-                            <div class="modal-dialog modal-dialog-centered">
-                                </div>
+                            <div class="modal-dialog modal-dialog-centered"> </div>
+                               
                     
 						</form>
 					</div>
@@ -126,10 +197,23 @@
 		</div>
 
 	
+<div style="margin-top: 65rem;">
+	<%- include('../partials/footer')  %>
+</div>
+<script>
+	document.getElementById('fileUpload').addEventListener('change', function(event) {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('profileImage').src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+	});
+</script>
 
-	
-
-    <%- include('../partials/footer')  %>
+  
 </body>
 
 </html>
