@@ -33,7 +33,7 @@ router.get('/auth/google/callback',
           if(alreadyLoginUserData.status==false){
             
             req.session.isUser=false;
-            req.flash('error', 'Admin Blocked You');
+            req.flash('error', 'Unable to login now. Please try later.');
             return res.redirect('/login')
           }else{
             req.session.isUser=alreadyLoginUserData

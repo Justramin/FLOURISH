@@ -22,7 +22,7 @@ const user_loginPost = async(req,res)=>{
         if(user && user.password === loginData.password){
             if(!user.status){
                 req.session.isUser=false;
-                req.flash('error', 'Admin Blocked You');
+                req.flash('error', 'Unable to login now. Please try later.');
                 return res.redirect('/login')
             }
             req.session.isUser=user
