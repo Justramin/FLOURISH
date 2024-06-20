@@ -156,16 +156,16 @@
                         <label class="col-sm-3 form-control-label">Category</label>
                         <div class="col-sm-9">
                           <select name="category" class="form-control mb-3 mb-3">
-                            <% for( let i = 0; i < category.length; i++ ) { %>
-                              <option value="<%= category[i]._id %>" ><%= category[i].categoryName %></option>
+                            <% for(let i = 0; i < category.length; i++) { %>
+                              <option value="<%= category[i]._id %>" 
+                                <%= product.category.toString() === category[i]._id.toString() ? 'selected' : '' %> >
+                                <%= category[i].categoryName %>
+                              </option>
                             <% } %>
-                            
                           </select>
                         </div>
-                        <div class="col-sm-9 ml-auto">
-                         
-                        </div>
                       </div>
+                      
 
 
                       <div class="line"></div>
