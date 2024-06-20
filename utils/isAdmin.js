@@ -12,6 +12,7 @@ const isAdmin = async (req, res, next) => {
 
         const admin =await Admincollection.findOne({_id:req.session.isAdminAuth._id})
         if (admin && admin.status) {
+            res.locals.adminData = admin
             next();
         } else {
             res.redirect('/admin');
