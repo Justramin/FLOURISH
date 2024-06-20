@@ -40,7 +40,7 @@ const admin_login_post = async (req, res) => {
             req.session.isSuperAdmin = true;
         }
 
-        req.session.isAdminAuth = true;
+        req.session.isAdminAuth = findData;
         req.session.adminEmail = adminData.email;
         return res.redirect('/admin/admin_dashbord');
     } catch (error) {

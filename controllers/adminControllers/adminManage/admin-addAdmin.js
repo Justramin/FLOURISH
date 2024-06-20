@@ -6,11 +6,8 @@ const adminCollection = require("../../../model/adminSchema")
 
 const admin_addAdmin = async (req,res)=>{
     try {
-        if(req.session.isAdminAuth){
-            res.render('admin-addAdmin')
-        }else{
-            res.redirect('/admin/admin-login')
-        }  
+       
+            res.render('admin-addAdmin')  
     } catch (error) {
         console.error('Error in admin_addAdmin:', error);
         res.redirect('/admin/errorPage')

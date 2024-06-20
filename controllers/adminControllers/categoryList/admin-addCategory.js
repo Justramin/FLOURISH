@@ -4,11 +4,8 @@ const categoryCollection = require("../../../model/categorySchema")
 
 const admin_addCategory = async (req,res)=>{
     try {
-        if(req.session.isAdminAuth){
-            res.render('admin-addCategory',{isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
+        res.render('admin-addCategory',{isSuperAdmin:req.session.isSuperAdmin})
     } catch (error) {
         console.error('Error in admin_addCategory:', error);
         res.redirect('/admin/errorPage')
@@ -19,7 +16,7 @@ const admin_addCategory = async (req,res)=>{
 
 const admin_addCategoryPost = async (req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+        
             const category = req.body.categoryName
             const newCategory = req.body;
             const categoryRegex = new RegExp(`^${category}$`,'i')
@@ -33,9 +30,6 @@ const admin_addCategoryPost = async (req,res)=>{
                 res.redirect('/admin/admin_addCategory')
             }
             
-        }else{y
-            res.redirect('/admin/admin-login')
-        }
     } catch (error) {
         console.error('Error in admin_addCategoryPost:', error);
         res.redirect('/admin/errorPage')

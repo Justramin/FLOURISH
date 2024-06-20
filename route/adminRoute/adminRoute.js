@@ -1,3 +1,4 @@
+const {isAdmin }= require('../../utils/isAdmin')
 
 
 
@@ -23,10 +24,14 @@ const admin_editCoupens = require('../../controllers/adminControllers/coupens/ad
 const upload = require('../../config/multer')
 const errorPage = require('../../controllers/adminControllers/404/errorPage')
 
-
 router.get('/',signin.admin_login)
 router.get('/admin-login',signin.admin_login)
 router.post('/admin_dashbord',signin.admin_login_post)
+
+
+router.use(isAdmin)
+
+
 router.get('/admin_dashbord',Admin_dashbord.Admin_dashbord)
 router.get('/admin-logout',signin.admin_logout)
 router.get('/admin-userManage',admin_userManage.admin_userManage)

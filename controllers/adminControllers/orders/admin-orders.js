@@ -74,7 +74,7 @@ const updateStatus = async (req,res)=>{
 
 const adminReturnConform = async (req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+        
            const {msg,index,id} = req.query
            const data = await orderCollection.findOne({orderID:id})
            const updateData = data.products[index]
@@ -107,9 +107,7 @@ const adminReturnConform = async (req,res)=>{
         }
         
             res.redirect(`/admin/adminOrderDetail/${id}`);
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
     } catch (error) {
         console.error('Error in admin_orders:', error);
         res.redirect('/admin/errorPage')

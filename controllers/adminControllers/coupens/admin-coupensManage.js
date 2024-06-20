@@ -4,7 +4,7 @@ const couponCollection = require("../../../model/CouponSchema");
 
 const admin_coupensManage = async (req, res) => {
     try {
-        if (req.session.isAdminAuth) {
+       
             const perPage = 10;
             const page = parseInt(req.query.page) || 1; 
 
@@ -23,9 +23,7 @@ const admin_coupensManage = async (req, res) => {
                 currentPage: page,
                 totalPages: Math.ceil(count / perPage)
             });
-        } else {
-            res.redirect('/admin/admin-login');
-        }
+       
     } catch (error) {
         console.error('Error in admin_coupensManage:', error);
         res.redirect('/admin/errorPage');

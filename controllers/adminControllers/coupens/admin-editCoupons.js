@@ -10,14 +10,12 @@ const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../
 
 const adminEditcoupen = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+       
 
             const coupenID = req.params.id
             const coupenData = await couponCollection.findOne({_id:coupenID})
             res.render('admin-editCoupons',{coupen:coupenData,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-                res.redirect('/admin/admin-login')
-            }
+       
     } catch (error) {
         console.error('Error in adminEditcoupen:', error);
         res.redirect('/admin/errorPage')
@@ -29,7 +27,7 @@ const adminEditcoupen = async(req,res)=>{
 
 const adminEditCouponsPost = async (req, res) => {
     try {
-        if (req.session.isAdminAuth) {
+      
             const { couponCode, description, minimumPrice, discount, maxRedeem, expiry } = req.body;
             const couponID = req.params.id;
 
@@ -79,9 +77,7 @@ const adminEditCouponsPost = async (req, res) => {
             );
 
             res.redirect('/admin/admin_coupensManage');
-        } else {
-            res.redirect('/admin/admin-login');
-        }
+       
     } catch (error) {
         console.error('Error in adminEditCouponsPost:', error);
         res.redirect('/admin/errorPage');

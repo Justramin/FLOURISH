@@ -6,12 +6,10 @@ const productCollection = require('../../../model/productSchema')
 
 const admin_addProduct = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+       
             const categoryData = await categoryCollection.find()
             res.render('admin-addProduct',{category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
     } catch (error) {
         console.error('Error in admin_addProduct:', error);
         res.redirect('/admin/errorPage')
@@ -25,7 +23,7 @@ const admin_addProduct = async(req,res)=>{
 
 const admin_addProductPost = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+       
             //Images
             const files = req.files;
             const images = [];
@@ -50,9 +48,7 @@ const admin_addProductPost = async(req,res)=>{
 
 
        
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
     } catch (error) {
         console.error('Error in admin_addProductPost:', error);
         res.redirect('/admin/errorPage')

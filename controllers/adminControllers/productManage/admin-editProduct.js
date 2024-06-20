@@ -6,14 +6,12 @@ const categoryCollection = require('../../../model/categorySchema')
 
 const admin_editProduct = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+       
             const productId = req.params.id
             const categoryData = await categoryCollection.find()
             const productData = await productCollection.findOne({_id:productId})
             res.render('admin-editProduct',{product:productData,category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
     } catch (error) {
         console.error('Error in admin_editProduct:', error);
         res.redirect('/admin/errorPage')
@@ -24,7 +22,7 @@ const admin_editProduct = async(req,res)=>{
 
 const admin_editProductPut = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+      
             const productID = req.params.id
             const productData = req.body
             const productReg = req.body.productName
@@ -60,9 +58,7 @@ const admin_editProductPut = async(req,res)=>{
                 res.redirect(`/admin/admin_editProduct/${productID}`)
             }
             
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+     
     } catch (error) {
         console.error('Error in admin_editProductPut:', error);
         res.redirect('/admin/errorPage')
@@ -74,14 +70,12 @@ const admin_editProductPut = async(req,res)=>{
 
 const productImageDelete = async(req,res)=>{
     try {
-        if(req.session.isAdminAuth){
+       
             const productID = req.params.id
             const imagePath = req.query.index
             const imageDElete = await productCollection.updateOne({_id:productID},{$pull:{image:imagePath}})
             res.redirect(`/admin/admin_editProduct/${productID}`);
-        }else{
-            res.redirect('/admin/admin-login')
-        }
+       
     } catch (error) {
         console.error('Error in productImageDelete:', error);
         res.redirect('/admin/errorPage')

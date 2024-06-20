@@ -4,11 +4,9 @@ const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../
 
 const admin_addCoupens = async (req, res) => {
     try {
-        if (req.session.isAdminAuth) {
+       
             res.render('admin-addCoupens', { isSuperAdmin: req.session.isSuperAdmin });
-        } else {
-            res.redirect('/admin/admin-login');
-        }
+       
     } catch (error) {
         console.error('Error in admin_addCoupens:', error);
         res.redirect('/admin/errorPage');
@@ -17,8 +15,6 @@ const admin_addCoupens = async (req, res) => {
 
 const adminAddCouponsPost = async (req, res) => {
     try {
-        if (req.session.isAdminAuth) {
-
             
             const { couponCode, minimumPrice, discount, expiry, maxRedeem, discription,} = req.body;
 
@@ -81,9 +77,7 @@ const adminAddCouponsPost = async (req, res) => {
             });
           
             res.redirect('/admin/admin_coupensManage');
-        } else {
-            res.redirect('/admin/admin-login');
-        }
+       
     } catch (error) {
         console.error('Error in adminAddCouponsPost:', error);
         res.redirect('/admin/errorPage');
@@ -95,7 +89,7 @@ const adminCouponStatus = async(req,res)=>{
     try {
         const coupensId = req.params.id
         const coupensStatus = req.query.status
-        if(req.session.isAdminAuth){
+        
             let coupens;
         if(coupensStatus=="true"){
             coupens = await couponCollection.updateOne({_id:new ObjectId(coupensId)},{$set:{status:false}})
@@ -103,9 +97,7 @@ const adminCouponStatus = async(req,res)=>{
             coupens = await couponCollection.updateOne({_id:new ObjectId(coupensId)},{$set:{status:true}})
         }
         res.redirect('/admin/admin_coupensManage')
-    }else{
-        res.redirect('/admin/admin-login')
-    }
+   
     } catch (error) {
         console.error('Error in adminCouponStatus:', error);
         res.redirect('/admin/errorPage')
