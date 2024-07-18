@@ -14,6 +14,10 @@ const schema = new mongoose.Schema({
         ref:'category',
         required:true
     }, 
+    offers:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'offers',
+    }, 
     price:{
         type:Number,
         required:true

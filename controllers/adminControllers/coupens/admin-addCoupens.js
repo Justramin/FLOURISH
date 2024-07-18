@@ -1,6 +1,6 @@
 const couponCollection = require('../../../model/CouponSchema');
 const { ObjectId } = require('mongodb');
-const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');  // Ensure this line is correct
+const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');
 
 const admin_addCoupens = async (req, res) => {
     try {

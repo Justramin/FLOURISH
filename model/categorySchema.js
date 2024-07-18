@@ -5,9 +5,9 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     },
-    discount:{
-        type:String,
-        required:true
+    offers:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'offers',
     },
     description:{
         type:String,

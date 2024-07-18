@@ -12,14 +12,14 @@
                 <li><a href="/admin"> <i class="icon-home"></i>Home </a></li>
                 <li><a href="/admin/admin-userManage""> <i class="icon-grid"></i>User Manage </a></li>
                 <li><a href="/admin/admin-productManage"> <i class="icon-grid"></i>Product Manage </a></li>
-                <li class="active"><a href="/admin/admin_coupensManage"> <i class="icon-grid"></i>Coupons Manage</a></li>
-                <li><a href="/admin/admin_offers"> <i class="icon-grid"></i> Offer Manage</a></li>
+                <li><a href="/admin/admin_coupensManage"> <i class="icon-grid"></i>Coupons Manage</a></li>
+                <li class="active"><a href="/admin/admin_offers"> <i class="icon-grid"></i> Offer Manage</a></li>
                 <li><a href="/admin/admin_categoryList"> <i class="icon-grid"></i> Category Manage </a></li>
                 <li><a href="/admin/admin_banner"> <i class="icon-grid"></i> Banner Manage</a></li>
                 <li><a href="/admin/admin_orders"> <i class="icon-grid"></i> Orders Manage</a></li>
 
                 
-
+ 
                 <% if (isSuperAdmin) { %>
                   <li><a href="/admin/admin_adminMnage"> <i class="icon-grid"></i> Admin Manage</a></li>
                 <% } %>
@@ -32,14 +32,14 @@
         <!-- Page Header-->
         <div class="page-header no-margin-bottom">
           <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Add A New Coupon</h2>
+            <h2 class="h5 no-margin-bottom">Add A New Offers</h2>
           </div>
         </div>
         <!-- Breadcrumb-->
         <div class="container-fluid">
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item active">Add Coupon</li>
+            <li class="breadcrumb-item active">Add Offers</li>
           </ul>
         </div>
         <section class="no-padding-top">
@@ -87,20 +87,20 @@
               <!-- Form Elements -->
               <div class="col-lg-12">
                 <div class="block">
-                  <div class="title"><strong>Edit Coupon</strong></div>
+                  <div class="title"><strong>Add A New Offer</strong></div>
                   <div class="block-body">
-                    <form method="post" action="/admin/adminEditCouponsPost/<%= coupen._id %>"> 
+                    <form method="post" action="/admin/adminAddOfferPost" class="form-horizontal">
                       <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Coupon Code</label>
-                        <span id="couponCodeError" style="font-weight: bold; font-size: 18px;">
+                        <label class="col-sm-3 form-control-label">Offer Name</label>
+                        <span id="offerCodeError" style="font-weight: bold; font-size: 18px;">
                          
                           <div class="col-sm-12">
-                          <input type="text" name="couponCode" class="form-control" value="<%= coupen.couponCode %>" required>
+                          <input type="text" name="offerName" class="form-control" required>
                         </div>
 
-                        <% if(messages.couponCodeError){%>
+                        <% if(messages.offerCodeError){%>
                           <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
-                            <%= messages.couponCodeError %>
+                            <%= messages.offerCodeError %>
                           </div>
                         <%}%>
 
@@ -115,7 +115,7 @@
                         <label class="col-sm-3 form-control-label">Discription</label>
                         <span id="discriptionError" style="font-weight: bold; font-size: 18px;">
                           <div class="col-sm-12">
-                          <input type="text" name="discription" class="form-control" value="<%= coupen.discription %>" required>
+                          <input type="text" name="discription" class="form-control" required>
                         </div>
                       </span>
 
@@ -124,24 +124,7 @@
                      
 
 
-                      
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">minimum Price</label>
-                        <span id="minimumPriceError" style="font-weight: bold; font-size: 18px;">
-                          <div class="col-sm-12">
-                          <input type="number" name="minimumPrice" class="form-control" value="<%= coupen.minimumPrice %>" required>
-                        </div>
 
-                        <% if(messages.minimumPriceError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
-                            <%= messages.minimumPriceError %>
-                        </div>
-                        <%}%>
-
-                      </span>
-
-                      </div>
-                      
 
 
 
@@ -151,7 +134,7 @@
                         <label class="col-sm-3 form-control-label">Discount</label>
                         <span id="discountError" style="font-weight: bold; font-size: 18px;">
                           <div class="col-sm-12">
-                          <input type="number" name="discount" class="form-control" value="<%= coupen.discount %>" required> 
+                          <input type="number" name="discount" class="form-control" required> 
                         </div>
 
                         <% if(messages.discountError){%>
@@ -163,28 +146,27 @@
                       </div>
                      
 
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Starting Date</label>
+                        <span id="expiryError" style="font-weight: bold; font-size: 18px;">
+                        <div class="col-sm-12">
+                          <input type="date" name="starting" class="form-control" required>
+                        </div>
 
+                        <% if(messages.startingError){%>
+                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
+                            <%= messages.startingError %>
+                        </div>
+                        <%}%>
+                      </span>
+                      
+                      </div>
 
 
 
 
                    
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Maximum Radeem</label>
-                        <span id="maxRedeemError" style="font-weight: bold; font-size: 18px;">
-                          <div class="col-sm-12">
-                          <input type="number" name="maxRedeem" class="form-control" value="<%= coupen.maxRedeem %>" required>
-                        </div>
-
-                        <% if(messages.maxRedeemError){%>
-                          <div id="error" style="color:rgb(255, 9, 9); font-size: 18px; font-weight: bold;">
-                            <%= messages.maxRedeemError %>
-                        </div>
-                        <%}%>
-                      </span>
-
-                      </div>
-                     
+         
 
 
                       
@@ -196,7 +178,7 @@
                         <label class="col-sm-3 form-control-label">Expiry Date</label>
                         <span id="expiryError" style="font-weight: bold; font-size: 18px;">
                         <div class="col-sm-12">
-                          <input type="date" name="expiry" class="form-control" value="<%= coupen.expiry.toISOString().substring(0, 10) %>" required>
+                          <input type="date" name="expiry" class="form-control" required>
                         </div>
 
                         <% if(messages.expiryError){%>
@@ -221,7 +203,7 @@
 
                       <div class="form-group row">
                         <div class="col-sm-9 ml-auto">
-                          <button type="submit" class="btn btn-secondary">Submit</button>
+                          <button type="submit" class="btn btn-secondary">Add Coupon</button>
                           <!-- <button type="submit" class="btn btn-primary">Add Product</button> -->
                         </div>
                       </div>

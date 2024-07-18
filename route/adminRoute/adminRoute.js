@@ -21,8 +21,12 @@ const admin_orders = require('../../controllers/adminControllers/orders/admin-or
 const admin_adminMnage = require('../../controllers/adminControllers/adminManage/admin-adminManage')
 const admin_addAdmin = require('../../controllers/adminControllers/adminManage/admin-addAdmin')
 const admin_editCoupens = require('../../controllers/adminControllers/coupens/admin-editCoupons')
+const admin_OfferManage = require('../../controllers/adminControllers/offers/admin-offerManagement')
+const admin_addOffers = require('../../controllers/adminControllers/offers/admin-addOffers')
+const admin_editOffers = require('../../controllers/adminControllers/offers/admin-editOffers')
 const upload = require('../../config/multer')
 const errorPage = require('../../controllers/adminControllers/404/errorPage')
+
 
 router.get('/',signin.admin_login)
 router.get('/admin-login',signin.admin_login)
@@ -80,6 +84,17 @@ router.post('/adminAddCouponsPost',admin_addCoupens.adminAddCouponsPost)
 router.get('/couponStatus/:id',admin_addCoupens.adminCouponStatus)
 router.get('/admin_editCoupens/:id',admin_editCoupens.adminEditcoupen)
 router.post('/adminEditCouponsPost/:id',admin_editCoupens.adminEditCouponsPost)
+
+
+//OFFERS
+router.get('/admin_offers',admin_OfferManage.admin_offers)
+router.get('/admin_addOffers',admin_addOffers.admin_addOffers)
+router.post('/adminAddOfferPost',admin_addOffers.adminAddOfferPost)
+router.get('/offerStatus/:id',admin_editOffers.adminOfferStatus)
+router.get('/admin_editOffer/:id',admin_editOffers.admin_editOffer)
+router.post('/adminEditOfferPost/:id',admin_editOffers.adminEditofferPost)
+
+
 
 
 
