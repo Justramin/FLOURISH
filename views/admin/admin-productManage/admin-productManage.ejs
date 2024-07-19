@@ -75,6 +75,7 @@
                           <th>Category</th>
                           <th>Stock</th>
                           <th>Price</th>
+                          <th>Discount</th>
                           <th>Offer price</th>
                           <th>Image</th>
                           <th>Discription</th>
@@ -90,6 +91,13 @@
                             <td><%= product[i].category.categoryName %></td>
                             <td><%= product[i].stock  %></td>
                             <td><%= product[i].price  %></td>
+                            <td>
+                              <% if (product[i].offers) { %>
+                                  <%= product[i].offers.discount %>%
+                              <% } else { %>
+                                  No Offer
+                              <% } %>
+                          </td>
                             <td><%= product[i].offerPrice  %></td>
                             <td> <img src="/uploads/<%= product[i].image[0] %>" style="height: 50px;width: 50px;" alt="prdct img"> </td>
                             <td><%= product[i].discription  %></td>

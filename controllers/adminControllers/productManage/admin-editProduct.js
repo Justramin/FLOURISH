@@ -1,7 +1,8 @@
 
 const productCollection = require('../../../model/productSchema')
 const categoryCollection = require('../../../model/categorySchema')
-
+const offerCollection = require('../../../model/offersSchema')
+const mongoose = require('mongoose');
 
 
 const admin_editProduct = async(req,res)=>{
@@ -9,8 +10,13 @@ const admin_editProduct = async(req,res)=>{
        
             const productId = req.params.id
             const categoryData = await categoryCollection.find()
-            const productData = await productCollection.findOne({_id:productId})
-            res.render('admin-editProduct',{product:productData,category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
+            const productData = await productCollection.findOne({_id:productId}).populate('offers');
+            const offers = await offerCollection.find()
+            res.render('admin-editProduct',{
+                product:productData,
+                category:categoryData,
+                offers: offers,
+                isSuperAdmin:req.session.isSuperAdmin})
        
     } catch (error) {
         console.error('Error in admin_editProduct:', error);
@@ -22,14 +28,32 @@ const admin_editProduct = async(req,res)=>{
 
 const admin_editProductPut = async(req,res)=>{
     try {
-      
-            const productID = req.params.id
+            const productID = new mongoose.Types.ObjectId(req.params.id);
             const productData = req.body
-            const productReg = req.body.productName
-            const productRegex = new RegExp(`^${productReg}$`,'i')
-            const productName = await productCollection.find({productName:{$regex:productRegex}})
 
-             //Images
+
+        const { productName , discription, category, price, stock, selectedOffer } = productData;
+        const priceNumber = Number(price);
+        const stockNumber = Number(stock);
+            
+            const productRegex = new RegExp(`^${productName}$`,'i')
+            const existingProduct = await productCollection.findOne({productName:{$regex:productRegex}})
+
+             
+            if(!existingProduct || existingProduct._id.toString() === productID.toString()){
+
+                let offerPriceNumber = priceNumber;
+                let offer
+                if (selectedOffer) {
+                     offer = await offerCollection.findById(selectedOffer); // Assuming offerCollection is defined
+                    if (offer) {
+                        const discountPercentage = offer.discount || 0; // Default to 0 if not set
+                        offerPriceNumber = priceNumber * (1 - discountPercentage / 100);
+                    }
+                }
+
+
+                //Images
              const files = req.files;
              const images = [];
              files.forEach((file) => {
@@ -39,14 +63,16 @@ const admin_editProductPut = async(req,res)=>{
 
 
 
-            if(productName.length ===0  ||  productID == productName[0]._id){
+
+
                 await productCollection.updateOne({_id:productID},{$set:{
-                    productName:productData.productName,
-                    discription:productData.discription,
-                    category:productData.category,
-                    price:productData.price,
-                    stock:productData.stock,
-                    offerPrice:productData.offerPrice
+                    productName:productName,
+                    discription:discription,
+                    category:category,
+                    price:price,
+                    stock:stock,
+                    offers:offer||null ,
+                    offerPrice:offerPriceNumber
                  }})
                  
                 await productCollection.updateOne({_id: productID}, {

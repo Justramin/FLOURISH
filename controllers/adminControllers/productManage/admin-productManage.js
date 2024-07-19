@@ -14,12 +14,13 @@ const admin_productManage = async (req, res) => {
 
             
             const productData = await productCollection.find({})
+                .populate('offers')
                 .populate('category')
                 .sort({ _id: -1 })
                 .skip((perPage * page) - perPage)
                 .limit(perPage);
 
-           
+                
             const count = await productCollection.countDocuments();
 
             res.render('admin-productManage', {

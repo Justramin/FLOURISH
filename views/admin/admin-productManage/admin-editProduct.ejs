@@ -180,6 +180,32 @@
 
 
 
+                      <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">Product Offer</label>
+                          <div class="col-sm-9">
+                            <% if (offers.length > 0) { %>
+                              <select name="selectedOffer" id="selectedOffer" class="form-control mb-3">
+                                <% if (product.offers) { %>
+                                  <option value=""><%= product.offers.offerName %> - <%= product.offers.discount %>%</option>
+                                  <% } else { %>
+                                    <option value="">Select an offer</option>
+                                <% } %>
+                                
+                                <% for (let i = 0; i < offers.length; i++) { %>
+                                  <option value="<%= offers[i]._id %>">
+                                    <%= offers[i].offerName %> - <%= offers[i].discount %>%
+                                  </option>
+                                <% } %>
+                              </select>
+                            <% } %>
+                            <input type="number" name="offerPrice" id="offerPrice" class="form-control" value="<%= product.offerPrice %>" readonly>
+                          </div>
+                        </div>
+
+
+
+
 
                       <div class="line"></div>
                       <div class="form-group row">
@@ -191,21 +217,6 @@
                       <div class="line"></div>
 
 
-
-
-
-
-                      <div class="line"></div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">OfferPrice</label>
-                        <div class="col-sm-9">
-                          <input type="number" name="offerPrice" class="form-control" value="<%= product.offerPrice %>">
-                        </div>
-                      </div>
-                      <div class="line"></div>
-
-
-                      
 
 
 
