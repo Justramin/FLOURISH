@@ -75,11 +75,13 @@
                         <tr>
                           <th>SI No:</th>
                           <th>Category Name</th>
+                          <th>Offer</th>
                           <th>Discount</th>
                           <th>description</th>
                           <th>Action</th>
                           <th>Edit</th>
                         </tr>
+                      
                       </thead>
                       <tbody>
                         <% if(category.length){
@@ -87,7 +89,17 @@
                         <tr>
                           <th scope="row"><%= i+1 %></th>
                           <td><%= category[i].categoryName %></td>
-                          <td><%= category[i].discount %></td>
+                          <% if (category[i].offers && category[i].offers.offerName) { %>
+                              <td><%= category[i].offers.offerName %></td>
+                          <% } else { %>
+                              <td>No Offers</td>
+                          <% } %>
+                          <% if (category[i].offers && category[i].offers.discount) { %>
+                              <td><%= category[i].offers.discount %>%</td>
+                          <% } else { %>
+                              <td>No Discount</td>
+                          <% } %>
+                          
                           <td><%= category[i].description %></td>
                           <% if (category[i].status) { %>
                           <td><a href="/admin/categorystatus/<%= category[i]._id %>?status=<%= category[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">Block</button></a></td>

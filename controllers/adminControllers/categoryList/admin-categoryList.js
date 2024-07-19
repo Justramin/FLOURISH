@@ -12,6 +12,7 @@ const admin_categoryList = async (req, res) => {
 
            
             const categories = await categoryCollection.find({})
+                .populate('offers')
                 .sort({ _id: -1 })
                 .skip((perPage * page) - perPage)
                 .limit(perPage);

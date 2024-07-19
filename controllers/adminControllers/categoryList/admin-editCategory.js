@@ -1,14 +1,18 @@
 const categoryCollection = require('../../../model/categorySchema')
+const offerCollection = require('../../../model/offersSchema')
 
 
 
 
 const admin_editCategory = async(req,res)=>{
     try {
-        
+            const offersData = await offerCollection.find()
             const categoryID = req.params.id
-            const categoryData = await categoryCollection.findOne({_id:categoryID})
-            res.render('admin-editCategory',{category:categoryData,isSuperAdmin:req.session.isSuperAdmin})
+            const categoryData = await categoryCollection.findOne({_id:categoryID}).populate('offers');
+            res.render('admin-editCategory',{
+                category:categoryData,
+                offers:offersData,
+                isSuperAdmin:req.session.isSuperAdmin})
         
     } catch (error) {
         console.error('Error in admin_editCategory:', error);
@@ -21,18 +25,17 @@ const admin_editCategory = async(req,res)=>{
 
 const admin_editCategoryPost = async(req,res)=>{
     try {
-       
-            const categoryData = req.body
+       console.log(req.body);
+            const { categoryName, offers, description } = req.body;
             const categoryID = req.params.id
-            const categoryReg = req.body.categoryName
-            const categoryRegex = new RegExp(`^${categoryReg}$`,'i')
-            const categoryName = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
+            const categoryRegex = new RegExp(`^${categoryName}$`,'i')
+            const existingCategory = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
 
-            if(categoryName.length ===0  ||  categoryID == categoryName[0]._id){
+            if(existingCategory.length ===0  ||  categoryID == existingCategory[0]._id){
                 await categoryCollection.updateOne({_id:categoryID},{$set:{
-                    categoryName:categoryData.categoryName,
-                    discount:categoryData.discount,
-                    description:categoryData.description
+                    categoryName:categoryName,
+                    offers:offers || null,
+                    description:description
                 }})
                 res.redirect('/admin/admin_categoryList')
             }else{
