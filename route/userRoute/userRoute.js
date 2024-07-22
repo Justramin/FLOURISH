@@ -111,11 +111,13 @@ router.get('/invoice/:id',isUser.isUser,orders.invoice)
 router.post('/ReturnReason',isUser.isUser,orders.ReturnReason)
 router.post('/reviewRating',isUser.isUser,orders.reviewRating)
 
-router.post('/applyCoupon/:id',isUser.isUser,coupon.applyCoupon)
+router.post('/applyCoupon/',isUser.isUser,coupon.applyCoupon)
 
 //  WALLET
 router.get('/userWallet',isUser.isUser,wallet.userWallet)
 router.post('/userWalletPost',isUser.isUser,wallet.userWalletPost)
+router.post('/addWalletMoney',isUser.isUser,wallet.addWalletMoney)
+
 
 
 

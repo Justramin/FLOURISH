@@ -57,7 +57,35 @@ const userWalletPost = async (req, res) => {
 }
 
 
+
+
+const addWalletMoney = async (req, res) => {
+    try {
+        const walletAmount = Number(req.body.amount)
+
+            const walletTransactions = {
+                remarks:'User added amount to wallet',
+                date:new Date(),
+                type:'Credit',
+                amount:walletAmount,
+            }
+            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +walletAmount},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+            res.json({result:"success",walletAmount})
+            
+
+    } catch (error) {
+        console.error('Error in addWalletMoney:', error);
+        res.redirect('/userError');
+    }
+}
+
+
+
+
+
+
 module.exports ={
     userWallet,
-    userWalletPost
+    userWalletPost,
+    addWalletMoney
 }

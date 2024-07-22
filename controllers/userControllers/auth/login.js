@@ -5,7 +5,12 @@ const collection = require("../../../model/userSchema");
 
 const user_login = async(req,res)=>{
     try {
-        res.render('login')
+        if (!req.session.isUser) {
+            res.render('login')
+            }else{
+                res.redirect('/')
+            }
+       
     } catch (error) {
         console.error('Error in user_login:', error);
         res.redirect('/userError')

@@ -1,4 +1,5 @@
 const orderCollection = require("../../../model/orderSchema");
+const productCollection = require("../../../model/productSchema");
 const walletCollection = require("../../../model/walletSchema");
 
 
@@ -65,7 +66,7 @@ const updateStatus = async (req,res)=>{
             res.redirect('/admin/admin-login')
         }
     } catch (error) {
-        console.error('Error in admin_orders:', error);
+        console.error('Error in updateStatus:', error);
         res.redirect('/admin/errorPage')
     }
 }
@@ -109,7 +110,7 @@ const adminReturnConform = async (req,res)=>{
             res.redirect(`/admin/adminOrderDetail/${id}`);
        
     } catch (error) {
-        console.error('Error in admin_orders:', error);
+        console.error('Error in adminReturnConform:', error);
         res.redirect('/admin/errorPage')
     }
 }

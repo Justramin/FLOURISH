@@ -6,7 +6,12 @@ const sendMail = require("../../../utils/otp-nodeMailer")
 
 const signupOtpGet = async(req,res)=>{
     try {
-        res.render('signupOtp')
+        if (!req.session.isUser) {
+            res.render('signupOtp')
+            }else{
+                res.redirect('/')
+            }
+       
     } catch (error) {
         console.error('Error in signupOtpGet:', error);
         res.redirect('/userError')
@@ -58,9 +63,7 @@ const resendOtp = async (req,res)=>{
     try {
         const {name,email} =  req.session.userData
         const otpTimestamp = req.session.userData.otpTimestamp || 0;
-        console.log(name,email);
-        console.log(new Date().getTime());
-        console.log(otpTimestamp);
+        
     if ((new Date().getTime() - otpTimestamp) >= 30000) {
         const newOtp = await otpGeneratorUser();  
         req.session.newUserOtp = newOtp;

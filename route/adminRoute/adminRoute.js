@@ -96,6 +96,10 @@ router.post('/adminEditOfferPost/:id',admin_editOffers.adminEditofferPost)
 
 
 
+//ADMINDASHBORD
+router.post('/salesReport', Admin_dashbord.salesReport)
+router.get('/sales_data', Admin_dashbord.sales_data);
+
 
 
 

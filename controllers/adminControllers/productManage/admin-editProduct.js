@@ -38,19 +38,14 @@ const admin_editProductPut = async(req,res)=>{
             
             const productRegex = new RegExp(`^${productName}$`,'i')
             const existingProduct = await productCollection.findOne({productName:{$regex:productRegex}})
-            const categoryOffer = await categoryCollection.findOne({_id:category}).populate('offers')
-            const productOffer = await offerCollection.findById(selectedOffer)
-
-            console.log('------------------category offer ',categoryOffer);
-            console.log('-------=========------',categoryOffer);
 
              
             if(!existingProduct || existingProduct._id.toString() === productID.toString()){
 
                 let offerPriceNumber = priceNumber;
-                
+                let offer
                 if (selectedOffer) {
-              
+                     offer = await offerCollection.findById(selectedOffer); // Assuming offerCollection is defined
                     if (offer) {
                         const discountPercentage = offer.discount || 0; // Default to 0 if not set
                         offerPriceNumber = priceNumber * (1 - discountPercentage / 100);
@@ -75,7 +70,7 @@ const admin_editProductPut = async(req,res)=>{
                     discription:discription,
                     category:category,
                     price:price,
-                    stock:stock,
+                    stock:stockNumber,
                     offers:offer||null ,
                     offerPrice:offerPriceNumber
                  }})

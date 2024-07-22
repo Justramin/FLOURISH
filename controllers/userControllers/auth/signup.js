@@ -9,8 +9,13 @@ const { validateName, validateEmail, validatePassword, validatePhoneNumber } = r
 
 const user_signup = async(req,res)=>{
   try {
-    const userDetails = req.session.userDetails
-    res.render('signup',{details:userDetails})
+    if (!req.session.isUser) {
+      const userDetails = req.session.userDetails
+      res.render('signup',{details:userDetails})
+      }else{
+          res.redirect('/')
+      }
+    
   } catch (error) {
     console.error('Error in user_signup:', error);
     res.redirect('/userError')
