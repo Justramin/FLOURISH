@@ -16,32 +16,37 @@ const product = async (req, res) => {
 
 
         // Set sort options
-        if (sort === 'newness') {
-            sortOption = { _id: -1 };
-        } else if (sort === 'priceLow') {
-            sortOption = { offerPrice: 1 };
-        } else if (sort === 'priceHigh') {
-            sortOption = { offerPrice: -1 };
+        switch (sort) {
+            case 'newness':
+                sortOption = { _id: -1 };
+                break;
+            case 'priceLow':
+                sortOption = { offerPrice: 1 };
+                break;
+            case 'priceHigh':
+                sortOption = { offerPrice: -1 };
+                break;
         }
 
 
-        // Set filter options
-        if (filter === '0to1k') {
+       // Set filter options
+       switch (filter) {
+        case '0to1k':
             filtering.offerPrice = { $gte: 0, $lte: 1000 };
-            sortOption = { offerPrice: 1 };
-        } else if (filter === '1kto5k') {
+            break;
+        case '1kto5k':
             filtering.offerPrice = { $gte: 1000, $lte: 5000 };
-            sortOption = { offerPrice: 1 };
-        } else if (filter === '5kto25k') {
+            break;
+        case '5kto25k':
             filtering.offerPrice = { $gte: 5000, $lte: 25000 };
-            sortOption = { offerPrice: 1 };
-        } else if (filter === '25kto1lak') {
+            break;
+        case '25kto1lak':
             filtering.offerPrice = { $gte: 25000, $lte: 100000 };
-            sortOption = { offerPrice: 1 };
-        } else if (filter === '1lakPlus') {
+            break;
+        case '1lakPlus':
             filtering.offerPrice = { $gte: 100000 };
-            sortOption = { offerPrice: 1 };
-        }
+            break;
+    }
 
 
         // Stock filter options
