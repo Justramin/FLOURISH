@@ -379,10 +379,7 @@
                     </div>
                   </footer>
                 </div>
-                <!-- <div class="ps-shipping">
-                    <h3>FREE SHIPPING</h3>
-                    <p>YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br> <a href="#"> Singup </a> for free shipping on every order, every time.</p>
-                  </div> -->
+                
               </div>
 
 
@@ -422,6 +419,8 @@
 
         //WALLET ANAKIL
         async function WALLET (){
+          const subtotal = document.getElementById('cartotal').innerText
+          console.log('======Sub Total',subtotal);
           const walletAmount = document.getElementById('wallet').innerText
           console.log(walletAmount,'--------------walletAmount ahannu');
           await fetch('/userWalletPost',{
@@ -439,7 +438,7 @@
             if(data.result==='Within Limit'){
               orderUsingWallet(method)
               console.log('Within Limit');
-            }else{
+            }else if (data.result==='Limit Exceeded') {
               console.log('Limit Exceeded');
               Swal.fire({
               title: "Limit Exceeded !",
@@ -448,6 +447,8 @@
               showConfirmButton: false,
               timer: 2000
             });
+
+             document.getElementById('cartotal').innerText = `${subtotal-walletAmount}`
             }
           }).catch(error=>{
             console.log('Some error occure', error);
@@ -551,6 +552,7 @@ window.location.href=`/orderConfirmation?id=${orderId}`
 
         //RAZOR PAY ANANKIL
         async function RazorPay(){
+          const finalPrice = document.getElementById('cartotal').innerText 
          const response =  await fetch('/razorPay',{
               method:'POST',
               headers:{

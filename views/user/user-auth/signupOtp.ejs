@@ -46,81 +46,42 @@
 
 
     </div>
-    <script> 
-    /*    OTP VALIDATION     */
-			// var otpError = document.getElementById("otp-error");
-			// var submitOTPError = document.getElementById("submitOTP-error");
-			// var invalidOTP = document.getElementById("invalidotp");
-			// invalidOTP.style.display = 'block';
-			// setTimeout(() => {
-			// 	invalidOTP.style.display = "none"
-			// }, 2000)
 	
-			// function validateOTP() {
-			// 	var otpname = document.getElementById("otp").value;
-			// 	if (otpname.length == 0) {
-			// 		otpError.innerHTML = "Please enter OTP";
-			// 		return false;
+	<script>
+		let countdownValue = sessionStorage.getItem('countdownValue') || 31; // Initial countdown value in seconds (one second more to account for initial display)
+		let countdownInterval;
 	
-			// 	} else if (!otpname.match(/^[0-9]{4,}$/)) {
-			// 		otpError.innerHTML = "Only numbers allowed";
-			// 		return false;
-			// 	}
+		function startCountdown() {
+			countdownInterval = setInterval(function () {
+				if (countdownValue > 0) {
+					countdownValue--;
+					document.getElementById('countdown').innerText = `Resend OTP in ${countdownValue} seconds`;
+					sessionStorage.setItem('countdownValue', countdownValue); // Store countdown value in sessionStorage
+				} else {
+					clearInterval(countdownInterval);
+					document.getElementById('countdown').innerText = 'Waiting for OTP...';
+					document.getElementById('resendButton').disabled = false;
+					sessionStorage.removeItem('countdownValue'); // Clear countdown value from sessionStorage when countdown ends
+				}
+			}, 1000);
+		}
 	
-			// 	else if (otpname.length != 6) {
-			// 		otpError.innerHTML = "6 digit OTP";
-			// 		return false;
-			// 	}
-	
-			// 	otpError.innerHTML = "valid";
-			// 	return true;
-			// }
-	
-			// function validateOTPForm() {
-			// 	if (!validateOTP()) {
-			// 		submitOTPError.style.display = "block";
-			// 		submitOTPError.innerHTML = "OTP required";
-			// 		setTimeout(() => {
-			// 			submitOTPError.style.display = "none";
-			// 		}, 2000);
-			// 		return false;
-			// 	}
-	
-			// }
-	
-	
-		</script>
-	
-		<script>
-			let countdownValue = 31; // Countdown duration in seconds
-			let countdownInterval;
-	
-			function startCountdown() {
-				countdownInterval = setInterval(function () {
-					if (countdownValue > 0) {
-						countdownValue--;
-						document.getElementById('countdown').innerText = `Resend OTP in ${countdownValue} seconds`;
-					} else {
-						clearInterval(countdownInterval);
-						document.getElementById('countdown').innerText = 'Waiting for OTP...';
-						document.getElementById('resendButton').disabled = false;
-					}
-				}, 1000);
-			}
-	
-			function resendOTP() {
-	
-				window.location.href = "/resetOtp"
-	
-				// Disable the resend button and start the countdown
-				document.getElementById('resendButton').disabled = true;
-				countdownValue = 30; // Reset countdown value
-				startCountdown();
-			}
-	
-			// Start the initial countdown
+		function resendOTP() {
+			// Perform your resend OTP logic here
+			// For example:
+			window.location.href = "/resetOtp"
+			// Disable the resend button and start the countdown
+			document.getElementById('resendButton').disabled = true;
+			countdownValue = 30; // Reset countdown value to 30 seconds
+			sessionStorage.setItem('countdownValue', countdownValue); // Store updated countdown value in sessionStorage
 			startCountdown();
-            </script>
+		}
+	
+		// Start the initial countdown on page load
+		startCountdown();
+	</script>
+	
+	
 			
 
 		    

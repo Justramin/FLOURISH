@@ -22,7 +22,7 @@ const admin_addCategoryPost = async (req,res)=>{
         const { categoryName, offers, description } = req.body;
             const categoryRegex = new RegExp(`^${categoryName}$`,'i')
             const existingCategory = await categoryCollection.findOne({categoryName:{$regex:categoryRegex}})
-            console.log(existingCategory);
+           
             let newCategory
             if(!existingCategory){
                  newCategory = {

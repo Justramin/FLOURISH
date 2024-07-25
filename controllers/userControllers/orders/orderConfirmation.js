@@ -22,6 +22,8 @@ const orderHistory =async (req,res)=>{
     try{
         const orderData = await orderCollection.find({userID:req.session.isUser._id}).populate('products.product').sort({_id:-1})
 
+        
+
         res.render('orderHistory',{isUser:req.session.isUser,data:orderData});
     }catch(error){
         console.error('Error in orderHistory :',error);
@@ -35,6 +37,7 @@ const orderTracking =async (req,res)=>{
     try{
         const {id,index} = req.params
         const orderData = await orderCollection.findOne({orderID:id});
+       
         
         if (!orderData) {
             return res.render('orderDetails', { isUser: req.session.isUser, data: null, error: 'Order not found' });
@@ -54,6 +57,9 @@ const cancelProducts = async (req, res) => {
         const data = await orderCollection.findOne({orderID:id})
         const updateData = data.products[i]
 
+        const numProducts = data.products.length;
+        const discountPerProduct = data.discount / numProducts;
+        const adjustedProductTotal = updateData.Product_total - discountPerProduct;
                
         const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
             {
@@ -66,20 +72,20 @@ const cancelProducts = async (req, res) => {
         await productCollection.updateOne(
             { productName: updateData.productName },
             {
-                $inc: { stock: updateData.quantity } // Decrement the 'stock' field by cartData.items[i].quantity
+                $inc: { stock: updateData.quantity }
             }
         );
 
 
         if(data.paymentMethod !=='COD'){
-                const amount = updateData?.Product_total 
+              
             const walletTransactions = {
                 remarks: 'User cancel a product',
                 date:new Date(),
                 type:'Credit',
-                amount:amount,
+                amount:adjustedProductTotal,
             }
-            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +amount},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
 
         }
         

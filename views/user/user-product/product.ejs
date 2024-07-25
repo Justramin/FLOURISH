@@ -105,49 +105,34 @@
                   <li class="current"><a href="/product">Default Sorting</a></li>
                   <li><a href="/product">Sort by popularity</a></li>
                   <li><a href="/product">Sort by average rating</a></li>
-                  <li><a href="/product?sort=newness">Sort by newness</a></li>
-                  <li><a href="/product?sort=priceLow">Sort by price: low to high</a></li>
-                  <li><a href="/product?sort=priceHigh">Sort by price: high to low</a></li>
+                  <li><a href="/product?sort=newness&category=<%= category %>">Sort by newness</a></li>
+                  <li><a href="/product?sort=priceLow&category=<%= category %>">Sort by price: low to high</a></li>
+                  <li><a href="/product?sort=priceHigh&category=<%= category %>">Sort by price: high to low</a></li>
                 </ul>
               </div>
               <div class="ps-filter__column" data-mh="column">
                 <h3>FILTER BY PRICE</h3>
                 <ul class="ps-list--filter">
                   <li class="current"><a href="/product">All</a></li>
-                  <li><a href="/product?filter=0to1k">RS:0 - Rs:1000</a></li>
-                  <li><a href="/product?filter=1kto5k">Rs:1000 - Rs:5000</a></li>
-                  <li><a href="/product?filter=5kto25k">Rs:5000 - Rs:25000</a></li>
-                  <li><a href="/product?filter=25kto1lak">Rs:25000 - Rs:100000</a></li>
-                  <li><a href="/product?filter=1lakPlus">Rs:100000 +</a></li>
+                  <li><a href="/product?filter=0to1k&category=<%= category %>">RS:0 - Rs:1000</a></li>
+                  <li><a href="/product?filter=1kto5k&category=<%= category %>">Rs:1000 - Rs:5000</a></li>
+                  <li><a href="/product?filter=5kto25k&category=<%= category %>">Rs:5000 - Rs:25000</a></li>
+                  <li><a href="/product?filter=25kto1lak&category=<%= category %>">Rs:25000 - Rs:100000</a></li>
+                  <li><a href="/product?filter=1lakPlus&category=<%= category %>">Rs:100000 +</a></li>
                 </ul>
               </div>
-              <!-- <div class="ps-filter__column" data-mh="column">
-              <h3>FILTER BY PRICE</h3>
-              <ul class="ps-list--color">
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                
-              </ul>
-            </div> -->
+              
+
+              
               <div class="ps-filter__column" data-mh="column">
                 <h3>FILTER BY STOCK</h3>
                 <ul class="ps-list--filter">
                   <li class="current"><a href="/product">All</a></li>
-                  <li><a href="/product?sort=newness">New</a></li>
+                  <li><a href="/product?sort=newness&category=<%= category %>">New</a></li>
                   <li><a href="/product">SaleOff</a></li>
-                  <li><a href="/product?stock=inStock">Show Only Products On Sale</a></li>
-                  <li><a href="/product?stock=inStock">In Stock Only</a></li>
-                  <li><a href="/product?stock=outOffStock">Out of stock</a></li>
+                  <li><a href="/product?stock=inStock&category=<%= category %>">Show Only Products On Sale</a></li>
+                  <li><a href="/product?stock=inStock&category=<%= category %>">In Stock Only</a></li>
+                  <li><a href="/product?stock=outOffStock&category=<%= category %>">Out of stock</a></li>
                 </ul>
               </div>
             </div>

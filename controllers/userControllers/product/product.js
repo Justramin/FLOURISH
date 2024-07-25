@@ -2,6 +2,7 @@ const productCollection = require("../../../model/productSchema");
 const categoryCollection = require('../../../model/categorySchema');
 const whishlistCollection = require("../../../model/whishlistSchema");
 
+
 const product = async (req, res) => {
     try {
 
@@ -72,7 +73,62 @@ const product = async (req, res) => {
         // Fetch filtered and sorted products without pagination
         const products = await productCollection.find(filtering)
             .sort(sortOption)
-            .populate('category');
+            .populate({
+                path: 'category',
+                populate: { path: 'offers' } 
+            })
+            .populate('offers')
+
+
+
+            //INSERT OFFER PRICE
+
+            for (let i = 0; i < products.length; i++) {
+                let product = products[i];
+        
+
+                
+                // Initialize variables to store maximum offer details
+                let maxOfferPercentage = 0;
+        
+                // Check if there is a product-specific offer
+                if (product.offers && product.offers.discount) {
+                    maxOfferPercentage = product.offers.discount;
+                }
+        
+                // Check if there is a category-wide offer
+                if (product.category && product.category.offers && product.category.offers.discount) {
+                    let categoryOfferPercentage = product.category.offers.discount;
+                    if (categoryOfferPercentage > maxOfferPercentage) {
+                        maxOfferPercentage = categoryOfferPercentage;
+                        maxOfferDiscount = categoryOfferPercentage; // Assuming you want to use the percentage directly
+                    }
+                }
+        
+                // Calculate offer price based on the maximum discount percentage found
+                if (maxOfferPercentage > 0) {
+                    let originalPrice = product.price;
+                    let offerPrice = originalPrice * (1 - maxOfferPercentage / 100);
+                    offerPrice = Math.round(offerPrice * 100) / 100; // Round to 2 decimal places
+        
+                    // Update the product document with the calculated offer price
+                    product.offerPrice = offerPrice;
+        
+                    // Save the updated product document
+                    await product.save();
+                }
+            }
+            
+
+
+
+
+
+
+
+
+
+
 
         // Filter products by active category status
         const activeProducts = products.filter(product => product.category.status === true);

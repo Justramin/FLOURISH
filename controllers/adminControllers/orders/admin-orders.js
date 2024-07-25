@@ -92,18 +92,22 @@ const adminReturnConform = async (req,res)=>{
             await productCollection.updateOne(
                 { productName: updateData.productName },
                 {
-                    $inc: { stock: updateData.quantity } // Decrement the 'stock' field by cartData.items[i].quantity
+                    $inc: { stock: updateData.quantity }
                 }
             );
     
-            const amount = updateData?.Product_total 
+            const numProducts = data.products.length;
+            const discountPerProduct = data.discount / numProducts;
+            const adjustedProductTotal = updateData.Product_total - discountPerProduct;
+
+
             const walletTransactions = {
                 remarks: 'User Return the  product',
                 date:new Date(),
                 type:'Credit',
-                amount:amount,
+                amount:adjustedProductTotal,
             }
-            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +amount},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+            const wallet = await walletCollection.updateOne({userId:data.userID},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
     
         }
         

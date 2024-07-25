@@ -25,8 +25,9 @@ const admin_editCategory = async(req,res)=>{
 
 const admin_editCategoryPost = async(req,res)=>{
     try {
-       console.log(req.body);
+      
             const { categoryName, offers, description } = req.body;
+          
             const categoryID = req.params.id
             const categoryRegex = new RegExp(`^${categoryName}$`,'i')
             const existingCategory = await categoryCollection.find({categoryName:{$regex:categoryRegex}})
