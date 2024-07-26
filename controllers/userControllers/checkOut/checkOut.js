@@ -129,6 +129,14 @@ const placeOrder = async (req,res)=>{
             }else{
                 discountPrice =0
             }
+
+            
+console.log('----------------------------------------------1',req.session.finalPrice);
+
+console.log('----------------------------------------------3',cartData.Cart_total);
+console.log('----------------------------------------------3',cartData.Cart_total);
+
+
             
         const newOrder = new orderCollection({
             userID:req.session.isUser._id,
@@ -276,6 +284,128 @@ const checkOutdeleteAddress = async(req,res)=>{
 
 
 
+
+
+const placeOrderFailed = async (req,res)=>{
+    try{
+        const index = Number(req.query.address)
+        const paymentMethod = req.query.payment
+        const userData = await userCollection.findOne({_id:req.session.isUser._id});
+        const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
+        const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
+        const address = addressData.address[index]
+
+
+        const orderId = otpGenerator.generate(16,
+            {
+                upperCaseAlphabets:false,
+                specialChars:false,
+                lowerCaseAlphabets:false
+            })
+
+            let productData= []
+
+            for (let i = 0; i < cartData.items.length; i++) {
+                // await productCollection.updateOne(
+                //     { _id: cartData.items[i].productId },
+                //     {
+                //         $inc: { stock: -cartData.items[i].quantity } // Decrement the 'stock' field by cartData.items[i].quantity
+                //     }
+                // );
+                
+
+                let obj={
+                    id:cartData.items[i].productId._id,
+                    productName:cartData.items[i].productId.productName,
+                    Image:cartData.items[i].Image,
+                    quantity:cartData.items[i].quantity,
+                    price:cartData.items[i].price,
+                    Product_total:cartData.items[i].Product_total,
+                    status:"Pending",
+                    cancel:false,
+                    returnReason:null
+                }
+                productData.push(obj);
+            }
+            let discountPrice;
+            if(req.session.finalPrice){
+                discountPrice =cartData.Cart_total - req.session.finalPrice 
+            }else{
+                discountPrice =0
+            }
+            
+        const newOrder = new orderCollection({
+            userID:req.session.isUser._id,
+            orderID:orderId,
+            user:address.name,
+            totalOrderValue: req.session.finalPrice || cartData.Cart_total,
+            discount:discountPrice,
+            address:address,
+            paymentMethod:paymentMethod,
+            date: new Date(),
+            products:productData,
+            status:"payment Failed"
+        })
+
+        await newOrder.save();
+
+        await userCollection.findByIdAndUpdate(req.session.isUser._id,
+            { $addToSet: { usedCoupons: req.session.couponCode } },
+            { new: true });
+
+            req.session.finalPrice = null
+            req.session.couponCode = null
+
+
+
+        await cartCollection.deleteOne({userId:req.session.isUser._id});
+
+            res.json({result:'success',orderId:orderId})
+       
+    }catch(error){
+        console.error('Error in placeOrderFailed',error);
+        res.redirect('/userError');
+    }
+}
+
+
+
+
+
+
+
+
+
+const placeOrderFailedToSuccess = async (req,res)=>{
+    try{
+        const {orderId} = req.query
+        const orderData = await orderCollection.findOne({orderID:orderId})
+       console.log('aaaaaaaaaaaaarshuuuuuuuuuuuu...',orderData);
+            for (let i = 0; i < orderData.products.length; i++) {
+                await productCollection.updateOne(
+                    { _id: orderData.products[i].id },
+                    {
+                        $inc: { stock: -orderData.products[i].quantity } 
+                    }
+                );            
+            }
+          
+            orderData.status = "Pending"
+        
+
+        await orderData.save();
+
+            res.json({result:'success',orderId:orderId})
+       
+    }catch(error){
+        console.error('Error in placeOrderFailedToSuccess',error);
+        res.redirect('/userError');
+    }
+}
+
+
+
+
 module.exports = {
     checkOut,
     checkOutPost,
@@ -283,6 +413,8 @@ module.exports = {
     newAddressCheckOut,
     checkOutEditeAddress,
     checkOutediteAddressPost,
-    checkOutdeleteAddress
+    checkOutdeleteAddress,
+    placeOrderFailed,
+    placeOrderFailedToSuccess
     
 }

@@ -46,16 +46,16 @@ const userWalletPost = async (req, res) => {
             res.json({ result: 'Within Limit' })
         } else {
          
-            const walletAmount = await walletCollection.findOne({ userId: req.session.isUser._id })
+            const onlyWalletAmount = await walletCollection.findOne({ userId: req.session.isUser._id })
       
             const walletTransactions = {
                 remarks: 'User purchased a Product',
                 date: new Date(),
                 type: 'Debit',
-                amount: walletAmount.wallet,
+                amount: onlyWalletAmount.wallet,
             }
          
-            const wallet = await walletCollection.updateOne({ userId: req.session.isUser._id }, { $inc: { wallet: -walletAmount.wallet }, $addToSet: { walletTransactions: walletTransactions } }, { upsert: true })
+            const wallet = await walletCollection.updateOne({ userId: req.session.isUser._id }, { $inc: { wallet: -onlyWalletAmount.wallet }, $addToSet: { walletTransactions: walletTransactions } }, { upsert: true })
  
             res.json({ result: 'Limit Exceeded' })
         }

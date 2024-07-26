@@ -285,14 +285,7 @@
                                   <th class="text-uppercase"> <span id="cart_total"><%= data.Cart_total %></span></th>
                                   </tr>
                               </thead>
-                              <!-- 
-                            <td>Card Subtitle</td>
-                            <td>$300.00</td>
-                          </tr>
-                          <tr>
-                            <td>Order Total</td>
-                            <td>$300.00</td>
-                          </tr> -->
+                             
                       </tbody>
                     </table>
                     </table>
@@ -320,12 +313,24 @@
                           <th id="dicprice" class="text-uppercase">0</th>
                         </tr>
                       </thead>
-                      <thead>
-                        <tr>
-                          <th class="text-uppercase">Final Price</th>
-                          <th id="cartotal" class="text-uppercase"><%= data.Cart_total %></th>
-                        </tr>
-                      </thead>
+
+
+                   
+
+
+                      
+                          <thead>
+                            <tr>
+                              <th class="text-uppercase">Final Price</th>
+                              <th id="cartotal" class="text-uppercase"><%= data.Cart_total %></th>
+                            </tr>
+                          </thead>
+
+                     
+
+
+
+ 
 
                     </table>
                   </div>
@@ -344,7 +349,7 @@
                           <% } %>
                         </tr>
                       </thead>
-                    </table>
+                    </table>        
                   </div>
 
 
@@ -353,8 +358,16 @@
                     <div class="form-group cheque">
                       <div class="ps-radio ps-radio--small">
                         <input class="form-control" type="radio" id="rdo01" name="payment"
+                        <% if (data.Cart_total<10000) { %>
                           onclick="paymentMethod('COD')">
-                        <label for="rdo01">COD</label>
+                            <label for="rdo01">COD</label>
+                          
+                          <% } else { %>
+                            onclick="codNotWork()">
+                            <label for="rdo01">COD</label>
+                          
+                            <% } %>
+
                       </div>
                     </div>
                     <div class="form-group cheque">
@@ -394,6 +407,19 @@
         </div>
       </div>
 
+
+      <script>
+       function codNotWork(){
+        Swal.fire({
+              title: "Not Allowed COD !",
+              text: "COD is not available for amounts above 10,000.",
+              icon: "warning",
+              showConfirmButton: false,
+              timer: 3000
+            });
+        
+       }
+      </script>
 
 
 
@@ -440,6 +466,7 @@
               console.log('Within Limit');
             }else if (data.result==='Limit Exceeded') {
               console.log('Limit Exceeded');
+
               Swal.fire({
               title: "Limit Exceeded !",
               text: "Wallet doesn't have enough Money !",
@@ -449,6 +476,7 @@
             });
 
              document.getElementById('cartotal').innerText = `${subtotal-walletAmount}`
+             document.getElementById('wallet').innerText='0'
             }
           }).catch(error=>{
             console.log('Some error occure', error);
@@ -594,7 +622,23 @@ window.location.href=`/orderConfirmation?id=${orderId}`
                             };
 
                             const razorpayInstance = new Razorpay(options);
-                            razorpayInstance.open();
+                            razorpayInstance.on('payment.failed', function (response) {
+                    Swal.fire({
+                        title: 'Payment Failed',
+                        text: 'There was an error processing your payment. Redirecting to order history...',
+                        icon: 'error',
+                        timer: 3000,
+                        timerProgressBar: true,
+                        showConfirmButton:false,
+                        willClose: () => {
+                            // location.href = '/retryPayment';
+                            razorpayFailed()
+                        }
+                    });
+                });
+                razorpayInstance.open();
+
+                            // razorpayInstance.open();
         }
 
 
@@ -632,6 +676,45 @@ window.location.href=`/orderConfirmation?id=${orderId}`
           })
 
         }
+
+
+
+
+        async function razorpayFailed(payment_id){
+
+          await fetch(`/placeOrderFailed?address=${index}&payment=${method}`,{
+            method:'GET',
+              headers:{
+                'Content-Type': 'application/json'
+              },
+          }) .then(response =>{
+            if(!response.ok){
+              console.log('some error aoccourd by fetching data in order get');
+            }
+            return response.json()
+          }).then(data => {
+            if(data.result == 'success'){
+              const orderId = data.orderId
+              Swal.fire({
+                  text: "Order placed",
+                  icon: 'success',									
+                  showCancelButton: false,
+                  showCloseButton: false,
+                  showConfirmButton:false,
+                  showLoaderOnConfirm: false,
+                  timer: 3000
+                }).then(()=>{
+          // window.location.href=`/orderConfirmation?id=${orderId}`
+          window.location.href='/orderHistory'
+
+                })
+
+            }
+          }).catch(error=>{
+            console.error('error in order placed:',error);
+          })
+
+          }
 
 
 

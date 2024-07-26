@@ -91,6 +91,8 @@ router.get('/checkOut',isUser.isUser,checkOut.checkOut)
 router.post('/checkOutPost',isUser.isUser,checkOut.checkOutPost)
 
 router.get('/placeOrder',isUser.isUser,checkOut.placeOrder)
+router.get('/placeOrderFailed',isUser.isUser,checkOut.placeOrderFailed)
+router.get('/placeOrderFailedToSuccess',isUser.isUser,checkOut.placeOrderFailedToSuccess)
 
 router.post('/newAddressCheckOut',isUser.isUser,checkOut.newAddressCheckOut)
 router.get('/checkOutEditeAddress/:id',isUser.isUser,checkOut.checkOutEditeAddress)

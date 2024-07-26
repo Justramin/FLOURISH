@@ -88,7 +88,6 @@
       </div>
 
       <div class="container">
-
         <% if (data.length===0) { %>
           <h3 class="p-4 mb-2 text-center font-weight-bold">No Order Found.</h3>
           <div class="continue__btn text-center mb-4">
@@ -186,6 +185,24 @@
                   </button>
                   <% } %>
 
+
+
+
+
+
+
+                  <% if (data[i].status =='payment Failed') { %>
+                    <button style="background-color:  rgb(235, 204, 5); color: #161515;" class="order-details-button">
+                      <a onclick="RazorPay('<%= data[i].totalOrderValue  %>','<%= data[i].orderID %>')" >Retry Payment</a>
+                    </button>
+                    <% } %>
+
+
+
+
+
+
+                    
                     <% if (data.return && data.return.length> 0 && data.return[0].status) { %>
                       <span class="bg-warning p-2 rounded font-weight-bold">
                         Return Status: <%= data.return[0].status %>
@@ -311,6 +328,128 @@
 
         }
       </script>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+<script>
+
+
+  //RAZOR PAY ANANKIL
+  async function RazorPay(finalPrice,orderID){
+
+        
+         const response =  await fetch('/razorPay',{
+              method:'POST',
+              headers:{
+                'Content-Type': 'application/json'
+              },
+              body:JSON.stringify({finalPrice})
+            })
+
+            if (!response.ok) {
+                                throw new Error('Failed to create order');
+                            }
+
+                            const order = await response.json();
+                            console.log(order, 'order is showing');
+                            const options = {
+                                key: 'rzp_test_nPpZYyvi8hdf04',
+                                amount: order.amount,
+                                currency: order.currency,
+                                order_id: order.id,
+                                name: 'FLOURISH',
+                                description: 'Test Payment',
+                                image: 'https://via.placeholder.com/150',
+                                handler: function (response) {
+                                    Swal.fire({
+                                        text: 'Payment Successful! Payment ID: ' + response.razorpay_payment_id,
+                                        icon: 'success'
+                                    }).then(() => {
+                                        razorpaySuccess(response.razorpay_payment_id,orderID);
+                                    });
+                                },
+                                prefill: {
+                                    name: 'Justin Ram',
+                                    email: 'john.doe@example.com',
+                                    contact: '1234567890'
+                                },
+                                theme: {
+                                    color: '#528FF0'
+                                }
+                            };
+
+                //             const razorpayInstance = new Razorpay(options);
+                //             razorpayInstance.on('payment.failed', function (response) {
+                //     Swal.fire({
+                //         title: 'Payment Failed',
+                //         text: 'There was an error processing your payment. Redirecting to order history...',
+                //         icon: 'error',
+                //         timer: 3000,
+                //         timerProgressBar: true,
+                //         showConfirmButton:false,
+                //         willClose: () => {
+                //             // location.href = '/retryPayment';
+                //             razorpayFailed()
+                //         }
+                //     });
+                // });
+                // razorpayInstance.open();
+
+                //             razorpayInstance.open();
+                const razorpayInstance = new Razorpay(options);
+                razorpayInstance.open();
+        }
+        
+
+
+
+
+        async function razorpaySuccess(payment_id,orderID){
+
+await fetch(`/placeOrderFailedToSuccess?orderId=${orderID}`,{
+  method:'GET',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+}) .then(response =>{
+  if(!response.ok){
+    console.log('some error aoccourd by fetching data in order get');
+  }
+  return response.json()
+}).then(data => {
+  if(data.result == 'success'){
+    const orderId = data.orderId
+    Swal.fire({
+        text: "Order placed",
+        icon: 'success',									
+        showCancelButton: false,
+        showCloseButton: false,
+        showConfirmButton:false,
+        showLoaderOnConfirm: false,
+        timer: 3000
+      }).then(()=>{
+window.location.href=`/orderConfirmation?id=${orderId}`
+
+      })
+
+  }
+}).catch(error=>{
+  console.error('error in order placed:',error);
+})
+
+}
+
+
+
+
+
+
+
+
+</script>
 
       <%- include('../partials/footer') %>
 
