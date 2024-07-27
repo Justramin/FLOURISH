@@ -28,7 +28,7 @@ const user_signup = async(req,res)=>{
 const user_signupPost= async(req,res)=>{
   try {
     req.session.userDetails = req.body
-    const { name, email, phone, password } = req.body;
+    const { name, email, phone, password,refferralCode } = req.body;
 
     // Simple validation
     if (!validateName(name)) {
@@ -51,6 +51,14 @@ const user_signupPost= async(req,res)=>{
       return res.redirect('/signup');
     }
 
+    else if (refferralCode) {
+      const reffral = await collection.findOne({refferralCode:refferralCode})
+      if(!reffral){
+        req.flash('refferralError', 'Invalid Referral Code');
+      return res.redirect('/signup');
+      }
+      
+    }
 
     const alreadyloginUserData =await collection.findOne({email:email});
 
@@ -63,7 +71,7 @@ const user_signupPost= async(req,res)=>{
     // Generate OTP and store it in session Only One minuts
     const otp = await otpGeneratorUser()
     const otpTimestamp = new Date().getTime();         // Current time
-    req.session.userData = { name, email, phone, password , otpTimestamp }
+    req.session.userData = { name, email, phone, password , otpTimestamp , refferralCode }
     req.session.newUserOtp = otp
 
     console.log(`Main OTP ${otp}`);

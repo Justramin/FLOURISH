@@ -150,6 +150,20 @@
         </span>
     </div>
 
+
+    <div class="input-field">
+        <input type="text" name="refferralCode" id="refferralCode" onkeyup="validateReferralCode()"  >
+        <label style="color: black; ">ENTER REFFERRAL CODE (OPTIONAL)</label>
+        <span id="refferralCode-error">
+             <!-- Display error flash message -->
+        <% if (messages.refferralError) { %>
+            <div id="error" style="color:rgb(255, 8, 8); font-size: 18px; font-weight: bold;" class="alert alert-warning">
+                <%= messages.refferralError %>
+            </div>
+        <% } %>
+        </span>
+    </div>
+
        
 
 
@@ -175,6 +189,21 @@
         },4000)
     }
     </script>
+
+<!-- <script>
+function validateReferralCode() {
+    var referralCodeError = document.getElementById('refferralCode-error');
+    var referralCode = document.getElementById('refferralCode').value.trim();
+    if (referralCode !== '' && !referralCode.match(/^[A-Z0-9]{6,8}$/)) {
+        referralCodeError.innerHTML = 'Invalid referral code. It should be 6-8 alphanumeric characters.';
+        return false;
+    } else {
+        referralCodeError.innerHTML = '';
+        return true;
+    }
+}
+
+</script> -->
 
 
 <!-- <script>

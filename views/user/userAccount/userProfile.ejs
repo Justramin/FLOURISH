@@ -158,24 +158,34 @@
 						</div>
 					</div>
 
-							<div class="col-md-12 form-group">
-                               
+							<div class="col-md-12 form-group" style="text-align: start;">
+                <label style="font-size: x-small;">Name</label>
 								<input type="text" value="<%= isUser.name%>" class="form-control" id="name" name="username" placeholder="Username">
                                
 							</div>
-							<div class="col-md-12 form-group">
-
+							<div class="col-md-12 form-group" style="text-align: start;">
+                <label style="font-size: x-small;">Email</label>
 								<input type="text" value="<%= isUser.email %>" class="form-control" id="email" name="email" placeholder="Email" readonly>
                                
 							</div>
 							<% if (isUser.phone) { %>
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group" style="text-align: start;">
+                  <label style="font-size: x-small;">Mobile</label>
 									<input type="text" value="<%= isUser.phone %>" class="form-control" id="number" name="phone" placeholder="Number">
 								</div>
 							<% } else { %>
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group" style="text-align: start;">
+                  <label style="font-size: x-small;">Mobile</label>
 									<input type="text" class="form-control" id="number" name="phone" placeholder="Enter your phone number">
 								</div>
+							<% } %>
+
+              <% if (isUser.refferralCode) { %>
+								<div class="col-md-12 form-group" style="text-align: start;">
+                  <label style="font-size: x-small;">Refferal Code</label>
+                  <input type="text" value="<%= isUser.refferralCode %>" class="form-control" id="refferralCode" name="refferralCode" placeholder="refferralCode" readonly>
+                                 
+                </div>
 							<% } %>
 
 
