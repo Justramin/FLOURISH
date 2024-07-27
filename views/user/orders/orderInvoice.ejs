@@ -73,9 +73,9 @@
                     <div class="invoice-title">
                         <h4 class="float-end font-size-15">Invoice # <%= data.orderID %> 
                             <% if (data.paymentMethod==='COD') { %>
-                                <span class="badge bg-success font-size-12 ms-2"><%= data.status %></span></h4>
+                                <span class="badge bg-success font-size-12 ms-2"></span></h4>
                                 <% } else { %>
-                                    <span class="badge bg-danger font-size-12 ms-2"><%= data.status %></span></h4>
+                                    <span class="badge bg-danger font-size-12 ms-2"></span></h4>
                                  
                             <% } %>
                             
@@ -90,6 +90,9 @@
                     </div>
 
                     <hr class="my-4">
+
+                    
+
 
                     <div class="row">
                         <div class="col-sm-6">
@@ -113,7 +116,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <h5 class="font-size-15 mb-1">Invoice Date:</h5>
-                                    <p><%= data.date %></p>
+                                    <p><%= date.weekday %>, <%= date.month %> <%= date.day %>, <%= date.year %></p>
                                 </div>
                                 <div class="mt-4">
                                     <h5 class="font-size-15 mb-1">Order No:</h5>
@@ -145,6 +148,7 @@
                                     
                                     
                                     <tr>
+
                                         <th scope="row"><%= i+1 %></th>
                                         <td><a href="#"><img style="height: 75px; width: 80px;" src="/uploads/<%=  data.products[i].Image %>" alt=""></a></td>
                                         
@@ -159,42 +163,22 @@
                                         <td><%= data.products[i].quantity %></td>
                                         <td class="text-end">₹ <%= data.products[i].price %></td>
                                     </tr>
+
+
+
+                                    
+
                                     <% } %>
-                                    <!-- end tr -->
+                                   
                     
                                     <tr>
                                         <th scope="row" colspan="4" class="text-end">Sub Total</th>
                                         <td class="text-end">₹ <%= data.totalOrderValue %></td>
                                     </tr>
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="4" class="border-0 text-end">
-                                            Discount :</th>
-                                        <td class="border-0 text-end">-₹ <%= data.discount %></td>
-                                    </tr>
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="4" class="border-0 text-end">
-                                            Shipping Charge :</th>
-                                        <td class="border-0 text-end">₹ 100</td>
-                                    </tr>
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="4" class="border-0 text-end">
-                                            Tax</th>
-                                        <td class="border-0 text-end"><%= (data.totalOrderValue * 0.18).toFixed(2)%></td>
-                                    </tr>
-                                    <!-- end tr -->
-                                    <% if (data) { %>
-                                     
                                    
-                                    <tr>
-                                        <th scope="row" colspan="4" class="border-0 text-end">
-                                            Wallet :</th>
-                                        <td class="border-0 text-end">-₹ <%= data.discount %></td>
-                                    </tr>
-                                    <% } %>
-                                    
+                                 
+                                    <br> <br>
+                                   
                                     <tr>
                                         <th scope="row" colspan="4" class="border-0 text-end">Total</th>
                                         <td class="border-0 text-end"><h4 class="m-0 fw-semibold">₹                            <%= data.totalOrderValue %></h4></td>
@@ -205,8 +189,9 @@
                         </div><!-- end table responsive -->
                         <div class="d-print-none mt-4">
                             <div class="float-end">
-                                <a href="javascript:window.print()" class="theme-btn-1 btn btn-effect-1"><i class="fa fa-print"></i></a>
+                                <a href="/invoiceBill/<%= data.orderID  %>" class="theme-btn-2 btn btn-effect-2">Download Invoice</a>
                                 <a href="/orderHistory" class="theme-btn-2 btn btn-effect-2">Back</a>
+                               
                             </div>
                         </div>
                     </div>

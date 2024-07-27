@@ -110,6 +110,7 @@ router.get('/orderHistory',isUser.isUser,orders.orderHistory)
 router.get('/orderTracking/:id/:index',isUser.isUser,orders.orderTracking)
 router.get('/cancelProducts',isUser.isUser,orders.cancelProducts)
 router.get('/invoice/:id',isUser.isUser,orders.invoice)
+router.get('/invoiceBill/:id',isUser.isUser,orders.invoiceBill)
 router.post('/ReturnReason',isUser.isUser,orders.ReturnReason)
 router.post('/reviewRating',isUser.isUser,orders.reviewRating)
 

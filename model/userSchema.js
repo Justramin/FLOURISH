@@ -14,6 +14,10 @@ const schema = new mongoose.Schema({
     password:{
         type:String,
     },
+    refferralCode:{
+        type:String,
+        required:true
+    },
     status:{
         type:Boolean,
         default:true
