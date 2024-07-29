@@ -143,17 +143,12 @@ const invoice = async (req, res) => {
 
 const invoiceBill = async (req, res) => {
     try {
-        console.log("Invoice ---------->>>");
-        console.log(req.params)
         const orderData = await orderCollection.findOne({ orderID: req.params.id });
-        console.log(req.query.id, '+++++++++++++++++++orderId')
-
-        console.log("Order Data for invoice is: ", orderData);
         date = orderData.date;
-        console.log("Date is :", date.toDateString());
+       
 
-        //--------------------------------------------------------//
-
+          //------------------------------------------------------------------//
+          
         const num = `${orderData.totalOrderValue}`;
         const wordify = (num) => {
             const single = [
@@ -267,11 +262,10 @@ const invoiceBill = async (req, res) => {
             } else res = "";
             return res;
         };
-        console.log(wordify(num));
-
+       
         //------------------------------------------------------------------//
 
-        // copy
+       
         const htmlContent = `
       <!DOCTYPE html>
       <html lang="en">

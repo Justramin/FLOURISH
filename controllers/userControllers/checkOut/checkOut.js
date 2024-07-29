@@ -130,12 +130,6 @@ const placeOrder = async (req,res)=>{
                 discountPrice =0
             }
 
-            
-console.log('----------------------------------------------1',req.session.finalPrice);
-
-console.log('----------------------------------------------3',cartData.Cart_total);
-console.log('----------------------------------------------3',cartData.Cart_total);
-
 
             
         const newOrder = new orderCollection({
@@ -380,7 +374,6 @@ const placeOrderFailedToSuccess = async (req,res)=>{
     try{
         const {orderId} = req.query
         const orderData = await orderCollection.findOne({orderID:orderId})
-       console.log('aaaaaaaaaaaaarshuuuuuuuuuuuu...',orderData);
             for (let i = 0; i < orderData.products.length; i++) {
                 await productCollection.updateOne(
                     { _id: orderData.products[i].id },

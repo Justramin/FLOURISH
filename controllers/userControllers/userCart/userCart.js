@@ -109,7 +109,6 @@ const addToCart = async (req,res)=>{
 
 
 const updateQuantity = async (req, res) => {
-    console.log('updateQuantity reached =============== { } =========  ');
     try {
         const { productId} = req.params;
         const { action, cartId } = req.body;

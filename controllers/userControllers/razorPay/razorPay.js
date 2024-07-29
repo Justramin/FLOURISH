@@ -11,7 +11,6 @@ const instance = new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET });
 const razorPay =async (req,res)=>{
     try{
 
-        console.log("body:", req.body);
         let finalPrice;
         if(req.session.finalPrice){
           finalPrice = req.session.finalPrice;
@@ -24,7 +23,6 @@ const razorPay =async (req,res)=>{
           receipt: "order_rcpt",
         };
         instance.orders.create(options, function (err, order) {
-          console.log("order1 :", order);
           res.json(order);
         });
     }catch(error){

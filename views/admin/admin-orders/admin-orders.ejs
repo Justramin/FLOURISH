@@ -83,7 +83,7 @@
                             <th scope="row"><%= i+1  %></th>
                           <td><%= data[i].orderID  %></td>
                           <td><%= data[i].user  %></td>
-                          <th>COD</th>
+                          <th><%= data[i].paymentMethod %></th>
                           <th><%= data[i].date.toLocaleDateString()  %></th>
                           <td><%= data[i].status  %> </td>
                           <td><a class="btn btn-primary" style="color: white;" href="/admin/adminOrderDetail/<%=  data[i].orderID  %>">Details</a></td>

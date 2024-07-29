@@ -1,7 +1,5 @@
 
 const orderCollection = require('../../../model/orderSchema');
-// const orderModel = require('../../model/orderModel');
-// const productModel=require('../../model/productModel');
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
@@ -28,9 +26,7 @@ const Admin_dashbord = async(req,res)=>{
                 $count: "deliveredProductsCount"
             }
         ]);
-        console.log(salesCount);
-
-
+      
 
         const Pending = await orderCollection.aggregate([
             {
@@ -46,14 +42,134 @@ const Admin_dashbord = async(req,res)=>{
             }
         ]);
 
+
+
+        const revenue = await orderCollection.aggregate([
+            {
+                $unwind: "$products",
+            },
+            {
+                $match: {
+                    "products.status": "Delivered",
+                },
+            },
+            {
+                $project: {
+                    amount: {
+                        $multiply: ["$products.quantity", "$products.price"],
+                    },
+                },
+            },
+            {
+                $group: {
+                    _id: "",
+                    total_revenue: { $sum: "$amount" },
+                },
+            },
+        ]);
+
+
+        const discount = await orderCollection.aggregate([
+            {
+                $unwind: "$products",
+            },
+            {
+                $match: {
+                    "products.status": "Delivered",
+                },
+            },
+            {
+                $group:{
+                    _id:'',
+                    totalDiscount:{$sum:"$discount"}
+                }
+            }
+        ]);
+
+
+        const bestProducts = await orderCollection.aggregate([
+            {
+                $unwind:"$products"
+            },
+            {
+                $group:{
+                    _id:'$products.productName',
+                    count:{$sum:"$products.quantity"}
+                }
+            },
+            {
+                $sort:{
+                    count:-1
+                }
+            },
+            
+        ])
+
+
+        const topCategories = await orderCollection.aggregate([
+            {
+              $unwind: "$products"  
+            },
+            {
+              $lookup: {
+                from: "products",  
+                localField: "products.id", 
+                foreignField: "_id",
+                as: "product_details"  
+              }
+            },
+            {
+              $unwind: "$product_details"  
+            },
+            {
+              $group: {
+                _id: "$product_details.category",  
+                totalQuantity: { $sum: "$products.quantity" } 
+              }
+            },
+            {
+              $sort: { totalQuantity: -1 }  
+            },
+            {
+              $limit: 5 
+            },
+            {
+              $lookup: {
+                from: "categories",  
+                localField: "_id",  
+                foreignField: "_id",
+                as: "category_details"  
+              }
+            },
+            {
+              $unwind: "$category_details"  
+            },
+            {
+              $project: {
+                _id: 0, 
+                category: "$category_details.categoryName", 
+                totalQuantity: 1 
+              }
+            }
+          ]);
+          
+
+
         const orders = await orderCollection.find().count()
 
         const clients = await collection.find().count()
        
-            res.render('admin-dashbord',{userName:'Justin Ram',isSuperAdmin:req.session.isSuperAdmin, sales:salesCount[0].deliveredProductsCount
-                ,clients:clients,
+            res.render('admin-dashbord',{
+                userName:'Justin Ram',
+                isSuperAdmin:req.session.isSuperAdmin, 
+                sales:salesCount[0].deliveredProductsCount,
+                clients:clients,
                 orders:orders,
-                Pending:Pending[0].deliveredProductsCount
+                Pending:Pending[0].deliveredProductsCount,
+                revenue:revenue[0].total_revenue,
+                discount:discount[0].totalDiscount,
+                bestProducts:bestProducts,
+                topCategories:topCategories
             })
        
     } catch (error) {
@@ -66,45 +182,8 @@ const Admin_dashbord = async(req,res)=>{
 
 const salesReport = async(req,res)=>{
     try {
-        console.log("***salesReport***");
         const { startDate, endDate } = req.body;
-        console.log("Start Date is:", startDate);
-        console.log("End Date is:", endDate);
-
-        console.log('1 ------------------------------------------------------------------------');
-
-        // const Product = await orderModel.aggregate([
-        //     {
-        //         $match: {
-        //             date: {
-        //                 $gte: new Date(startDate),
-        //                 $lte: new Date(endDate),
-        //             },
-        //         },
-        //     },
-        //     {
-        //         $unwind: "$products",
-        //     },
-        //      {
-        //         $match: { "status": "Delivered" },
-        //     },
-        //     {
-        //         $group: {
-        //             _id: "$products.product",
-        //             totalOrders: { $sum: 1 },
-        //         },
-        //     },
-        //     {
-        //         $sort: { totalOrders: -1 },
-        //     },
-        //     {
-        //         $limit: 3,
-        //     },
-        // ]);
-        
-
-        // console.log("Product details:", Product);
-        console.log('2 ------------------------------------------------------------------------');
+       
 
         const status = await orderCollection.aggregate([
             {
@@ -126,7 +205,6 @@ const salesReport = async(req,res)=>{
             },
         ]);
 
-        console.log(status,'3 ------------------------------------------------------------------------');
 
         const revenue = await orderCollection.aggregate([
             {
@@ -160,7 +238,6 @@ const salesReport = async(req,res)=>{
             },
         ]);
 
-        console.log(revenue,'4 ------------------------------------------------------------------------');
 
         const orderData = await orderCollection.aggregate([
             {
@@ -182,7 +259,14 @@ const salesReport = async(req,res)=>{
             },
         ]);
 
-        console.log(orderData,'5 ------------------------------------------------------------------------');
+
+        const discount = orderData.reduce((acc,val)=>{
+            if(val.discount){
+               
+                return acc += val.discount
+            }
+            return acc;
+        },0);
 
         const totalRevenue = revenue.length > 0 ? revenue[0].total_revenue : 0;
 
@@ -231,6 +315,7 @@ const salesReport = async(req,res)=>{
                                         <td style="border: 1px solid #000; padding: 8px;">${item.address.name}</td>
                                         <td style="border: 1px solid #000; padding: 8px;">${item.products.productName}</td>
                                         <td style="border: 1px solid #000; padding: 8px;">${item.products.price}</td>
+                                        <td style="border: 1px solid #000; padding: 8px;">${item.products.price}</td>
                                         <td style="border: 1px solid #000; padding: 8px;">${item.products.quantity}</td>
                                         <td style="border: 1px solid #000; padding: 8px;">${item.paymentMethod}</td>
                                         
@@ -264,6 +349,7 @@ const salesReport = async(req,res)=>{
                     </center>
                     <br>
                     <center>
+                    <h3>Total Coupon amount reduced: <span>₹ ${discount}</span></h3>
                     <h3>Total Revenue generated: <span>₹ ${totalRevenue}</span></h3>
                     </center>
                     <p style="padding-left:20px;">Summary:<br>A total of ${orderData.length} products have been delivered. Total revenue generated is worth ₹ ${totalRevenue}.  </p>
@@ -306,25 +392,6 @@ const salesReport = async(req,res)=>{
             });
     
 
-            // const browser = await puppeteer.launch({
-            //     executablePath: "/usr/bin/chromium-browser",
-            //   });
-            //   const page = await browser.newPage();
-            //   await page.setContent(htmlContent);
-          
-            //   const pdfBuffer = await page.pdf();
-          
-            //   await browser.close();
-          
-            //   res.setHeader("Content-Length", pdfBuffer.length);
-            //   res.setHeader("Content-Type", "application/pdf");
-            //   res.setHeader(
-            //     "Content-Disposition",
-            //     "attachment; filename=Bagdot-Sales.pdf"
-            //   );
-            //   res.status(200).end(pdfBuffer);
-
-       
     } catch (error) {
         console.error('Error in salesReport:', error);
         res.redirect('/admin/errorPage')
@@ -335,11 +402,10 @@ const salesReport = async(req,res)=>{
 
 const sales_data = async(req,res)=>{
     try {
-        
-        console.log("getSalesData");
+
         const { filter } = req.query;
-        console.log("filter--------->>>", filter);
         let salesData = {};
+
         if (filter === "yearly") {
             salesData = await getYearlySalesData();
         } else if (filter === "monthly") {
@@ -351,11 +417,15 @@ const sales_data = async(req,res)=>{
         }
         res.json(salesData);
 
+
     } catch (error) {
         console.error('Error in sales_data:', error);
         res.redirect('/admin/errorPage')
     }  
 }
+
+
+
 
 
 async function getDailySalesData() {
@@ -375,7 +445,7 @@ async function getDailySalesData() {
             $sort: { _id: 1 },
         },
     ]);
-    console.log("Aggregation value for daily graph is: ", Aggregation);
+
 
     const saleDate = Aggregation.map((item) => item._id);
     const count = Aggregation.map((item) => item.count);
@@ -386,7 +456,6 @@ async function getDailySalesData() {
 
 
 async function getMonthlySalesData() {
-    console.log('monthly cahrt')
     const Aggregation = await orderCollection.aggregate([
         {
             $match: {
@@ -410,7 +479,7 @@ async function getMonthlySalesData() {
         },
     ]);
 
-    console.log("Aggregation value for monthly graph is: ", Aggregation);
+
     const saleDate = Aggregation.map((item) => item._id.month);
     const count = Aggregation.map((item) => item.count);
     return { saleDate, count };
@@ -419,7 +488,6 @@ async function getMonthlySalesData() {
 
 
 async function getYearlySalesData() {
-    console.log('yearly cahrt')
     const getYearlySalesData = await orderCollection.aggregate([
         {
             $match: {
@@ -437,7 +505,6 @@ async function getYearlySalesData() {
 
     ]);
 
-    console.log("Aggregation value for yearly graph is: ", getYearlySalesData);
     const saleDate = getYearlySalesData.map((item) => item._id.year);
     const count = getYearlySalesData.map((item) => item.count);
     return { saleDate, count };
