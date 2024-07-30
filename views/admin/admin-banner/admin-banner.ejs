@@ -71,30 +71,26 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Main Banner</td>
-                          <td>img</td>
-                          <td>It is the Main Banner</td>
-                          <td>Listed</td>
-                          <td>   ...</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>2nd Banner</td>
-                          <td>img</td>
-                          <td>It is the Top Banner</td>
-                          <td>Listed</td>
-                          <td>...</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Last Banner</td>
-                          <td>img</td>
-                          <td>Last main Banner</td>
-                          <td>Listed </td>
-                          <td>...</td>
-                        </tr>
+
+
+                        <% for( let i = 0; i < banner.length; i++ ) { %>
+                          <tr>
+                            <th scope="row"><%= i+1 %></th>
+                            <td><%= banner[i].bannerName %></td>
+                            <td> <img src="/uploads/<%= banner[i].image %>" style="height: 50px;width: 50px;" alt="prdct img"> </td>
+                            <td><%= banner[i].description %></td>
+                            <% if (banner[i].status) { %>
+                              <td><a href="/admin/bannerStatus/<%= banner[i]._id %>?status=<%= banner[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>
+                          <% } else { %>
+                              <td><a href="/admin/bannerStatus/<%= banner[i]._id %>?status=<%= banner[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">List</button></a></td>
+                          <% } %>
+                          <td><a href="/admin/admin_editBanner/<%= banner[i]._id %>%>"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
+
+                          </tr>
+                        <% } %>
+                        
+                        
+                       
                       </tbody>
                     </table>
                   </div>

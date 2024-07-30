@@ -29,7 +29,7 @@ const schema = new mongoose.Schema({
    
     offerPrice:{
         type:Number,
-        required:true
+        
     },
     image:{
         type:Array,

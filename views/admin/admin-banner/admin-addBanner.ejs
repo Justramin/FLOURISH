@@ -1,15 +1,9 @@
 
 
 
-
-
-
     <%- include('../admin-partials/adminHedder') %>
 
-
-
-
-
+    
 
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
         <ul class="list-unstyled">
@@ -91,11 +85,15 @@
                 <div class="block">
                   <div class="title"><strong>Add A New Banner</strong></div>
                   <div class="block-body">
-                    <form class="form-horizontal">
+
+
+                    <form class="form-horizontal" action="/admin/admin_addBannerPost" method="post" enctype="multipart/form-data>
+                      <div class="line"></div>
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Heading</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control"  name="bannerName" id="bannerName"  required>
+                          <span id="hedding-error"></span>
                         </div>
                       </div>
                 
@@ -108,7 +106,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Discription</label>
                         <div class="col-sm-9">
-                          <input type="password" name="password" class="form-control">
+                          <input type="text" name="description" class="form-control" id="bannerDescription" required >
+                          <span id="des-error"></span>
                         </div>
                       </div>
                       <div class="line"></div>
@@ -119,13 +118,16 @@
 
 
                       <div class="line"></div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">Image</label>
-                        <div class="col-sm-9">
-                          <input type="password" name="password" class="form-control">
-                        </div>
-                      </div>
-                      <div class="line"></div>
+                          <div class="form-group row">
+                            <label class="col-sm-3 form-control-label">Image</label>
+                            <div class="col-sm-9">
+                              <!-- Input field for selecting images -->
+                              <input type="file" name="image" id="imageInput" class="form-control" multiple >
+                              <!-- Container for previewing uploaded images -->
+                              <div id="imagePreview" class="mt-2"></div>
+                            </div>
+                          </div>
+                          <div class="line"></div>
 
 
 
@@ -160,6 +162,59 @@
             </div>
           </div>
         </section>
+
+
+         <!-- JavaScript for image preview and removal -->
+         <script>
+          // Function to preview uploaded images
+          function previewImages(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.innerHTML = ''; // Clear previous preview
+        
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+              const file = files[i];
+              const reader = new FileReader();
+        
+              reader.onload = function (e) {
+                // Create image element for preview
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('img-thumbnail');
+                img.style.maxWidth = '80px';
+                img.style.maxHeight = '80px';
+        
+                // Create button for image removal
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.classList.add('btn', 'btn-danger', 'btn-sm' ,'mt-1');
+                removeBtn.onclick = function () {
+                  // Remove the corresponding image and button from the preview
+                  removeImage(img, removeBtn);
+                  // Clear the file input value to allow selecting the same file again
+                  // document.getElementById('imageInput').value = '';
+                };
+        
+                // Append image and remove button to the preview container
+                imagePreview.appendChild(img);
+                imagePreview.appendChild(removeBtn);
+              };
+        
+              // Read the image file as a data URL
+              reader.readAsDataURL(file);
+              console.log(reader);
+            }
+          }
+        
+          // Function to remove image and button
+          function removeImage(img, btn) {
+            console.log(img,'================');
+            console.log(btn,'---------------------------');
+            img.remove();
+            btn.remove();
+            
+          }
+        </script>
        
 
 

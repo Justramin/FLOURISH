@@ -55,6 +55,8 @@ router.post('/admin_editCategory/:id',admin_editCategory.admin_editCategoryPost)
 
 router.get('/admin_banner',admin_banner.admin_banner)
 router.get('/admin_addBanner',admin_addBanner.admin_addBanner)
+router.post('/admin_addBannerPost',upload.single('image'),admin_addBanner.admin_addBannerPost)
+
 
 //order management
 router.get('/admin_orders',admin_orders.admin_orders)
