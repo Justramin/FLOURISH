@@ -553,13 +553,13 @@
                     </form>
 
                     <% if(data) { %>
-                        <div class="row">
+                        <div class="row" style="padding: 10px;">
                             <% data.walletTransactions.forEach((wallet, index)=> { %>
                                 <div style="display: flex; justify-content: center; margin-bottom: 1rem;"
                                     class="col-md-6 mb-4 ">
                                     <div style="width: 40rem;"
                                         class=" wallet-card <%= wallet.type === 'Credit' ? 'wallet-card-credited' : 'wallet-card-debited' %> p-5">
-                                        <div style="padding-bottom: 1px;" class="card-body wallet-card-body p-5">
+                                        <div style="padding: 10px;" class="card-body wallet-card-body p-5">
                                             <h5
                                                 class="card-title wallet-card-title <%= wallet.type === 'Credit'  ? 'text-success' : 'text-danger' %>">
                                                 <%= wallet.type %>

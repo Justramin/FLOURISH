@@ -32,7 +32,7 @@
     
     <% if (details) { %>
         <div class="input-field">
-            <input type="text" name="name" value="<%= details.name %>" id="name" onkeyup="validateName()" required />
+            <input type="text" name="name" value="<%= details.name %>" id="name" onkeyup="validateName()"  />
             <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
             <span id="name-error" style="font-weight: bold; font-size: 18px;">
                  <!-- Display error flash message -->
@@ -46,7 +46,7 @@
        
 
         <div class="input-field">
-            <input type="email" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()" required />
+            <input type="email" name="email" value="<%= details.email %>" id="email" onkeyup="validateEmail()"  />
             <label style="color: black; ">ENTER EMAIL</label>
             <span id="email-error" style="font-weight: bold; font-size: 18px;">
                  <!-- Display error flash message -->
@@ -62,7 +62,7 @@
 
 
         <div class="input-field">
-            <input type="number" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()" required />
+            <input type="number" name="phone" value="<%= details.phone %>" id="phone" onkeyup="validatePhone()"  />
             <label style="color: black; ">ENTER PHONE NUMBER</label>
             <span id="phone-error" style="font-weight: bold; font-size: 18px;">
                          <!-- Display error flash message -->
@@ -83,7 +83,7 @@
 
 
             <div class="input-field">
-                <input type="text" name="name" id="name" onkeyup="validateName()" required />
+                <input type="text" name="name" id="name" onkeyup="validateName()"  />
                 <label style="color: rgb(0, 0, 0); ">ENTER NAME</label>
                 <span id="name-error" style="font-weight: bold; font-size: 18px;">
                         <!-- Display error flash message -->
@@ -99,7 +99,7 @@
 
 
             <div class="input-field">
-                <input type="email" name="email" id="email" onkeyup="validateEmail()" required />
+                <input type="email" name="email" id="email" onkeyup="validateEmail()"  />
                 <label style="color: black; ">ENTER EMAIL</label>
                 <span id="email-error" style="font-weight: bold; font-size: 18px;">
                         <!-- Display error flash message -->
@@ -115,7 +115,7 @@
 
 
             <div class="input-field">
-                <input type="number" name="phone" id="phone" onkeyup="validatePhone()" required />
+                <input type="number" name="phone" id="phone" onkeyup="validatePhone()"  />
                 <label style="color: black; ">ENTER PHONE NUMBER</label>
                 <span id="phone-error" style="font-weight: bold; font-size: 18px;">
                         <!-- Display error flash message -->
@@ -138,7 +138,7 @@
 
 
     <div class="input-field">
-        <input type="password" name="password" id="password" onkeyup="validatePassword()"  required />
+        <input type="password" name="password" id="password" onkeyup="validatePassword()"   />
         <label style="color: black; ">ENTER PASSWORD</label>
         <span id="password-error">
              <!-- Display error flash message -->
@@ -215,7 +215,7 @@ function validateReferralCode() {
     function validateName() {
         const name = document.getElementById('name').value;
         if (name.length <= 3) {
-            nameError.innerHTML = 'Name is required';
+            nameError.innerHTML = 'Name is ';
             nameError.style.color = 'red';
             return false;
         }
@@ -233,7 +233,7 @@ function validateReferralCode() {
     function validateEmail() {
         const email = document.getElementById('email').value;
         if (email.length === 0) {
-            emailError.innerHTML = 'Email is required';
+            emailError.innerHTML = 'Email is ';
             emailError.style.color = 'red';
             return false;
         }
@@ -251,7 +251,7 @@ function validateReferralCode() {
     function validatePhone() {
         const phone = document.getElementById('phone').value;
         if (phone.length === 0) {
-            phoneError.innerHTML = 'Phone number is required';
+            phoneError.innerHTML = 'Phone number is ';
             phoneError.style.color = 'red';
             return false;
         }
