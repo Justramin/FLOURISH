@@ -16,7 +16,6 @@ const schema = new mongoose.Schema({
     },
     refferralCode:{
         type:String,
-        required:true
     },
     status:{
         type:Boolean,
