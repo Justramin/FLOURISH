@@ -1,6 +1,6 @@
 const couponCollection = require("../../../model/CouponSchema")
 const mongoose = require('mongoose');
-const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator'); 
+const {  onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator'); 
 
 
 

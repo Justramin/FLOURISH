@@ -1,7 +1,7 @@
 
 const productCollection = require('../../../model/productSchema')
 const { ObjectId } = require('mongodb')
-const categoryCollection = require('../../../model/categorySchema')
+
 
 
 

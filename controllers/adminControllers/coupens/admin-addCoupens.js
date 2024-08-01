@@ -1,6 +1,6 @@
 const couponCollection = require('../../../model/CouponSchema');
 const { ObjectId } = require('mongodb');
-const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');
+const {  onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');
 
 const admin_addCoupens = async (req, res) => {
     try {
@@ -67,7 +67,7 @@ const adminAddCouponsPost = async (req, res) => {
                 return res.redirect('/admin/admin_addCoupens');
             }
         
-            const couponData = await couponCollection.create({
+            await couponCollection.create({
                 couponCode,
                 discription: discription,
                 minimumPrice,

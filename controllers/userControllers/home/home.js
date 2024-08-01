@@ -24,7 +24,7 @@ const home = async (req, res) => {
             });
         }
 
-        // const activeProducts = products.filter(product => product.category.status === true);
+
 
         res.render('home', {
             isUser: req.session.isUser,

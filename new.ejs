@@ -1,0 +1,126 @@
+<header class="header" data-sticky="true">
+    <div class="header__top">
+      <div class="ps-container">
+        <div class="row">
+              <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
+              </div>
+              <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
+  
+                <% if (isUser) { %>
+                  
+                  
+                  <div class="header__actions">
+                    <a><%= isUser.name %></a>
+                    <a style="text-decoration: none;" href="/logout">Logout </a>
+                    
+                    <% } else { %>
+                      <div class="header__actions"><a style="text-decoration: none;" href="/login">Login & Regiser</a>
+                <% } %>
+                
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <nav class="navigation">
+      <div class="ps-container">
+        <a class="ps-logo" href="/"><img src="/user/images/logo.png" alt=""></a>
+            <ul class="main-menu menu">
+              <li><a style="text-decoration: none;" href="/dealOfTheMonth">DEAL OF THE MONTH</a></li>
+              <li><a style="text-decoration: none;" href="/">HOME PAGE</a></li>
+              <li><a style="text-decoration: none;" href="/product">PRODUCT PAGE</a></li>
+              <li><a style="text-decoration: none;" href="/profilePage">ACCOUNT</a></li>
+            </ul>
+  
+            
+  
+  
+  
+            <% if (isUser) { %>
+  
+  
+  
+              <% if (cartData && cartData.items && cartData.items.length > 0) { %>
+  
+        <div class="menu-toggle"><span></span></div>
+        <div class="ps-cart">
+          <a class="ps-cart__toggle" href="/userCart">
+          <span><i><%= cartData.items.length %></i></span><img src="/user/images/market.svg" alt=""></a>
+          
+            <div class="ps-cart__listing">
+              <div class="ps-cart__content">
+  
+                
+                 
+               
+  
+                <% for( let i = 0; i < cartData.items.length; i++ ) { %>
+                
+               
+  
+  
+                <div class="ps-cart-item">
+                  <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= cartData.items[i].Image %>" alt=""></div>
+                  <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%=  cartData.items[i].productId.productName %></a>
+                    <p><span>Quantity:<i><%= cartData.items[i].quantity %></i></span><span>Total:<i><%= cartData.items[i].Product_total %></i></span></p>
+                  </div>
+                </div>
+  
+                <% } %>
+              </div>
+              <div class="ps-cart__total">
+                <p>Number of items:<span><%= cartData.items.length %></span></p>
+                <p>Total Price:<span><%= cartData.Cart_total %></span></p>
+              </div>
+              <div class="ps-cart__footer"><a class="ps-btn" href="/userCart">SHOPPING CART<i class="furniture-next"></i></a></div>
+            </div>
+          </div>
+  
+          <% } %>
+  
+  
+          <% if (whishlistData && whishlistData.items && whishlistData.items.length > 0) { %>
+           
+         
+  
+          <div class="ps-cart">
+            <a class="ps-cart__toggle" href="/userWhishlist">
+            <span><i><%= whishlistData.items.length %></i></span><img class="mr-10" src="/user/images/whishlist.svg" alt=""></a>
+            <div class="ps-cart__listing">
+              <div class="ps-cart__content">
+  
+                <% for( let i = 0; i < whishlistData.items.length; i++ ) { %>
+                
+               
+                <div class="ps-cart-item">
+                  <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img src="/uploads/<%= whishlistData.items[i].Image %>" alt=""></div>
+                  <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html"><%= whishlistData.items[i].product %></a>
+                    <p><span>Price:<i><%= whishlistData.items[i].Price %></i></span></p>
+                  </div>
+                </div>
+  
+                <% } %>
+                
+              </div>
+              <div class="ps-cart__total">
+                <p>Number of items:<span><%= whishlistData.items.length %></span></p>
+              </div>
+              <div class="ps-cart__footer"><a class="ps-btn" href="/userWhishlist">WHISH LIST<i class="furniture-next"></i></a></div>
+            </div>
+          </div>
+  
+         
+  
+          <% } %>
+  
+          <% } %>
+  
+        <!-- <form class="ps-form--search" action="http://warethemes.com/html/flourish/do_action" method="post"><i class="furniture-search"></i>
+          <input class="form-control" type="text" placeholder="Find product">
+          <button>Search</button>
+        </form> -->
+      
+      
+      </div>
+    </nav>
+  </header>

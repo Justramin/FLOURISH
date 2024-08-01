@@ -65,7 +65,7 @@ const cancelProducts = async (req, res) => {
         const discountPerProduct = data.discount / numProducts;
         const adjustedProductTotal = updateData.Product_total - discountPerProduct;
                
-        const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
+        await orderCollection.updateOne({ orderID: req.query.id }, 
             {
             $set: {
                 [`products.${req.query.i}.status`]: 'Cancelled',
@@ -89,7 +89,7 @@ const cancelProducts = async (req, res) => {
                 type:'Credit',
                 amount:adjustedProductTotal,
             }
-            const wallet = await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+            await walletCollection.updateOne({userId:req.session.isUser._id},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
 
         }
         

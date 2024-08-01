@@ -31,6 +31,7 @@
   </style>
 
   <body>
+    <div class="header--sidebar"></div>
     <%- include('../partials/navbar') %>
 
 
@@ -92,11 +93,7 @@
                         <%= catData[i].categoryName %>
                       </a></li>
                     <% } %>
-                      <!-- <li><a href="product-listing.html">Women</a></li>
-                <li><a href="product-listing.html">Suite & Jean</a></li>
-                <li><a href="product-listing.html">Accessories</a></li>
-                <li><a href="product-listing.html">Kids</a></li>
-                <li><a href="product-listing.html">Handmade</a></li> -->
+                     
                 </ul>
               </div>
               <div class="ps-filter__column" data-mh="column">
@@ -154,7 +151,6 @@
               <div style="max-height:60vh" class="col-lg-3 mt-5 col-sm-6">
                 <div class="ps-product">
                   <div class="ps-product__thumbnail">
-                    <!-- <div class="ps-badge"><span>New</span></div> -->
                     <a class="ps-product__favorite <% if ((data[i].inWishlist)) { %>
                      active
                     <% } %>"
@@ -211,22 +207,16 @@
                   </div>
                   <div class="ps-product__content">
 
-
-
                     <select class="ps-rating">
                       <% 
                         function getOptionValue(rating, optionNumber) {
                           return optionNumber <= rating ? 1 : 2;
                         }
-                    
                         for (let optionNumber = 1; optionNumber <= 5; optionNumber++) {
                       %>
                         <option value="<%= getOptionValue(data[i].ratingNumber, optionNumber) %>"><%= optionNumber %></option>
                       <% } %>
                     </select>
-
-
-                    
                     <a class="ps-product__title" href="product-detail-2.html">
                       <%=data[i].productName %>
                     </a>
@@ -239,11 +229,8 @@
                   </div>
                 </div>
               </div>
-
               <% } %>
           </div>
-
-
           <div class="ps-pagination">
             <ul class="pagination">
               <% if (page > 1) { %>
@@ -255,7 +242,6 @@
             <% } else { %>
                 <li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
             <% } %>
-            
             <% for (let i = 1; i <= totalPages; i++) { %>
                 <li class="<%= page === i ? 'active' : '' %>">
                     <a href="/product?page=<%= i %>&filter=<%= filter %>&sort=<%= sort %>&category=<%= category %>&stock=<%= stock %>&search=<%= search %>">
@@ -263,7 +249,6 @@
                     </a>
                 </li>
             <% } %>
-            
             <% if (page < totalPages) { %>
                 <li>
                     <a href="/product?page=<%= page + 1 %>&filter=<%= filter %>&sort=<%= sort %>&category=<%= category %>&stock=<%= stock %>&search=<%= search %>">
@@ -276,11 +261,6 @@
             
             </ul>
         </div>
-        
-
-
-
-
       </main>
       <div class="ps-home-features-2">
         <div class="container">
@@ -312,26 +292,11 @@
           </div>
         </div>
       </div>
-
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-   
-
-
-
-
-
-
-
-
-
       <script>//ADD TO CART
         function addToCart(id) {
           // Stringify the id once
           const data = JSON.stringify({ id: id });
-          console.log(data);
-
           fetch('/addToCart', {
             body: data,
             method: 'post',
@@ -340,20 +305,13 @@
             }
           })
             .then(response => {
-
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
               return response.json();
-
-
             }).then(data => {
               // Handle the response as needed
-              console.log('Response received:', data);
-              console.log(data.success)
               if (data.success) {
-
-
                 if (data.message == "Out of stock" || data.message == "Only 5 items can be added") {
                   Swal.fire({
                     // position: "top-end",
@@ -364,7 +322,6 @@
                   });
                 } else {
                   Swal.fire({
-                    // position: "top-end",
                     icon: "success",
                     title: data.message,
                     showConfirmButton: false,
@@ -373,7 +330,6 @@
                     window.location.reload()
                   })
                 }
-
               } else {
                 Swal.fire({
                   title: "You are Not Loged in",
@@ -388,8 +344,6 @@
                     window.location.href = '/login';
                   }
                 });
-
-
               }
             })
             .catch(error => {
@@ -399,15 +353,10 @@
         }
       </script>
 
-
       <script>//WHISHLIST
-
-        function whishlist(id) {
-          console.log('whishlist clicked');
-          console.log(id);
+        function whishlist(id) {      
           // Stringify the id once
           const data = JSON.stringify({ id: id });
-          console.log(data);
 
           fetch('/addWhishlist', {
             body: data,
@@ -422,12 +371,8 @@
               }
               return response.json();
             }).then(data => {
-              // Handle the response as needed
-              console.log('Response received:', data);
-              console.log(data.success)
               if (data.success) {
                 Swal.fire({
-                  // position: "top-end",
                   icon: "success",
                   title: data.message,
                   showConfirmButton: false,
@@ -435,7 +380,6 @@
                 }).then(() => {
                   window.location.reload()
                 });
-
               } else {
                 Swal.fire({
                   title: "You are Not Loged in",
@@ -458,16 +402,7 @@
               console.error('Error occurred:', error);
             });
         }
-
-
       </script>
-
-
-
-
       <%- include('../partials/footer') %>
-
-
   </body>
-
 </html>

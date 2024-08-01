@@ -84,12 +84,10 @@ const signupWithOtp = async (req, res) => {
 
                 res.redirect('/');
             } else {
-                console.log("error OTP has expired");
                 req.flash('error', 'OTP has expired.');
                 res.redirect('/signupOtp');
             }
         } else {
-            console.log("error invalid OTP");
             req.flash('error', 'Invalid OTP.');
             res.redirect('/signupOtp');
         }

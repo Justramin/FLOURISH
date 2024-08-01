@@ -56,9 +56,8 @@ const checkOut = async(req,res)=>{
 
 const checkOutPost = async(req,res)=>{
     try {
-        const { cartId } = req.body;
+        
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
-        const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
         let outOfStock = false;
         for(let i=0;i<cartData.items.length;i++){
             const data = await productCollection.findOne({_id:cartData.items[i].productId});
@@ -71,7 +70,7 @@ const checkOutPost = async(req,res)=>{
             res.json({ outOfStock: outOfStock });
         }else{
             res.json({ outOfStock: '' });
-            // res.render('checkOut',{isUser:req.session.isUser,data:cartData,address:addressData})
+           
         }
         
     } catch (error) {
@@ -284,7 +283,6 @@ const placeOrderFailed = async (req,res)=>{
     try{
         const index = Number(req.query.address)
         const paymentMethod = req.query.payment
-        const userData = await userCollection.findOne({_id:req.session.isUser._id});
         const cartData = await cartCollection.findOne({userId:req.session.isUser._id}).populate('items.productId')
         const addressData = await addressCollection.findOne({userID:req.session.isUser._id});
         const address = addressData.address[index]
@@ -300,12 +298,7 @@ const placeOrderFailed = async (req,res)=>{
             let productData= []
 
             for (let i = 0; i < cartData.items.length; i++) {
-                // await productCollection.updateOne(
-                //     { _id: cartData.items[i].productId },
-                //     {
-                //         $inc: { stock: -cartData.items[i].quantity } // Decrement the 'stock' field by cartData.items[i].quantity
-                //     }
-                // );
+               
                 
 
                 let obj={

@@ -1,8 +1,6 @@
 
 
 
-// const moment = require("moment");
-
 const couponCollection = require("../../../model/CouponSchema");
 const collection = require("../../../model/userSchema");
 

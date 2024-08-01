@@ -55,7 +55,7 @@ const adminOrderDetail = async (req,res)=>{
 const updateStatus = async (req,res)=>{
     try {
         if(req.session.isAdminAuth){
-            const orderData = await orderCollection.updateOne({ orderID: req.query.id }, 
+            await orderCollection.updateOne({ orderID: req.query.id }, 
                 {
                 $set: {
                     [`products.${req.query.index}.status`]: `${req.body.status}` 
@@ -80,7 +80,7 @@ const adminReturnConform = async (req,res)=>{
            const data = await orderCollection.findOne({orderID:id})
            const updateData = data.products[index]
            
-           const orderData = await orderCollection.updateOne({ orderID: id }, 
+           await orderCollection.updateOne({ orderID: id }, 
             {
             $set: {
                 [`products.${index}.status`]: `${msg}` 
@@ -107,7 +107,7 @@ const adminReturnConform = async (req,res)=>{
                 type:'Credit',
                 amount:adjustedProductTotal,
             }
-            const wallet = await walletCollection.updateOne({userId:data.userID},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
+            await walletCollection.updateOne({userId:data.userID},{$inc:{wallet: +adjustedProductTotal},$addToSet:{walletTransactions:walletTransactions}},{upsert:true})
     
         }
         

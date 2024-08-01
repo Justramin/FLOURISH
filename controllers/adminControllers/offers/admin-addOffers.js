@@ -1,5 +1,5 @@
 const offerCollection = require("../../../model/offersSchema");
-const { alphanumValid, onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/validator');
+const {  onlyNumbers,  isFutureDate } = require('../../../utils/validator');
 
 
 
