@@ -17,7 +17,7 @@ const userWallet = async (req, res) => {
         const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
         const formattedDate = `${month}/${year}`;
 
-        res.render('userwallet2', { isUser: req.session.isUser, data: wallet, date: formattedDate })
+        res.render('userwallet', { isUser: req.session.isUser, data: wallet, date: formattedDate })
 
     } catch (error) {
         console.error('Error in userWallet:', error);
