@@ -407,7 +407,7 @@ const salesReport = async(req,res)=>{
               res.setHeader("Content-Type", "application/pdf");
               res.setHeader(
                 "Content-Disposition",
-                "attachment; filename=Bagdot-Sales.pdf"
+                "attachment; filename=Flourish-Sales.pdf"
               );
               res.status(200).end(pdfBuffer);
 
