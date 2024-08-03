@@ -77,7 +77,7 @@
                           <tr>
                             <th scope="row"><%= i+1 %></th>
                             <td><%= banner[i].bannerName %></td>
-                            <td> <img src="/uploads/<%= banner[i].image %>" style="height: 50px;width: 50px;" alt="prdct img"> </td>
+                            <td> <img src="<%= banner[i].image %>" style="height: 50px;width: 50px;" alt="prdct img"> </td>
                             <td><%= banner[i].description %></td>
                             <% if (banner[i].status) { %>
                               <td><a href="/admin/bannerStatus/<%= banner[i]._id %>?status=<%= banner[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>

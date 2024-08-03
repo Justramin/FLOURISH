@@ -26,6 +26,7 @@ const admin_addBannerPost = async (req,res)=>{
         });
        
         const newBannerData = await banner.save();
+        console.log(newBannerData);
         
         res.redirect("/admin/admin_banner")
        

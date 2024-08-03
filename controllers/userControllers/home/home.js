@@ -1,5 +1,7 @@
 const productCollection = require("../../../model/productSchema");
 const whishlistCollection = require("../../../model/whishlistSchema");
+const bannerCollection = require("../../../model/bannerSchema");
+
 
 const home = async (req, res) => {
     try {
@@ -7,6 +9,7 @@ const home = async (req, res) => {
         const products = await productCollection.find({}).populate('category').sort({ _id: -1 });  
         const filteredProducts = products.filter(product => product.status === true && product.category.status === true); 
         const limitedProducts = filteredProducts.slice(0, 4);
+        const banner = await bannerCollection.find()
 
         
         if (req.session.isUser) {
@@ -29,6 +32,7 @@ const home = async (req, res) => {
         res.render('home', {
             isUser: req.session.isUser,
             productData: limitedProducts,
+            banner:banner
         });
     } catch (error) {
         console.error('Error in home:', error);
