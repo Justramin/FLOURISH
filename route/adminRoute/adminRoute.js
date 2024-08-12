@@ -53,9 +53,13 @@ router.get('/admin_addCategory',admin_addCategory.admin_addCategory)
 router.get('/admin_editCategory/:id',admin_editCategory.admin_editCategory)
 router.post('/admin_editCategory/:id',admin_editCategory.admin_editCategoryPost)
 
+
+//Banner management
 router.get('/admin_banner',admin_banner.admin_banner)
 router.get('/admin_addBanner',admin_addBanner.admin_addBanner)
 router.post('/admin_addBannerPost/',upload.single('image'),admin_addBanner.admin_addBannerPost)
+router.get('/admin_deleteBanner/:id',admin_banner.admin_deleteBanner)
+
 
 
 //order management

@@ -66,8 +66,8 @@
                           <th>Heading</th>
                           <th>Image</th>
                           <th>Discription</th>
-                          <th>Status</th>
-                          <th>Action</th>
+                          <th>Delete</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -79,12 +79,10 @@
                             <td><%= banner[i].bannerName %></td>
                             <td> <img src="<%= banner[i].image %>" style="height: 50px;width: 50px;" alt="prdct img"> </td>
                             <td><%= banner[i].description %></td>
-                            <% if (banner[i].status) { %>
-                              <td><a href="/admin/bannerStatus/<%= banner[i]._id %>?status=<%= banner[i].status %> "><button type="button" class="btn btn-outline-danger" style="width: 100px;">UnList</button></a></td>
-                          <% } else { %>
-                              <td><a href="/admin/bannerStatus/<%= banner[i]._id %>?status=<%= banner[i].status %>"><button type="button" class="btn btn-outline-secondary" style="width: 100px;">List</button></a></td>
-                          <% } %>
-                          <td><a href="/admin/admin_editBanner/<%= banner[i]._id %>%>"><button type="button" class="btn btn-outline-info" style="width: 100px;">Edit</button></a></td>
+                           
+                          <td><a href="/admin/admin_deleteBanner/<%= banner[i]._id %>%>"
+                            onclick="return confirm('Are you sure you want to delete this banner?');">
+                            <button type="button" class="btn btn-outline-danger" style="width: 100px;">Delete</button></a></td>
 
                           </tr>
                         <% } %>

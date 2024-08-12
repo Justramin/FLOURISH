@@ -25,9 +25,7 @@ const admin_addBannerPost = async (req,res)=>{
             image: req.file ? '/uploads/' + req.file.filename : undefined,
         });
        
-        const newBannerData = await banner.save();
-        console.log(newBannerData);
-        
+        const newBannerData = await banner.save(); 
         res.redirect("/admin/admin_banner")
        
     } catch (error) {
