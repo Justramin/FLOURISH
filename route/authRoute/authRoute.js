@@ -20,7 +20,7 @@ router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   async function(req, res) {
     const user = req.user
-   
+  
     const userData = {
         name: user.displayName,
         email: user.emails[0].value

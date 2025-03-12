@@ -10,8 +10,6 @@ const {  onlyNumbers, isValidCoupon, isFutureDate } = require('../../../utils/va
 
 const adminEditcoupen = async(req,res)=>{
     try {
-       
-
             const coupenID = req.params.id
             const coupenData = await couponCollection.findOne({_id:coupenID})
             res.render('admin-editCoupons',{coupen:coupenData,isSuperAdmin:req.session.isSuperAdmin})
