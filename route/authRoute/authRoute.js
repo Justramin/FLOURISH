@@ -13,10 +13,10 @@ const collection = require('../../model/userSchema')
 
 
 //GOOGLE AUTHENTCATION
-router.get('/auth/google',
+router.get('/google',
 passport.authenticate('google', { scope: ['email','profile'] }));
 
-router.get('/auth/google/callback', 
+router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   async function(req, res) {
     const user = req.user
